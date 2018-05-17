@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="pojo.Userinfo" table="userinfo" schema="miniweibo">
+        <id name="userinfoId" column="userinfo_id"/>
+        <property name="userinfoTruename" column="userinfo_truename"/>
+        <property name="userinfoAddress" column="userinfo_address"/>
+        <property name="userinfoSex" column="userinfo_sex"/>
+        <property name="userinfoBirthday" column="userinfo_birthday"/>
+        <property name="userinfoIntro" column="userinfo_intro"/>
+        <property name="userinfoQqnumber" column="userinfo_qqnumber"/>
+        <many-to-one name="userByUserId" class="pojo.User">
+            <column name="user_id"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="connection.url">jdbc:mysql://localhost:3306/miniweibo</property>
+    <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+    <mapping class="pojo.Agree"/>
+    <mapping resource="Agree.hbm.xml"/>
+    <mapping resource="Atuser.hbm.xml"/>
+    <mapping class="pojo.Atuser"/>
+    <mapping class="pojo.Collection"/>
+    <mapping resource="Collection.hbm.xml"/>
+    <mapping class="pojo.Comment"/>
+    <mapping resource="Comment.hbm.xml"/>
+    <mapping class="pojo.Message"/>
+    <mapping resource="Message.hbm.xml"/>
+    <mapping resource="Picture.hbm.xml"/>
+    <mapping class="pojo.Picture"/>
+    <mapping resource="Privateletter.hbm.xml"/>
+    <mapping class="pojo.Privateletter"/>
+    <mapping resource="Relation.hbm.xml"/>
+    <mapping class="pojo.Relation"/>
+    <mapping class="pojo.Transpond"/>
+    <mapping resource="Transpond.hbm.xml"/>
+    <mapping resource="User.hbm.xml"/>
+    <mapping class="pojo.User"/>
+    <mapping class="pojo.Userinfo"/>
+    <mapping resource="Userinfo.hbm.xml"/>
+    <!-- <property name="connection.username"/> -->
+    <!-- <property name="connection.password"/> -->
+
+    <!-- DB schema will be updated if needed -->
+    <!-- <property name="hbm2ddl.auto">update</property> -->
+  </session-factory>
+</hibernate-configuration>

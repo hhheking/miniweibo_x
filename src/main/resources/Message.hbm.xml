@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="pojo.Message" table="message" schema="miniweibo">
+        <id name="messageId" column="message_id"/>
+        <property name="messageType" column="message_type"/>
+        <property name="messageInfo" column="message_info"/>
+        <property name="messageTime" column="message_time"/>
+        <property name="messageCollectnum" column="message_collectnum"/>
+        <property name="messageCommentnum" column="message_commentnum"/>
+        <property name="messageTranspondnum" column="message_transpondnum"/>
+        <property name="messageAgreenum" column="message_agreenum"/>
+        <many-to-one name="userByUserId" class="pojo.User">
+            <column name="user_id"/>
+        </many-to-one>
+        <many-to-one name="pictureByPictureId" class="pojo.Picture">
+            <column name="picture_id" not-null="true"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>

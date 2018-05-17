@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="pojo.Picture" table="picture" schema="miniweibo">
+        <id name="pictureId" column="picture_id"/>
+        <property name="pictureUrl" column="picture_url"/>
+        <property name="pictureTime" column="picture_time"/>
+        <many-to-one name="userByUserId" class="pojo.User">
+            <column name="user_id"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>
