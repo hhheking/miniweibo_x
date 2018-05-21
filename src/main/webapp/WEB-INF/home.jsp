@@ -78,6 +78,12 @@
             cursor: pointer;
             font-size: 15px;
         }
+        .item_hot{
+            padding: 10px 20px
+        }
+        .item_num{
+            color: #999
+        }
     </style>
 </head>
 <body>
@@ -166,7 +172,7 @@
                 <!--个人信息概览-->
                 <div class="row text-center inform" style="margin-top: 5px;padding: 15px;background-color: white;">
                     <img src="images/icon.png" >
-                    <h4 style="font-weight: bold;">Jack.C</h4>
+                    <h4 style="font-weight: bold;"><%=user.getUserNikename()%></h4>
                     <div class="col-sm-12" >
                         <div class="col-sm-4 col-xs-4">
                             <div>111</div>
@@ -183,39 +189,41 @@
                     </div>
                 </div>
                 <!--大家正在看-->
-                <div class="list-group" style="margin-top: 15px;">
-                    <a href="#" class="list-group-item"><h4 class="list-group-item-heading">大家正在看...</h4></a>
-                    <a href="#" class="list-group-item">
-                        <h5 class="list-group-item-heading">萌宠新鲜事</h5>
-                        <p class="list-group-item-text">萌宠新鲜事萌宠新鲜事萌宠新鲜事萌宠新鲜事萌宠新鲜事萌宠新鲜事</p>
-                    </a>
-
-                    <a href="#" class="list-group-item">
-                        <h5 class="list-group-item-heading">世界奇闻</h5>
-                        <p class="list-group-item-text">世界奇闻世界奇闻世界奇闻世界奇闻世界奇闻世界奇闻世界奇闻世界奇闻</p>
-                    </a>
-
-                    <a href="#" class="list-group-item">
-                        <h5 class="list-group-item-heading">值得一看的视频</h5>
-                        <p class="list-group-item-text">值得一看的视频值得一看的视频值得一看的视频值得一看的视频值得一看的视频</p>
-                    </a>
-
-                    <a href="#" class="list-group-item">
-                        <h5 class="list-group-item-heading">好看的漫画在这里</h5>
-                        <p class="list-group-item-text">好看的漫画在这里好看的漫画在这里好看的漫画在这里好看的漫画在这里</p>
-                    </a>
-
-                    <a href="#" class="list-group-item">
-                        <h5 class="list-group-item-heading">联系我们</h5>
-                        <p class="list-group-item-text">联系我们联系我们联系我们联系我们联系我们联系我们联系我们联系我们</p>
-                    </a>
-                </div>
-
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">联系我们</h3>
+                <div class="row part_hot" style="margin-top: 5px;padding: 15px;background-color: white;">
+                    <div class="col-sm-12">
+                        <span class="pull-left" style="padding: 10px;font-size:16px;font-weight: bold;">热门话题</span>
+                        <span class="pull-right" style="padding: 10px;">换话题</span>
                     </div>
-                    <div class="panel-body">Email:XXXXXXXXXX</div>
+                    <hr style="margin: 0;padding: 0;width: 100%">
+
+                    <div class="col-sm-12 item_hot" >
+                        <span class="pull-left">#何张出道#</span>
+                        <span class="pull-right item_num">34.6亿</span>
+                    </div>
+
+                    <div class="col-sm-12 item_hot" >
+                        <span class="pull-left">#男生夺冠#</span>
+                        <span class="pull-right item_num">2.6亿</span>
+                    </div>
+
+                    <div class="col-sm-12 item_hot" >
+                        <span class="pull-left">#rng冠军#</span>
+                        <span class="pull-right item_num">10.4亿</span>
+                    </div>
+
+                    <div class="col-sm-12 item_hot" >
+                        <span class="pull-left">#李志谦回归#</span>
+                        <span class="pull-right item_num">1.5亿</span>
+                    </div>
+
+                    <div class="col-sm-12 item_hot" >
+                        <span class="pull-left">#突然开心#</span>
+                        <span class="pull-right item_num">1.1亿</span>
+                    </div>
+                    <hr style="margin: 0;padding: 0;width: 100%">
+
+                    <div class="col-sm-12 text-center" style="padding: 10px"><a href="#">查看更多</a></div>
+
                 </div>
 
             </div>

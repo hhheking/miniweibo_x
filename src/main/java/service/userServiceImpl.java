@@ -34,7 +34,7 @@ public class userServiceImpl implements userService {
 
     @Override
     public void update(User user) {
-        userdao.delete(user);
+        userdao.update(user);
     }
 
     @Override
