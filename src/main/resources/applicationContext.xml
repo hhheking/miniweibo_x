@@ -11,11 +11,21 @@
     <bean name="userdaoImpl" class="dao.userDAOImpl">
         <property name="sessionFactory" ref="sf"></property>
     </bean>
+    <bean name="relationActionBean" class="action.relationAction">
+        <property name="relationservice" ref="relationserviceImpl"></property>
+    </bean>
+    <bean name="relationserviceImpl" class="service.relationServiceImpl">
+        <property name="relationdao" ref="relationdaoImpl"></property>
+    </bean>
+    <bean name="relationdaoImpl" class="dao.relationDAOImpl">
+        <property name="sessionFactory" ref="sf"></property>
+    </bean>
     <bean name="sf"     class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
         <property name="dataSource" ref="ds"/>
         <property name="mappingResources">
             <list>
                 <value>User.hbm.xml</value>
+                <value>Relation.hbm.xml</value>
             </list>
         </property>
 

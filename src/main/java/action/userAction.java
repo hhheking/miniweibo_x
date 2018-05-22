@@ -2,6 +2,7 @@ package action;
 
 import com.opensymphony.xwork2.ActionContext;
 import pojo.User;
+import service.relationService;
 import service.userService;
 
 import java.sql.Timestamp;
@@ -61,11 +62,12 @@ public class userAction {
         for (User u:userservice.list()) {
             if(u.getUserNikename().equals(user.getUserNikename()) && u.getUserPassword().equals(user.getUserPassword())){
                 System.out.println("登录成功");
+                user.setUserId(u.getUserId());
                 //将用户成功登录的javabean对象存入session中
                 Map<String, Object> session = ActionContext.getContext().getSession();
                 session.put("user",user);
                 flag = 1;
-                return "home";
+                return "calfans";
             }
         }
         if(flag == 0){

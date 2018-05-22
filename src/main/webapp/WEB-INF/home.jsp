@@ -175,15 +175,15 @@
                     <h4 style="font-weight: bold;"><%=user.getUserNikename()%></h4>
                     <div class="col-sm-12" >
                         <div class="col-sm-4 col-xs-4">
-                            <div>111</div>
+                            <div>${idols}</div>
                             <div class="sort">关注</div>
                         </div>
                         <div class="col-sm-4 col-xs-4">
-                            <div>111</div>
+                            <div>${fans}</div>
                             <div class="sort">粉丝</div>
                         </div>
                         <div class="col-sm-4 col-xs-4">
-                            <div>111</div>
+                            <div>${weibo_num}</div>
                             <div class="sort">微博</div>
                         </div>
                     </div>

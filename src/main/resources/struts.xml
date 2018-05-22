@@ -18,8 +18,11 @@
             <result name="listuser"></result>
             <result name="listuseraction" type="redirect">listUser</result>
             <result name="loginuser">WEB-INF/login.jsp</result>
-            <result name="home">WEB-INF/home.jsp</result>
+            <result name="calfans" type="chain">perRelation</result>
             <result name="loginfail"></result>
+        </action>
+        <action name="*Relation" class="relationActionBean" method="{1}">
+            <result name="home">WEB-INF/home.jsp</result>
         </action>
     </package>
 </struts>
