@@ -148,6 +148,7 @@
                 <div class="col-sm-4" style="text-align: center;">
                     <div><b>${mymessageList.size()}</b></div>
                     <div>微博</div>
+
                 </div>
             </div>
             <!--资料完成度-->
