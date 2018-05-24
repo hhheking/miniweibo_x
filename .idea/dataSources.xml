@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+  <component name="DataSourceManagerImpl" format="xml" hash="4035819379">
     <data-source source="LOCAL" name="miniweibo@localhost" uuid="d5f875da-58e9-4573-8691-814bbd3d08d1">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
