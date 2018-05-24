@@ -1,6 +1,7 @@
 package bean;
 
 public class weibo {
+    int id;
     String image;
     String nikename;
     long time;
@@ -9,6 +10,14 @@ public class weibo {
     int collect;
     int comment;
     int agree;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getNikename() {
         return nikename;

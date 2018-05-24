@@ -174,10 +174,9 @@
                         </form>
                     </div>
                 </nav>
-                <!--未读消息提示-->
-                <div class="alert alert-success alert-dismissable" style="text-align: center;">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <a href="#" class="alert-link">您有未读内容，点击查看</a>
+                <!--未读消息提示,后续可以增加-->
+                <div>
+
                 </div>
                 <!--关注好友的所有微博动态-->
                 <s:iterator value="weibos" var="weibo">
@@ -185,7 +184,8 @@
                         <!--上层div-->
                         <div class="row clearfix">
                             <div class="col-md-2 column" style="padding-left: 25px;padding-top: 10px;">
-                                <img src="images/icon.png" class="img-circle" width="70px;">
+                                <!--点击头像 进入用户空间-->
+                                <a href="toUser?"><img src="images/icon.png" class="img-circle" width="70px;"></a>
                             </div>
                             <div class="col-md-10 column">
                                 <h4 style="font-weight: bold;">${weibo.getNikename()}</h4>
