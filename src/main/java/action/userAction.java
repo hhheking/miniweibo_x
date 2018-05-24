@@ -24,7 +24,6 @@ public class userAction {
     int fans;
     int idols;
     List<weibo> weibos;
-    int a;
 
     public idolweiboService getIdolweiboservice() {
         return idolweiboservice;
