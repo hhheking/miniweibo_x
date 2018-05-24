@@ -5,7 +5,9 @@
 <hibernate-mapping>
 
     <class name="pojo.User" table="user" schema="miniweibo">
-        <id name="userId" column="user_id"/>
+        <id name="userId" column="user_id">
+            <generator class="native"/>
+        </id>
         <property name="userEmail" column="user_email"/>
         <property name="userPassword" column="user_password"/>
         <property name="userNikename" column="user_nikename"/>
