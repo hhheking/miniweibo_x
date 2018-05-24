@@ -21,6 +21,7 @@
             <result name="home">WEB-INF/home.jsp</result>
             <result name="loginfail"></result>
             <result name="personspace">WEB-INF/person.jsp</result>
+            <result name="other_person">WEB-INF/other_person.jsp</result>
         </action>
     </package>
 </struts>

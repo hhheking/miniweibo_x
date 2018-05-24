@@ -14,4 +14,5 @@ public interface relationService {
     public int calfans(User user);
     public int calidols(User user);
     public List<User> myIdols(User user);
+    public List<User> myFans(User user);
 }

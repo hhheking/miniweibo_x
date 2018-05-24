@@ -77,4 +77,11 @@ public class relationServiceImpl implements relationService {
         }
         return userList;
     }
+
+    @Override
+    public List<User> myFans(User user) {
+
+        return null;
+    }
+
 }

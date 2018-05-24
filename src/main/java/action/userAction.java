@@ -144,4 +144,11 @@ public class userAction {
         mymessageList=messageservice.myMessage(user);
         return "personspace";
     }
+    public String to(){
+        user=userservice.get(user.getUserId());
+        fans=relationservice.calfans(user);
+        idols=relationservice.calidols(user);
+        mymessageList=messageservice.myMessage(user);
+        return "other_person";
+    }
 }

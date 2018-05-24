@@ -71,7 +71,7 @@ public class idolweiboServiceImpl implements idolweiboService {
             for(Message message:messageservice.myMessage(user1)) {
                 weibo wb=new weibo();
                 //设置用户的头像
-                //wb.set();
+                //
                 wb.setNikename(user1.getUserNikename());
                 wb.setTime(timeCount(message));
                 wb.setWeiboInfo(message.getMessageInfo());

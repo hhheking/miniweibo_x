@@ -2,6 +2,7 @@ package dao;
 
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import pojo.Relation;
+import pojo.User;
 
 import java.util.List;
 
@@ -30,5 +31,15 @@ public class relationDAOImpl extends HibernateTemplate implements relationDAO {
     @Override
     public Relation get(int id) {
         return (Relation)get(Relation.class,id);
+    }
+
+    @Override
+    public List<Relation> listFans(User user) {
+        return null;
+    }
+
+    @Override
+    public List<Relation> listIdols(User user) {
+        return null;
     }
 }
