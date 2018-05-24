@@ -59,16 +59,13 @@ public class relationAction {
         return "listrelation";
     }
 
-    public String per(){
+    public String count(){
         relationList=relationservice.list();
         //获取登录用户的javabean
         Map<String, Object> session = ActionContext.getContext().getSession();
         User u=(User)session.get("user");
         idols = fans =0;
         for(Relation relation:relationList){
-            System.out.println(relation.getUserByUserByid().getUserId());
-            System.out.println(u.getUserId());
-            System.out.println(u.getUserNikename());
             if(relation.getUserByUserId().getUserId() == u.getUserId()){
                 idols++;
             }
@@ -76,6 +73,6 @@ public class relationAction {
                 fans++;
             }
         }
-        return "home";
+        return "calmessages";
     }
 }

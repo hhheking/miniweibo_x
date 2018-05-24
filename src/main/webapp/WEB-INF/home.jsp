@@ -79,10 +79,13 @@
             font-size: 15px;
         }
         .item_hot{
-            padding: 10px 20px
+            padding: 10px 20px;
         }
         .item_num{
-            color: #999
+            color: #999;
+        }
+        .span{
+            cursor: pointer;
         }
     </style>
 </head>
@@ -137,7 +140,7 @@
 
         <div class="col-md-10 column" style="margin-left: 260px;">
             <div class="col-md-8 column">
-                <!--输入框-->
+                <!--发微博消息输入框-->
                 <div style="margin-top: 5px;padding: 15px;background-color: white;">
                     <form role="form">
                         <div class="form-group">
@@ -154,24 +157,70 @@
                         </div>
                     </form>
                 </div>
+                <!--tab选项卡-->
+                <nav class="navbar naybar-default" role="navigation" style="background-color: white;">
+                    <div class="container-fluid">
+                        <ul class="nav navbar-nav">
+                            <li><a href="#">全部</a></li>
+                            <li><a href="#">原创</a></li>
+                            <li><a href="#">图片</a></li>
+                            <li><a href="#">文章</a></li>
+                        </ul>
+                        <form class="nav navbar-form navbar-right" role="search">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="搜索我关注人的微博">
+                            </div>
+                            <button type="submit" class="btn btn-default">搜索</button>
+                        </form>
+                    </div>
+                </nav>
                 <!--未读消息提示-->
-                <div class="alert alert-success alert-dismissable" style="margin-bottom: 10px;text-align: center;margin-top: 10px;">
+                <div class="alert alert-success alert-dismissable" style="text-align: center;">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                     <a href="#" class="alert-link">您有未读内容，点击查看</a>
                 </div>
+                <!--关注好友的所有微博动态-->
+                <s:iterator value="weibos" var="weibo">
+                    <div style="background-color: white;margin: 5px;">
+                        <!--上层div-->
+                        <div class="row clearfix">
+                            <div class="col-md-2 column" style="padding-left: 25px;padding-top: 10px;">
+                                <img src="images/icon.png" class="img-circle" width="70px;">
+                            </div>
+                            <div class="col-md-10 column">
+                                <h4 style="font-weight: bold;">${weibo.getNikename()}</h4>
+                                <h6>${weibo.getTime()}分钟前 来自miniweibo.com</h6>
+                                <p>${weibo.getWeiboInfo()}</p>
+                            </div>
+                        </div>
+                        <!--下层div-->
+                        <div class="row clearfix">
+                            <div class="col-md-3 column" style="text-align: center;padding: 5px;">
+                                <span class="glyphicon glyphicon-link">转发${weibo.getTranspond()}</span>
+                            </div>
+                            <div class="col-md-3 column" style="text-align: center;">
+                                <span class="glyphicon glyphicon-star-empty">收藏${weibo.getCollect()}</span>
+                            </div>
+                            <div class="col-md-3 column" style="text-align: center;">
+                                <span id="showcomment" class="glyphicon glyphicon-edit">评价${weibo.getComment()}</span>
+                            </div>
+                            <div class="col-md-3 column" style="text-align: center;">
+                                <span class="glyphicon glyphicon-thumbs-up">点赞${weibo.getAgree()}</span>
+                            </div>
+                        </div>
+                        <!--点击评价显示出来的div-->
+                        <div id="comment" style="height: 100px;background: red;display: none">
 
-                <!--用户动态js脚本-->
-                <script type="text/javascript">
-                    for(var i=1;i<=20;i++){
-                        document.write("<p style=\"background-color:#F5F5F5;\">网站主体内容网站主体内容网站主体内容网站主体内容网站主体内容网站主体内容网站主体内容网站主体内容网站主体内容网站主体内容网站主体内容网站主体内容网站主体内容网站主体内容网站主体内容网站主体内容</p>");
-                    }
-                </script>
+                        </div>
+                    </div>
+                </s:iterator>
+
             </div>
 
             <div class="col-md-4 column">
                 <!--个人信息概览-->
                 <div class="row text-center inform" style="margin-top: 5px;padding: 15px;background-color: white;">
-                    <img src="images/icon.png" >
+                    <a href="personspaceUser"><img src="images/icon.png" class="img-circle" width="90px;"></a>
                     <h4 style="font-weight: bold;"><%=user.getUserNikename()%></h4>
                     <div class="col-sm-12" >
                         <div class="col-sm-4 col-xs-4">
@@ -183,7 +232,7 @@
                             <div class="sort">粉丝</div>
                         </div>
                         <div class="col-sm-4 col-xs-4">
-                            <div>${weibo_num}</div>
+                            <div>${mymessageList.size()}</div>
                             <div class="sort">微博</div>
                         </div>
                     </div>
@@ -228,21 +277,17 @@
 
             </div>
         </div>
-
-        <!--标题搜索栏获得焦点后，显示下拉搜索列表-->
-        <div id="index_panel" style="display:none; ">
-
-            <a href="#" class="list-group-item"> <span class="badge" style="background-color: #FF4500;">爆</span>1.第一条热搜第一条热搜第一条热搜</a>
-            <a href="#" class="list-group-item"><span class="badge" style="background-color: #FF0000;">热</span>2.第二条热搜第二条热搜第二条热搜</a>
-            <a href="#" class="list-group-item"><span class="badge" style="background-color: #DC143C;">新</span>3.第三条热搜第三条热搜第三条热搜</a>
-            <a href="#" class="list-group-item">4.第四条热搜第四条热搜第四条热搜</a>
-            <a href="#" class="list-group-item">5.第五条热搜第五条热搜第五条热搜</a>
-            <a href="#" class="list-group-item">6.第六条热搜第六条热搜第六条热搜</a>
-            <a href="#" class="list-group-item">7.第七条热搜第七条热搜第七条热搜</a>
-
-        </div>
-
     </div>
+</div>
+<!--标题搜索栏获得焦点后，显示下拉搜索列表-->
+<div id="index_panel" style="display:none; ">
+    <a href="#" class="list-group-item"> <span class="badge" style="background-color: #FF4500;">爆</span>1.第一条热搜第一条热搜第一条热搜</a>
+    <a href="#" class="list-group-item"><span class="badge" style="background-color: #FF0000;">热</span>2.第二条热搜第二条热搜第二条热搜</a>
+    <a href="#" class="list-group-item"><span class="badge" style="background-color: #DC143C;">新</span>3.第三条热搜第三条热搜第三条热搜</a>
+    <a href="#" class="list-group-item">4.第四条热搜第四条热搜第四条热搜</a>
+    <a href="#" class="list-group-item">5.第五条热搜第五条热搜第五条热搜</a>
+    <a href="#" class="list-group-item">6.第六条热搜第六条热搜第六条热搜</a>
+    <a href="#" class="list-group-item">7.第七条热搜第七条热搜第七条热搜</a>
 </div>
 </body>
 </html>

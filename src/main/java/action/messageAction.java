@@ -14,6 +14,14 @@ public class messageAction {
     messageService messageservice;
     int weibo_num;
 
+    public int getWeibo_num() {
+        return weibo_num;
+    }
+
+    public void setWeibo_num(int weibo_num) {
+        this.weibo_num = weibo_num;
+    }
+
     public List<Message> getMessageList() {
         return messageList;
     }
@@ -39,6 +47,7 @@ public class messageAction {
     }
     public String count(){
         messageList=messageservice.list();
+        weibo_num=0;
         //获取登录用户的javabean
         Map<String, Object> session = ActionContext.getContext().getSession();
         User u=(User)session.get("user");
@@ -47,6 +56,7 @@ public class messageAction {
                 weibo_num++;
             }
         }
+        System.out.println(weibo_num);
         return "home";
     }
 }

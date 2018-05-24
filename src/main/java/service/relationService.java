@@ -1,6 +1,7 @@
 package service;
 
 import pojo.Relation;
+import pojo.User;
 
 import java.util.List;
 
@@ -10,4 +11,7 @@ public interface relationService {
     public void delete(Relation relation);
     public void update(Relation relation);
     public Relation get(int id);
+    public int calfans(User user);
+    public int calidols(User user);
+    public List<User> myIdols(User user);
 }

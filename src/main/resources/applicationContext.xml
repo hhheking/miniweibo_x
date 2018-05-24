@@ -4,15 +4,26 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 <bean name="userActionBean" class="action.userAction">
     <property name="userservice" ref="userserviceImpl"></property>
+    <property name="messageservice" ref="messageserviceImpl"></property>
+    <property name="relationservice" ref="relationserviceImpl"></property>
+    <property name="idolweiboservice" ref="idolweiboserviceImpl"></property>
 </bean>
+    <bean name="idolweiboserviceImpl" class="service.idolweiboServiceImpl">
+        <property name="relationservice" ref="relationserviceImpl"></property>
+        <property name="messageservice" ref="messageserviceImpl"></property>
+        <property name="userservice" ref="userserviceImpl"></property>
+    </bean>
     <bean name="userserviceImpl" class="service.userServiceImpl">
         <property name="userdao" ref="userdaoImpl"></property>
     </bean>
     <bean name="userdaoImpl" class="dao.userDAOImpl">
         <property name="sessionFactory" ref="sf"></property>
     </bean>
-    <bean name="relationActionBean" class="action.relationAction">
-        <property name="relationservice" ref="relationserviceImpl"></property>
+    <bean name="messageserviceImpl" class="service.messageServiceImpl">
+        <property name="messagedao" ref="messagedaoimpl"></property>
+    </bean>
+    <bean name="messagedaoimpl" class="dao.messageDAOImpl">
+        <property name="sessionFactory" ref="sf"></property>
     </bean>
     <bean name="relationserviceImpl" class="service.relationServiceImpl">
         <property name="relationdao" ref="relationdaoImpl"></property>
@@ -26,6 +37,8 @@
             <list>
                 <value>User.hbm.xml</value>
                 <value>Relation.hbm.xml</value>
+                <value>Message.hbm.xml</value>
+                <value>Picture.hbm.xml</value>
             </list>
         </property>
 

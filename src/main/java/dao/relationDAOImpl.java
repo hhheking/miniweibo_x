@@ -8,6 +8,7 @@ import java.util.List;
 public class relationDAOImpl extends HibernateTemplate implements relationDAO {
     @Override
     public List<Relation> list() {
+        //将用户成功登录的javabean对象存入session中
         return find("from Relation ");
     }
 

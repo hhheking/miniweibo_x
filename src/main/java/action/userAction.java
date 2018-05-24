@@ -1,7 +1,11 @@
 package action;
 
+import bean.weibo;
 import com.opensymphony.xwork2.ActionContext;
+import pojo.Message;
 import pojo.User;
+import service.idolweiboService;
+import service.messageService;
 import service.relationService;
 import service.userService;
 
@@ -13,6 +17,70 @@ public class userAction {
     User user;
     List<User> userList;
     userService userservice;
+    messageService messageservice;
+    relationService relationservice;
+    idolweiboService idolweiboservice;
+    List<Message> mymessageList;
+    int fans;
+    int idols;
+    List<weibo> weibos;
+
+    public idolweiboService getIdolweiboservice() {
+        return idolweiboservice;
+    }
+
+    public void setIdolweiboservice(idolweiboService idolweiboservice) {
+        this.idolweiboservice = idolweiboservice;
+    }
+
+    public List<weibo> getWeibos() {
+        return weibos;
+    }
+
+    public void setWeibos(List<weibo> weibos) {
+        this.weibos = weibos;
+    }
+
+    public List<Message> getMymessageList() {
+        return mymessageList;
+    }
+
+    public void setMymessageList(List<Message> mymessageList) {
+        this.mymessageList = mymessageList;
+    }
+
+    public void setMessageservice(messageService messageservice) {
+        this.messageservice = messageservice;
+    }
+
+    public messageService getMessageservice() {
+        return messageservice;
+    }
+
+
+    public void setIdols(int idols) {
+        this.idols = idols;
+    }
+
+    public void setFans(int fans) {
+        this.fans = fans;
+    }
+
+    public int getIdols() {
+        return idols;
+    }
+
+    public int getFans() {
+        return fans;
+    }
+
+    public void setRelationservice(relationService relationservice) {
+        this.relationservice = relationservice;
+    }
+
+    public relationService getRelationservice() {
+        return relationservice;
+    }
 
     public List<User> getUserList() {
         return userList;
@@ -41,46 +109,39 @@ public class userAction {
         userList=userservice.list();
         return "listuser";
     }
-    public String edit(){
-        user=userservice.get(user.getUserId());
-        return "edituser";
-    }
-    public String add(){
-        userservice.add(user);
-        return "listuseraction";
-    }
-    public String delete(){
-        userservice.delete(user);
-        return "listuseraction";
-    }
-    public String update(){
-        userservice.update(user);
-        return "listuseraction";
-    }
+
     public String login(){
-        int flag = 0;
-        for (User u:userservice.list()) {
-            if(u.getUserNikename().equals(user.getUserNikename()) && u.getUserPassword().equals(user.getUserPassword())){
-                System.out.println("登录成功");
-                user.setUserId(u.getUserId());
-                //将用户成功登录的javabean对象存入session中
-                Map<String, Object> session = ActionContext.getContext().getSession();
-                session.put("user",user);
-                flag = 1;
-                return "calfans";
-            }
+        if(userservice.login(user)){
+            //用户登录成功
+            //此时user对象仅有nikename和password属性，无法使用user.getuser_id()的语法,需要取出session中的user值
+            Map<String, Object> session = ActionContext.getContext().getSession();
+            user=(User)session.get("user");
+            fans=relationservice.calfans(user);
+            idols=relationservice.calidols(user);
+            mymessageList=messageservice.myMessage(user);
+            weibos=idolweiboservice.calidolweibos(user);
+        }else {
+            //登录失败
+            return "loginfail";
         }
-        if(flag == 0){
-            System.out.println("用户名或密码错误");
-        }
-        return "loginfail";
+        return "home";
     }
 
     public String register(){
         //用户注册的时间
         Timestamp timestamp=new Timestamp(System.currentTimeMillis());
         user.setUserTime(timestamp);
-        userservice.add(user);
+        userservice.register(user);
         return "loginuser";
+    }
+
+    public String personspace(){
+        //得到session中的user实例
+        Map<String, Object> session = ActionContext.getContext().getSession();
+        user=(User)session.get("user");
+        fans=relationservice.calfans(user);
+        idols=relationservice.calidols(user);
+        mymessageList=messageservice.myMessage(user);
+        return "personspace";
     }
 }
