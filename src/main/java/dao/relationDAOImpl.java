@@ -4,6 +4,7 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import pojo.Relation;
 import pojo.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class relationDAOImpl extends HibernateTemplate implements relationDAO {
@@ -35,11 +36,11 @@ public class relationDAOImpl extends HibernateTemplate implements relationDAO {
 
     @Override
     public List<Relation> listFans(User user) {
-        return null;
+        return find("from Relation r where r.userByUserId="+user.getUserId());
     }
 
     @Override
     public List<Relation> listIdols(User user) {
-        return null;
+        return find("from Relation  r where r.userByUserByid="+user.getUserId());
     }
 }

@@ -111,6 +111,12 @@
       <version>0.9.1.2</version>
     </dependency>
 
+    <!--json插件的支持-->
+    <dependency>
+      <groupId>org.apache.struts</groupId>
+      <artifactId>struts2-json-plugin</artifactId>
+      <version>${struts2.version}</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -148,5 +154,15 @@
         </plugin>
       </plugins>
     </pluginManagement>
+      <plugins>
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-compiler-plugin</artifactId>
+              <configuration>
+                  <source>1.8</source>
+                  <target>1.8</target>
+              </configuration>
+          </plugin>
+      </plugins>
   </build>
 </project>

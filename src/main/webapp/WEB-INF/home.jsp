@@ -50,11 +50,65 @@
                     $("#send").removeClass("disabled");
                 }
             });
+
+            $("#send").click(function () {
+                $.ajax({
+                    type:'Post',
+                    url:'sendMessage',
+                    data:{'messageInfo':$("#mycontent").val()},
+                    dataType: 'json',
+                    async:true,
+                    success:function(data){
+                        //成功发布微博,消除文本框中的内容
+                        var info=$("#mycontent").val();
+                        $("#mycontent").val("");
+                        var myweibo="<div style=\"background-color: white;margin: 5px;\">\n" +
+                            "                        <!--上层div-->\n" +
+                            "                        <div class=\"row clearfix\">\n" +
+                            "                            <div class=\"col-md-2 column\" style=\"padding-left: 25px;padding-top: 10px;\">\n" +
+                            "                                <!--点击头像 进入用户空间-->\n" +
+                            "                                <a href=\"toUser?user.userId=<%=user.getUserId()%>>\"><img src=\"images/icon.png\" class=\"img-circle\" width=\"70px;\"></a>\n" +
+                            "                            </div>\n" +
+                            "                            <div class=\"col-md-10 column\">\n" +
+                            "                                <h4 style=\"font-weight: bold;\"><%=user.getUserNikename()%></h4>\n" +
+                            "                                <h6>0分钟前 来自miniweibo.com</h6>\n" +
+                            "                                <p>"+info+
+                            "                                   </p>\n" +
+                            "                            </div>\n" +
+                            "                        </div>\n" +
+                            "                        <!--下层div-->\n" +
+                            "                        <div class=\"row clearfix\">\n" +
+                            "                            <div class=\"col-md-3 column\" style=\"text-align: center;padding: 5px;\">\n" +
+                            "                                <span class=\"glyphicon glyphicon-link\">转发0</span>\n" +
+                            "                            </div>\n" +
+                            "                            <div class=\"col-md-3 column\" style=\"text-align: center;\">\n" +
+                            "                                <span class=\"glyphicon glyphicon-star-empty\">收藏0</span>\n" +
+                            "                            </div>\n" +
+                            "                            <div class=\"col-md-3 column\" style=\"text-align: center;\">\n" +
+                            "                                <span id=\"showcomment\" class=\"glyphicon glyphicon-edit\">评价0</span>\n" +
+                            "                            </div>\n" +
+                            "                            <div class=\"col-md-3 column\" style=\"text-align: center;\">\n" +
+                            "                                <span class=\"glyphicon glyphicon-thumbs-up\">点赞0</span>\n" +
+                            "                            </div>\n" +
+                            "                        </div>\n" +
+                            "                        <!--点击评价显示出来的div-->\n" +
+                            "                        <div id=\"comment\" style=\"height: 100px;background: red;display: none\">\n" +
+                            "\n" +
+                            "                        </div>\n" +
+                            "                    </div>"
+                        $("#myWeibo").append(myweibo);
+                    },
+                    error:function (err) {
+                        //成功发布微博
+                        alert("微博发布失败!");
+                    }
+                });
+            });
         });
     </script>
     <style type="text/css">
         body{
-            background: url("images/bg.jpg") center top;
+            background: url("/images/bg.jpg") center top;
         }
         #index_panel{
             position: fixed;
@@ -66,13 +120,13 @@
             text-align: center;
         }
         .face{
-            background: url(images/face.png)  no-repeat;
+            background: url("/images/face.png")  no-repeat;
             padding:1px 0 10px 25px;
             cursor: pointer;
             font-size: 15px;
         }
         .pic{
-            background: url(images/pic.png)  no-repeat;
+            background: url("/images/pic.png")  no-repeat;
             margin-left: 10px;
             padding:1px 0 10px 25px;
             cursor: pointer;
@@ -142,13 +196,13 @@
             <div class="col-md-8 column">
                 <!--发微博消息输入框-->
                 <div style="margin-top: 5px;padding: 15px;background-color: white;">
-                    <form role="form">
+                    <form role="form" onsubmit='return false'>
                         <div class="form-group">
                             <span class="pull-left">有什么新鲜事想告诉大家</span>
                             <span class="tips pull-right"></span><p>？</p>
                         </div>
                         <div class="form-group">
-                            <textarea class="form-control" rows="4" id="mycontent"></textarea>
+                            <textarea class="form-control" rows="4" id="mycontent" name="messageInfo"></textarea>
                         </div>
                         <div class="form-group">
                             <span class="face">表情</span>
@@ -177,6 +231,9 @@
                 <!--未读消息提示,后续可以增加-->
                 <div>
 
+                </div>
+                <!--在页面中动态添加一个div,这里显示用户发布的微博-->
+                <div id="myWeibo">
                 </div>
                 <!--关注好友的所有微博动态-->
                 <s:iterator value="weibos" var="weibo">

@@ -5,6 +5,7 @@ import pojo.Message;
 import pojo.User;
 import service.messageService;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -12,14 +13,14 @@ public class messageAction {
     Message message;
     List<Message> messageList;
     messageService messageservice;
-    int weibo_num;
+    String messageInfo;
 
-    public int getWeibo_num() {
-        return weibo_num;
+    public String getMessageInfo() {
+        return messageInfo;
     }
 
-    public void setWeibo_num(int weibo_num) {
-        this.weibo_num = weibo_num;
+    public void setMessageInfo(String messageInfo) {
+        this.messageInfo = messageInfo;
     }
 
     public List<Message> getMessageList() {
@@ -45,18 +46,10 @@ public class messageAction {
     public void setMessageservice(messageService messageservice) {
         this.messageservice = messageservice;
     }
-    public String count(){
-        messageList=messageservice.list();
-        weibo_num=0;
-        //获取登录用户的javabean
-        Map<String, Object> session = ActionContext.getContext().getSession();
-        User u=(User)session.get("user");
-        for(Message message:messageList){
-            if(message.getUserByUserId().getUserId()==u.getUserId()){
-                weibo_num++;
-            }
-        }
-        System.out.println(weibo_num);
-        return "home";
+
+    public String send(){
+        message=messageservice.message(messageInfo);
+        messageservice.add(message);
+        return "success";
     }
 }

@@ -13,6 +13,6 @@ public interface relationService {
     public Relation get(int id);
     public int calfans(User user);
     public int calidols(User user);
-    public List<User> myIdols(User user);
-    public List<User> myFans(User user);
+    public List<Relation> myIdols(User user);
+    public List<Relation> myFans(User user);
 }

@@ -7,6 +7,7 @@ import pojo.User;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class idolweiboServiceImpl implements idolweiboService {
@@ -51,6 +52,7 @@ public class idolweiboServiceImpl implements idolweiboService {
             if(relation.getUserByUserId().getUserId()==user.getUserId())
                 userList.add(userservice.get(relation.getUserByUserByid().getUserId()));
         }
+        userList.add(user);
         return userList;
     }
 
@@ -83,6 +85,17 @@ public class idolweiboServiceImpl implements idolweiboService {
                 weiboList.add(wb);
             }
         }
+        //此处按照微博发布的时间先后顺序 进行排序
+        weiboList.sort(new Comparator<weibo>() {
+            @Override
+            public int compare(weibo o1, weibo o2) {
+                if(o1.getTime()>o2.getTime()){
+                    return 1;
+                }else {
+                    return -1;
+                }
+            }
+        });
         return weiboList;
     }
 }

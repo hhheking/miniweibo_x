@@ -43,7 +43,7 @@
     </script>
     <style type="text/css">
         body{
-            background: url("images/bg.jpg") center top;
+            background: url("/images/bg.jpg") center top;
         }
         #index_panel{
             position: fixed;
@@ -52,13 +52,13 @@
             width: 400px;
         }
         .face{
-            background: url(images/face.png)  no-repeat;
+            background: url("/images/face.png")  no-repeat;
             padding:1px 0 10px 25px;
             cursor: pointer;
             font-size: 15px;
         }
         .pic{
-            background: url(images/pic.png)  no-repeat;
+            background: url("/images/pic.png")  no-repeat;
             margin-left: 10px;
             padding:1px 0 10px 25px;
             cursor: pointer;
@@ -118,8 +118,8 @@
             <!--关注和私信的按钮-->
             <div class="row clearfix">
                 <div class="col-md-5"></div>
-                <div class="col-md-1 column" style="text-align: center;padding:8px;background-color: orange;border-radius: 0.5rem;margin-right:4px;cursor: pointer;"><font color="white">+关注</font></div>
-                <div class="col-md-1 column" style="text-align: center;padding:8px;background-color: gray;border-radius: 0.5rem;margin-left: 4px;cursor: pointer;"><font color="white">私信</font></div>
+                <a href="addRelation"><div class="col-md-1 column" style="text-align: center;padding:8px;background-color: orange;border-radius: 0.5rem;margin-right:4px;cursor: pointer;"><span id="status" style="color: white; ">+关注</span></div></a>
+                <div class="col-md-1 column" style="text-align: center;padding:8px;background-color: gray;border-radius: 0.5rem;margin-left: 4px;cursor: pointer;"><span style="color: white; ">私信</span></div>
                 <div class="col-md-5"></div>
             </div>
         </div>
@@ -198,5 +198,6 @@
         <a href="#" class="list-group-item">6.第六条热搜第六条热搜第六条热搜</a>
         <a href="#" class="list-group-item">7.第七条热搜第七条热搜第七条热搜</a>
     </div>
+</div>
 </body>
 </html>

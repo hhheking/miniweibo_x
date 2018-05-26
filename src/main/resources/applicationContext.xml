@@ -2,7 +2,10 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-<bean name="userActionBean" class="action.userAction">
+<bean name="messageActionBean" class="action.messageAction">
+    <property name="messageservice" ref="messageserviceImpl"></property>
+</bean>
+    <bean name="userActionBean" class="action.userAction">
     <property name="userservice" ref="userserviceImpl"></property>
     <property name="messageservice" ref="messageserviceImpl"></property>
     <property name="relationservice" ref="relationserviceImpl"></property>
@@ -56,7 +59,7 @@
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/miniweibo?characterEncoding=UTF-8"/>
         <property name="username" value="root"/>
-        <property name="password" value="lizhiqian512"/>
+        <property name="password" value=""/>
     </bean>
 
 </beans>

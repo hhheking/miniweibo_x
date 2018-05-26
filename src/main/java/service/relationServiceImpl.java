@@ -66,22 +66,13 @@ public class relationServiceImpl implements relationService {
     }
 
     @Override
-    public List<User> myIdols(User user) {
-        List<User> userList=new ArrayList<>();
-        for(Relation relation:relationdao.list()){
-            if(relation.getUserByUserId().getUserId()==user.getUserId()){
-                //注意这里可能会出现的问题，relation表中user对象仅有一个user_id属性
-                userList.add(relation.getUserByUserByid());
-                //System.out.println(relation.getUserByUserByid().getUserNikename());
-            }
-        }
-        return userList;
+    public List<Relation> myIdols(User user) {
+        return relationdao.listFans(user);
     }
 
     @Override
-    public List<User> myFans(User user) {
-
-        return null;
+    public List<Relation> myFans(User user) {
+        return relationdao.listFans(user);
     }
 
 }

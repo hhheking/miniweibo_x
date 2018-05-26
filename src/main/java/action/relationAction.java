@@ -12,24 +12,6 @@ public class relationAction {
     Relation relation;
     List<Relation> relationList;
     relationService relationservice;
-    int idols;
-    int fans;
-
-    public int getFans() {
-        return fans;
-    }
-
-    public int getIdols() {
-        return idols;
-    }
-
-    public void setFans(int fans) {
-        this.fans = fans;
-    }
-
-    public void setIdols(int idols) {
-        this.idols = idols;
-    }
 
     public relationService getRelationservice() {
         return relationservice;
@@ -57,22 +39,5 @@ public class relationAction {
     public String list(){
         relationList=relationservice.list();
         return "listrelation";
-    }
-
-    public String count(){
-        relationList=relationservice.list();
-        //获取登录用户的javabean
-        Map<String, Object> session = ActionContext.getContext().getSession();
-        User u=(User)session.get("user");
-        idols = fans =0;
-        for(Relation relation:relationList){
-            if(relation.getUserByUserId().getUserId() == u.getUserId()){
-                idols++;
-            }
-            if(relation.getUserByUserByid().getUserId() == u.getUserId()){
-                fans++;
-            }
-        }
-        return "calmessages";
     }
 }
