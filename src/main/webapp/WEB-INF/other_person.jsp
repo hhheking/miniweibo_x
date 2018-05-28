@@ -38,7 +38,20 @@
             $("#index_sousuo").blur(function(){
                 $("#index_panel").css("display","none");
             });
-
+            $("#focus").click(function () {
+                $.ajax({
+                    url:'addRelation',
+                    data:{'user_id':4},
+                    dataType: 'json',
+                    async:true,
+                    success:function (data) {
+                        alert("success");
+                    },
+                    error:function (err) {
+                        alert("fail");
+                    }
+                });
+            });
         });
     </script>
     <style type="text/css">
@@ -95,7 +108,7 @@
                 <li><a href="#"><span class="glyphicon glyphicon-facetime-video"></span>&nbsp;视频</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;发现</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-equalizer"></span>&nbsp;游戏</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;<%=user.getUserNikename()%></a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;<%=user.getUserNikename()%><%=user.getUserId()%></a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-comment"></span>&nbsp;通知</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-cog"></span>&nbsp;设置</a></li>
                 <li><script type="text/javascript">for(var i=1;i<=30;i++){document.write("&nbsp;");}</script></li>
@@ -118,7 +131,7 @@
             <!--关注和私信的按钮-->
             <div class="row clearfix">
                 <div class="col-md-5"></div>
-                <a href="addRelation"><div class="col-md-1 column" style="text-align: center;padding:8px;background-color: orange;border-radius: 0.5rem;margin-right:4px;cursor: pointer;"><span id="status" style="color: white; ">+关注</span></div></a>
+                <div id="focus" class="col-md-1 column" style="text-align: center;padding:8px;background-color: orange;border-radius: 0.5rem;margin-right:4px;cursor: pointer;"><span id="status" style="color: white; ">+关注</span></div>
                 <div class="col-md-1 column" style="text-align: center;padding:8px;background-color: gray;border-radius: 0.5rem;margin-left: 4px;cursor: pointer;"><span style="color: white; ">私信</span></div>
                 <div class="col-md-5"></div>
             </div>

@@ -23,7 +23,7 @@
             <result name="personspace">WEB-INF/person.jsp</result>
             <result name="other_person">WEB-INF/other_person.jsp</result>
             <!--chain 共享一个ActionContext-->
-            <result name="personActon" type="redirect">personspaceUser</result>
+            <result name="personActon" type="chain">personspaceUser</result>
         </action>
         <action name="*Message" class="messageActionBean" method="{1}">
             <result name="success" type="json">
@@ -31,7 +31,9 @@
             </result>
         </action>
         <action name="*Relation" class="relationActionBean" method="{1}">
-
+            <result name="success" type="json">
+                <param name="root">relation</param>
+            </result>
         </action>
     </package>
 </struts>

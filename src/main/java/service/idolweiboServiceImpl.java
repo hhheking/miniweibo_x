@@ -89,11 +89,7 @@ public class idolweiboServiceImpl implements idolweiboService {
         weiboList.sort(new Comparator<weibo>() {
             @Override
             public int compare(weibo o1, weibo o2) {
-                if(o1.getTime()>o2.getTime()){
-                    return 1;
-                }else {
-                    return -1;
-                }
+                return Long.compare(o1.getTime(), o2.getTime());
             }
         });
         return weiboList;

@@ -88,7 +88,6 @@ public class messageServiceImpl implements messageService {
         message.setMessageInfo(info);
         message.setUserByUserId(user);
         message.setPictureByPictureId(picture);
-        System.out.println(message);
         return message;
     }
 }

@@ -43,7 +43,7 @@
     </script>
     <style type="text/css">
         body{
-            background: url("images/bg.jpg") center top;
+            background: url("/images/bg.jpg") center top;
         }
         #index_panel{
             position: fixed;
@@ -52,13 +52,13 @@
             width: 400px;
         }
         .face{
-            background: url(images/face.png)  no-repeat;
+            background: url(/images/face.png)  no-repeat;
             padding:1px 0 10px 25px;
             cursor: pointer;
             font-size: 15px;
         }
         .pic{
-            background: url(images/pic.png)  no-repeat;
+            background: url(/images/pic.png)  no-repeat;
             margin-left: 10px;
             padding:1px 0 10px 25px;
             cursor: pointer;
@@ -95,7 +95,7 @@
                 <li><a href="#"><span class="glyphicon glyphicon-facetime-video"></span>&nbsp;视频</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;发现</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-equalizer"></span>&nbsp;游戏</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;<%=user.getUserNikename()%></a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;<%=user.getUserNikename()%><%=user.getUserId()%></a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-comment"></span>&nbsp;通知</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-cog"></span>&nbsp;设置</a></li>
                 <li><script type="text/javascript">for(var i=1;i<=30;i++){document.write("&nbsp;");}</script></li>

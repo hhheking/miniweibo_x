@@ -5,6 +5,7 @@ import dao.userDAO;
 import pojo.Relation;
 import pojo.User;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,8 @@ public class relationServiceImpl implements relationService {
 
     @Override
     public void add(Relation relation) {
+        Timestamp timestamp=new Timestamp(System.currentTimeMillis());
+        relation.setRelationTime(timestamp);
         relationdao.add(relation);
     }
 

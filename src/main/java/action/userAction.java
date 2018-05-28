@@ -139,6 +139,9 @@ public class userAction {
         //得到session中的user实例
         Map<String, Object> session = ActionContext.getContext().getSession();
         user=(User)session.get("user");
+        System.out.println("本人");
+        System.out.println(user.getUserId());
+        System.out.println(user.getUserNikename());
         fans=relationservice.calfans(user);
         idols=relationservice.calidols(user);
         mymessageList=messageservice.myMessage(user);
@@ -146,18 +149,25 @@ public class userAction {
     }
     public String to(){
         //得到session中的user实例
-        Map<String, Object> session = ActionContext.getContext().getSession();
+       Map<String, Object> session = ActionContext.getContext().getSession();
         User user1=(User)session.get("user");
         user=userservice.get(user.getUserId());
-        if(user1.getUserNikename().equals(user.getUserNikename())){
+       if(user1.getUserNikename().equals(user.getUserNikename())){
             //点击的头像为本人,根据用户名来判断
+           System.out.println("点击的头像为本人后");
+           System.out.println(user1.getUserId());
+           System.out.println(user1.getUserNikename());
             return personspace();
-        }else {
+       }else {
             //点击的头像不为本人
+           System.out.println("点击的头像不为本人");
+           System.out.println(user.getUserId());
+           System.out.println(user.getUserNikename());
+           System.out.println("输出登录用户的信息:"+user1.getUserId()+user1.getUserNikename());
             fans=relationservice.calfans(user);
             idols=relationservice.calidols(user);
             mymessageList=messageservice.myMessage(user);
             return "other_person";
-        }
+       }
     }
 }
