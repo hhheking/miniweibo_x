@@ -147,8 +147,6 @@
                 <div>他的相册</div>
             </div>
         </div>
-    </div>
-
     <!--主体div-->
     <div class="row clearfix" style="margin-top: 10px;">
         <div class="col-md-4 column">

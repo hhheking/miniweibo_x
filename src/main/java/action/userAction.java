@@ -151,19 +151,15 @@ public class userAction {
         //得到session中的user实例
        Map<String, Object> session = ActionContext.getContext().getSession();
         User user1=(User)session.get("user");
-        user=userservice.get(user.getUserId());
+        Map Getid = ActionContext.getContext().getParameters();
+        String[] id = (String[]) Getid.get("userid");
+        user=userservice.get(Integer.parseInt(id[0]));
        if(user1.getUserNikename().equals(user.getUserNikename())){
             //点击的头像为本人,根据用户名来判断
-           System.out.println("点击的头像为本人后");
-           System.out.println(user1.getUserId());
-           System.out.println(user1.getUserNikename());
-            return personspace();
+           return personspace();
        }else {
             //点击的头像不为本人
            System.out.println("点击的头像不为本人");
-           System.out.println(user.getUserId());
-           System.out.println(user.getUserNikename());
-           System.out.println("输出登录用户的信息:"+user1.getUserId()+user1.getUserNikename());
             fans=relationservice.calfans(user);
             idols=relationservice.calidols(user);
             mymessageList=messageservice.myMessage(user);

@@ -131,7 +131,7 @@
             </div>
         </div>
     </div>
-
+    <s:debug></s:debug>
     <!--主体div-->
     <div class="row clearfix" style="margin-top: 10px;">
         <div class="col-md-4 column">
