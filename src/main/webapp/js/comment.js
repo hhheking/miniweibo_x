@@ -13,9 +13,12 @@ $(function () {
                 },
                 async:true,
                 success : function(data) {  //异步请求成功执行的回调函数
-                    var i,j;
+                    var i;
 
                     for( i=0;i<data.length;i++){
+                        if(i>=5){
+                            break;
+                        }
                         var com="<div class=\"row clearfix\" style=\"border-bottom: 1px solid #ddd;margin: 5px;\">\n" +
                             "                                    <div class=\"col-md-1 column\">\n" +
                             "                                       <a href=\"toUser?userid="+data[i][4]+"\"><img src=\"images/icon.png\" width=\"30px;\"></a>\n" +
@@ -26,6 +29,10 @@ $(function () {
                             "                                        <h6 style=\"margin-top: 1px;\">"+data[i][2]+"分钟前"+"</h6>\n" +
                             "                                    </div>\n" +
                             "                                </div>"
+                        commentdiv.append(com);
+                    }
+                    if(i==5){
+                        var com="<a href=\"#\">查看更多</a>"
                         commentdiv.append(com);
                     }
                 },//ajax引擎一般用不到；状态信息；抛出的异常信息
@@ -72,8 +79,7 @@ $(function(){
                 "                                </div>"
             div.after(mycom);
             $(this).parent().prev().children().val("");
-            var commentdiv=$(this).parent().parent().parent().parent().prev().children("#showcomment");
-            commentdiv.toggle();
+
         }
     )
 }
