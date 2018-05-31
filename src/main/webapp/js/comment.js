@@ -36,3 +36,30 @@ $(function () {
         }
     })
 })
+$(function(){
+    $(".btn.btn-default.pull-right").click(
+        function(){
+            var commentinfo=$(this).parent().prev().children().val();
+            var userid=$(this).next().next().val();
+            var messid=$(this).next().val();
+            $.ajax({
+                type : "POST",  //请求方式
+                url : "addcommentAction",  //请求路径
+                data : {
+                    'messid' :messid,
+                    'userid':userid,
+                    'commentinfo':commentinfo
+                },
+                async:true,
+                success : function(data){
+                    ;
+                },
+                error:function(){
+                    alert("ajax失败了")
+                }
+            });
+
+        }
+    )
+}
+)
