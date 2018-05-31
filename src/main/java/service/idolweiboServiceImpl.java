@@ -3,6 +3,7 @@ package service;
 import bean.weibo;
 import pojo.Message;
 import pojo.Relation;
+import pojo.Transpond;
 import pojo.User;
 
 import java.sql.Timestamp;
@@ -64,6 +65,7 @@ public class idolweiboServiceImpl implements idolweiboService {
         //填写测试用例的时候 没有写微博发表的时间 因此这里要稍微修改
         return (timestamp.getTime()-message.getMessageTime().getTime())/(1000*60);
     }
+
 
     //此处的user为登录用户的实例
     @Override

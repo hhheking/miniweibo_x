@@ -232,6 +232,7 @@
                 </nav>
                 <!--未读消息提示,后续可以增加-->
                 <div>
+
                 </div>
                 <!--在页面中动态添加一个div,这里显示用户发布的微博-->
                 <div id="myWeibo">
@@ -252,19 +253,21 @@
                             </div>
                         </div>
                         <!--下层div-->
-                        <div class="row clearfix">
-                            <div class="col-md-3 column" style="text-align: center;padding: 5px;">
-                                <span class="glyphicon glyphicon-link">转发${weibo.getTranspond()}</span>
+                        <div class="row clearfix" style="border-top: 1px solid #ddd;border-bottom: 1px solid #ddd;">
+                            <div class="col-md-3 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;">
+                                <span class="glyphicon glyphicon-link" data-toggle="modal" data-target="#TransPondModal">转发${weibo.getTranspond()}</span>
                             </div>
-                            <div class="col-md-3 column" style="text-align: center;">
-                                <span class="glyphicon glyphicon-star-empty">收藏${weibo.getCollect()}</span>
+                            <div class="col-md-3 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;">
+                                <!--得到微博的收藏状态和收藏的次数-->
+                                <span class="glyphicon glyphicon-star-empty">${weibo.getCollect_status()}${weibo.getCollect()}</span>
                             </div>
-                            <div class="col-md-3 column" style="text-align: center;">
-                                <span id="showcomment" class="glyphicon glyphicon-edit" onclick="comment()">评价${weibo.getComment()}</span>
-                                <input value="${weibo.getMessid()}" style="display: none">
+                            <div class="col-md-3 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;">
+                                <span id="showcomment" class="glyphicon glyphicon-edit">评价${weibo.getComment()}</span>
+                                <input id="MessageId" value="${weibo.getMessid()}" style="display: none">
                             </div>
-                            <div class="col-md-3 column" style="text-align: center;">
-                                <span class="glyphicon glyphicon-thumbs-up">点赞${weibo.getAgree()}</span>
+                            <div class="col-md-3 column" style="text-align: center;padding: 10px;">
+                                <!--得到微博的赞同状态和赞同次数-->
+                                <span class="glyphicon glyphicon-thumbs-up">${weibo.getAgree_status()}${weibo.getAgree()}</span>
                             </div>
                         </div>
                         <!--点击评价显示出来的div-->
@@ -375,6 +378,47 @@
     <a href="#" class="list-group-item">5.第五条热搜第五条热搜第五条热搜</a>
     <a href="#" class="list-group-item">6.第六条热搜第六条热搜第六条热搜</a>
     <a href="#" class="list-group-item">7.第七条热搜第七条热搜第七条热搜</a>
+</div>
+<!---点击转发弹出模态框->
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="TransPondModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 440px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">转发微博</h4>
+            </div>
+            <div class="modal-body" style="margin:20px;">
+                <form class="form-horizontal" role="form" action="###" method="post" style="border: 1px;">
+
+                    <div class="form-group" style="background-color: #F5F5F5;">
+                        <div>
+                            <p>转发的微博的具体内容转发的微博的具体内容转发的微博的具体内容转发的微博的具体内
+                                容转发的微博的具体内容转发 的微博的具体内容转发的微博的具体内容转发的微博的具体
+                                内容转发的微博的具体内容</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <textarea class="form-control" rows="3"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="checkbox" style="float: left">
+                            <label><input type="checkbox">同时评论给</label><span>##</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div >
+                            <button id="transpondweibo"type="submit" class="btn btn-primary btn-sm btn-block">转发</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
 </div>
 </body>
 </html>

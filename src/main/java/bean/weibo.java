@@ -11,6 +11,24 @@ public class weibo {
     int comment;
     int agree;
     int messid;
+    String collect_status;
+    String agree_status;
+
+    public String getAgree_status() {
+        return agree_status;
+    }
+
+    public String getCollect_status() {
+        return collect_status;
+    }
+
+    public void setAgree_status(String agree_status) {
+        this.agree_status = agree_status;
+    }
+
+    public void setCollect_status(String collect_status) {
+        this.collect_status = collect_status;
+    }
 
     public int getMessid() {
         return messid;
