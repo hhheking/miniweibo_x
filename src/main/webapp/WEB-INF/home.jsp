@@ -290,6 +290,7 @@
                                             <button type="submit" class="btn btn-default pull-right" style="background-color: orange;height: 30px;">评论</button>
                                             <input value="${weibo.getMessid()}" style="display: none">
                                             <input value="<%=user.getUserId()%>" style="display: none">
+                                            <input value="<%=user.getUserNikename()%>" style="display: none">
                                         </div>
                                     </form>
                                     <!--分割线-->

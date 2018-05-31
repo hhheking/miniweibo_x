@@ -20,13 +20,15 @@ public class commentAction extends ActionSupport{
     String userid;
     String commentinfo;
     commentService commentservice;
+    String yes;
     @Override
     public String execute() throws Exception {
         result=commentservice.commentInformation(Integer.parseInt(messid));
         return SUCCESS;
     }
     public String add(){
-        return SUCCESS;
+        commentservice.addComment(Integer.parseInt(messid),commentinfo,Integer.parseInt(userid));
+        return "add";
     }
     public String getCommentinfo() {
         return commentinfo;

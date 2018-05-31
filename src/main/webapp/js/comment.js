@@ -30,7 +30,7 @@ $(function () {
                     }
                 },//ajax引擎一般用不到；状态信息；抛出的异常信息
                 error : function() {
-                    alert("失败了");
+                    alert("失败了")
                 }
             });
         }
@@ -42,6 +42,7 @@ $(function(){
             var commentinfo=$(this).parent().prev().children().val();
             var userid=$(this).next().next().val();
             var messid=$(this).next().val();
+            var nikename=$(this).next().next().next().val();
             $.ajax({
                 type : "POST",  //请求方式
                 url : "addcommentAction",  //请求路径
@@ -58,7 +59,21 @@ $(function(){
                     alert("ajax失败了")
                 }
             });
-
+            var div=$(this).parent().parent().parent().parent();
+            var mycom="<div class=\"row clearfix\" style=\"border-bottom: 1px solid #ddd;margin: 5px;\">\n" +
+                "                                    <div class=\"col-md-1 column\">\n" +
+                "                                       <a href=\"toUser?userid="+userid+"\"><img src=\"images/icon.png\" width=\"30px;\"></a>\n" +
+                "                                    </div>\n" +
+                "                                    <div class=\"col-md-11 column\">\n" +
+                "                                        <a href=\"toUser?userid="+userid+"\"><span>"+nikename+"</span></a>\n" +
+                "                                        <span>"+commentinfo+"</span>\n" +
+                "                                        <h6 style=\"margin-top: 1px;\">"+"10秒钟前"+"</h6>\n" +
+                "                                    </div>\n" +
+                "                                </div>"
+            div.after(mycom);
+            $(this).parent().prev().children().val("");
+            var commentdiv=$(this).parent().parent().parent().parent().prev().children("#showcomment");
+            commentdiv.toggle();
         }
     )
 }
