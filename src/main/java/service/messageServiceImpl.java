@@ -84,6 +84,7 @@ public class messageServiceImpl implements messageService {
         message.setMessageAgreenum(0);
         message.setMessageCollectnum(0);
         message.setMessageCommentnum(0);
+        message.setMessageType("Orign");
         message.setMessageTime(new Timestamp(System.currentTimeMillis()));
         message.setMessageInfo(info);
         message.setUserByUserId(user);
