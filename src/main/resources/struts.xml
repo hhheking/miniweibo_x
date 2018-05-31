@@ -40,7 +40,7 @@
                 <param name="root">stus</param>
             </result>
         </action>
-        <action name="commentAction" class="action.commentAction">
+        <action name="*commentAction" class="action.commentAction" method="{1}">
             <result name="success" type="json">
                 <param name="root">result</param>
             </result>

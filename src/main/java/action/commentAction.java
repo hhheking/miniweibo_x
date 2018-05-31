@@ -17,11 +17,31 @@ import java.util.List;
 public class commentAction extends ActionSupport{
     String [][]result;
     String messid;
+    String userid;
+    String commentinfo;
     commentService commentservice;
     @Override
     public String execute() throws Exception {
         result=commentservice.commentInformation(Integer.parseInt(messid));
         return SUCCESS;
+    }
+    public String add(){
+        return SUCCESS;
+    }
+    public String getCommentinfo() {
+        return commentinfo;
+    }
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setCommentinfo(String commentinfo) {
+        this.commentinfo = commentinfo;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
     }
 
     public String[][] getResult() {
