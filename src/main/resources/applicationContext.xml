@@ -46,6 +46,7 @@
                 <value>Relation.hbm.xml</value>
                 <value>Message.hbm.xml</value>
                 <value>Picture.hbm.xml</value>
+
             </list>
         </property>
 

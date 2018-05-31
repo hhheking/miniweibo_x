@@ -9,10 +9,9 @@ input{
     outline: none;
 }
 .bian{
-    position: absolute;
+    position: fixed;
     bottom: 0;
     right: 0.1rem;
-    position: absolute;
     max-height: 5.5rem;
     width: 4rem;
     margin: 0 auto;
