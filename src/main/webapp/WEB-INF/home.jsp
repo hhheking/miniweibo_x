@@ -266,8 +266,54 @@
                             </div>
                         </div>
                         <!--点击评价显示出来的div-->
-                        <div id="comment" style="height: 100px;background: red;display: none">
+                        <div id="comment" style="padding-left: 25px;background-color: #eee;">
+                            <!--分割线-->
+                            <hr>
+                            <div class="row clearfix">
+                                <div class="col-md-1 column">
+                                    <!--点击头像 进入用户空间-->
+                                    <img src="images/icon.png" width="35px;">
+                                </div>
+                                <div class="col-md-11 column" style="padding-right: 35px;">
+                                    <form role="form" onsubmit='return false'>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" style="height: 30px;">
+                                        </div>
+                                        <div class="form-group">
+                                            <span class="face"></span>
+                                            <span class="pic"></span>
+                                            <button type="submit" class="btn btn-default pull-right disabled" style="background-color: orange;height: 30px;">评论</button>
+                                        </div>
+                                    </form>
+                                    <!--分割线-->
+                                    <hr>
+                                </div>
+                                <!--评论-->
+                                <!--自己发布的评论显示在这里-->
+                                <div>
 
+                                </div>
+
+                                <div class="row clearfix" style="border-bottom: 1px solid #ddd;margin: 5px;">
+                                    <div class="col-md-1 column">
+                                        <img src="images/icon.png" width="30px;">
+                                    </div>
+                                    <div class="col-md-11 column">
+                                        <a href="#"><span>rfc</span></a><span>:我来写第一个评论哈哈哈哈</span>
+                                        <h6 style="margin-top: 1px;">0分钟前</h6>
+                                    </div>
+                                </div>
+
+                                <div class="row clearfix" style="border-bottom: 1px solid #ddd;margin: 5px;">
+                                    <div class="col-md-1 column">
+                                        <img src="images/icon.png" width="30px;">
+                                    </div>
+                                    <div class="col-md-11 column">
+                                        <a href="#"><span>rfc</span></a><span>:我来写第一个评论哈哈哈哈</span>
+                                        <h6 style="margin-top: 1px;">0分钟前</h6>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </s:iterator>
