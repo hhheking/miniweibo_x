@@ -165,7 +165,7 @@ public class userAction {
     }
     public String to(){
         //得到session中的user实例
-       Map<String, Object> session = ActionContext.getContext().getSession();
+        Map<String, Object> session = ActionContext.getContext().getSession();
         User user1=(User)session.get("user");
         Map Getid=ActionContext.getContext().getParameters();
         String [] userid= (String[]) Getid.get("userid");
