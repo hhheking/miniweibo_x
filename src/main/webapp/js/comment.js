@@ -13,7 +13,7 @@ $(function () {
                 },
                 async:true,
                 success : function(data) {  //异步请求成功执行的回调函数
-                    var i;
+                    var i,j;
 
                     for( i=0;i<data.length;i++){
                         if(i>=5){
@@ -32,7 +32,7 @@ $(function () {
                         commentdiv.append(com);
                     }
                     if(i==5){
-                        var com="<a href=\"#\">查看更多</a>"
+                        var com="<div style=\'text-align: center\'><a href=\"#\">查看更多</a></div>"
                         commentdiv.append(com);
                     }
                 },//ajax引擎一般用不到；状态信息；抛出的异常信息
@@ -79,7 +79,9 @@ $(function(){
                 "                                </div>"
             div.after(mycom);
             $(this).parent().prev().children().val("");
-
+            var commentdiv=$(this).parent().parent().parent().parent().parent().prev().children("div").eq(2).children("span").html();
+            commentdiv ="评价" + (parseInt(commentdiv.substring(2))+1);
+            $(this).parent().parent().parent().parent().parent().prev().children("div").eq(2).children("span").html(commentdiv);
         }
     )
 }
