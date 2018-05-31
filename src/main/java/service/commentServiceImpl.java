@@ -46,12 +46,14 @@ public class commentServiceImpl implements commentService {
     }
 
     @Override
-    public void addComment(int messid, String commetinfo, int userid) {
+    public void addComment(int messid, String commentinfo, int userid) {
         Comment com=new Comment();
-        com.setCommentInfo(commetinfo);
+        com.setCommentInfo(commentinfo);
         com.setCommentTime(new Timestamp(System.currentTimeMillis()));
         User user=userdao.get(userid);
         Message message=messagedao.get(messid);
+        message.setMessageCommentnum(message.getMessageCommentnum()+1);
+        messagedao.updata(message);
         com.setUserByUserId(user);
         com.setMessageByMessageId(message);
         commentdao.add(com);
