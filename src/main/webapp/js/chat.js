@@ -13,7 +13,6 @@ function show(headSrc,str){
 }
 /*发送时间*/
 function addtime(time) {
-
     var html="<div class=\"time\">"+time+"</div>";
     upView(html);
 }
