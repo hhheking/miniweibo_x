@@ -40,5 +40,10 @@
                 <param name="root">stus</param>
             </result>
         </action>
+        <action name="commentAction" class="action.commentAction">
+            <result name="success" type="json">
+                <param name="root">result</param>
+            </result>
+        </action>
     </package>
 </struts>

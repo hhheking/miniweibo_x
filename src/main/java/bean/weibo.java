@@ -10,7 +10,15 @@ public class weibo {
     int collect;
     int comment;
     int agree;
+    int messid;
 
+    public int getMessid() {
+        return messid;
+    }
+
+    public void setMessid(int messid) {
+        this.messid = messid;
+    }
     public int getId() {
         return id;
     }

@@ -28,6 +28,6 @@ public class messageDAOImpl extends HibernateTemplate implements messageDAO {
 
     @Override
     public Message get(int id) {
-        return (Message)get(Message.class,id);
+       return (Message) get(Message.class,id);
     }
 }

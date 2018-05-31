@@ -81,6 +81,7 @@ public class idolweiboServiceImpl implements idolweiboService {
                 wb.setAgree(message.getMessageAgreenum());
                 wb.setComment(message.getMessageCommentnum());
                 wb.setCollect(message.getMessageCollectnum());
+                wb.setMessid(message.getMessageId());
                 wb.setId(user1.getUserId());
                 weiboList.add(wb);
             }
