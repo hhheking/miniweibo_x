@@ -251,18 +251,18 @@
                             </div>
                         </div>
                         <!--下层div-->
-                        <div class="row clearfix">
-                            <div class="col-md-3 column" style="text-align: center;padding: 5px;">
-                                <span class="glyphicon glyphicon-link">转发${weibo.getTranspond()}</span>
+                        <div class="row clearfix" style="border-top: 1px solid #ddd;border-bottom: 1px solid #ddd;">
+                            <div class="col-md-3 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;">
+                                <span class="glyphicon glyphicon-link">转发0</span>
                             </div>
-                            <div class="col-md-3 column" style="text-align: center;">
-                                <span class="glyphicon glyphicon-star-empty">收藏${weibo.getCollect()}</span>
+                            <div class="col-md-3 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;">
+                                <span class="glyphicon glyphicon-star-empty">收藏0</span>
                             </div>
-                            <div class="col-md-3 column" style="text-align: center;">
-                                <span id="showcomment" class="glyphicon glyphicon-edit">评价${weibo.getComment()}</span>
+                            <div class="col-md-3 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;">
+                                <span id="showcomment" class="glyphicon glyphicon-edit">评价0</span>
                             </div>
-                            <div class="col-md-3 column" style="text-align: center;">
-                                <span class="glyphicon glyphicon-thumbs-up">点赞${weibo.getAgree()}</span>
+                            <div class="col-md-3 column" style="text-align: center;padding: 10px;">
+                                <span class="glyphicon glyphicon-thumbs-up">点赞0</span>
                             </div>
                         </div>
                         <!--点击评价显示出来的div-->
