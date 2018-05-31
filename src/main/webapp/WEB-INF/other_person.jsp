@@ -30,6 +30,9 @@
     <script src="js/bootstrap.min.js"></script>
     <!-- 引入 Bootstrap -->
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/chat.css" />
+    <script src="js/jquery.min.js"></script>
+    <script src="js/flexible.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
             $("#index_sousuo").focus(function(){
@@ -40,12 +43,12 @@
             });
             $("#focus").click(function () {
                 $.ajax({
-                    url:'addRelation',
-                    data:{'user_id':4},
+                    url:'judgeRelation',
+                    data:{'user_id':$("#span").html()},
                     dataType: 'json',
                     async:true,
                     success:function (data) {
-                        alert("success");
+                        $("#focus").html(data);
                     },
                     error:function (err) {
                         alert("fail");
@@ -108,7 +111,7 @@
                 <li><a href="#"><span class="glyphicon glyphicon-facetime-video"></span>&nbsp;视频</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;发现</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-equalizer"></span>&nbsp;游戏</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;<%=user.getUserNikename()%><%=user.getUserId()%></a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;<%=user.getUserNikename()%></a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-comment"></span>&nbsp;通知</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-cog"></span>&nbsp;设置</a></li>
                 <li><script type="text/javascript">for(var i=1;i<=30;i++){document.write("&nbsp;");}</script></li>
@@ -127,12 +130,13 @@
             <h4 style="font-weight: bold;">${user.getUserNikename()}</h4>
             <div class="col-sm-12" >
                 <p>一句话介绍一下自己吧，让别人更了解你</p>
+                <span id="span" style="display: none">${id}</span>
             </div>
             <!--关注和私信的按钮-->
             <div class="row clearfix">
                 <div class="col-md-5"></div>
-                <div id="focus" class="col-md-1 column" style="text-align: center;padding:8px;background-color: orange;border-radius: 0.5rem;margin-right:4px;cursor: pointer;"><span id="status" style="color: white; ">+关注</span></div>
-                <div class="col-md-1 column" style="text-align: center;padding:8px;background-color: gray;border-radius: 0.5rem;margin-left: 4px;cursor: pointer;"><span style="color: white; ">私信</span></div>
+                <div id="focus" class="col-md-1 column" style="text-align: center;padding:8px;background-color: orange;border-radius: 0.5rem;margin-right:4px;cursor: pointer;"><span id="status" style="color: white; ">${status}</span></div>
+                <div class="col-md-1 column" style="text-align: center;padding:8px;background-color: gray;border-radius: 0.5rem;margin-left: 4px;cursor: pointer;"><span style="color: white; " id="chat">私信</span></div>
                 <div class="col-md-5"></div>
             </div>
         </div>
@@ -212,5 +216,22 @@
         <a href="#" class="list-group-item">7.第七条热搜第七条热搜第七条热搜</a>
     </div>
 </div>
+<div class="bian">
+    <header class="header">
+        <a class="back"></a>
+        <h5 class="tit"id="touser">${user.getUserNikename()}</h5>
+        <span id="user" style="display: none"><%=user.getUserNikename()%></span>
+        <span id="pic" style="display: none">f</span>
+        <div class="right">历史</div>
+    </header>
+    <div class="message" id="myDiv">
+    </div>
+    <div class="footer">
+        <img src="images/hua.png" alt="" />
+        <input id="shu" type="text"/>
+        <p>发送</p>
+    </div>
+</div>
+<script src="js/chat.js" type="text/javascript" charset="utf-8"></script>
 </body>
 </html>

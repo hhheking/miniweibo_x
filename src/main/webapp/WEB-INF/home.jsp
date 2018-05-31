@@ -67,7 +67,7 @@
                             "                        <div class=\"row clearfix\">\n" +
                             "                            <div class=\"col-md-2 column\" style=\"padding-left: 25px;padding-top: 10px;\">\n" +
                             "                                <!--点击头像 进入用户空间-->\n" +
-                            "                                <a href=\"toUser?user.userId=<%=user.getUserId()%>>\"><img src=\"images/icon.png\" class=\"img-circle\" width=\"70px;\"></a>\n" +
+                            "                                <a href=\"toUser?userid=<%=user.getUserId()%>>\"><img src=\"images/icon.png\" class=\"img-circle\" width=\"70px;\"></a>\n" +
                             "                            </div>\n" +
                             "                            <div class=\"col-md-10 column\">\n" +
                             "                                <h4 style=\"font-weight: bold;\"><%=user.getUserNikename()%></h4>\n" +
@@ -242,7 +242,7 @@
                         <div class="row clearfix">
                             <div class="col-md-2 column" style="padding-left: 25px;padding-top: 10px;">
                                 <!--点击头像 进入用户空间-->
-                                <a href="toUser?user.userId=${weibo.getId()}"><img src="images/icon.png" class="img-circle" width="70px;"></a>
+                                <a href="toUser?userid=${weibo.getId()}"><img src="images/icon.png" class="img-circle" width="70px;"></a>
                             </div>
                             <div class="col-md-10 column">
                                 <h4 style="font-weight: bold;">${weibo.getNikename()}</h4>

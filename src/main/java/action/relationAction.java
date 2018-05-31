@@ -15,6 +15,11 @@ public class relationAction {
     userService userservice;
     User user;
     int user_id;
+    String stus;
+
+    public String getStus() {
+        return stus;
+    }
 
     public void setUserservice(userService userservice) {
         this.userservice = userservice;
@@ -60,20 +65,26 @@ public class relationAction {
         return "listrelation";
 
     }
-    public String add(){
+    public String judge(){
         Map<String, Object> session = ActionContext.getContext().getSession();
         User user1=(User)session.get("user");
-        System.out.println("登录用户的数据");
-        System.out.println(user1.getUserId());
-        System.out.println(user1.getUserNikename());
         user=userservice.get(user_id);
-        System.out.println("偶像的数据");
-        System.out.println(user.getUserId());
-        System.out.println(user.getUserNikename());
-        Relation relation=new Relation();
-        relation.setUserByUserId(user1);
-        relation.setUserByUserByid(user);
-        relationservice.add(relation);
+        int i=0;
+        for(Relation relation:relationservice.myIdols(user1)){
+            if(relation.getUserByUserByid().getUserId()==user.getUserId()){
+                relationservice.delete(relation);
+                i=1;
+                stus="+关注";
+                break;
+            }
+        }
+        if(i==0){
+            Relation relation=new Relation();
+            relation.setUserByUserId(user1);
+            relation.setUserByUserByid(user);
+            relationservice.add(relation);
+            stus="已关注";
+        }
         return "success";
     }
 }

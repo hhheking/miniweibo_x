@@ -70,7 +70,7 @@ public class relationServiceImpl implements relationService {
 
     @Override
     public List<Relation> myIdols(User user) {
-        return relationdao.listFans(user);
+        return relationdao.listIdols(user);
     }
 
     @Override

@@ -3,6 +3,7 @@ package action;
 import bean.weibo;
 import com.opensymphony.xwork2.ActionContext;
 import pojo.Message;
+import pojo.Relation;
 import pojo.User;
 import service.idolweiboService;
 import service.messageService;
@@ -24,6 +25,24 @@ public class userAction {
     int fans;
     int idols;
     List<weibo> weibos;
+    String status;
+    int id;
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
 
     public idolweiboService getIdolweiboservice() {
         return idolweiboservice;
@@ -139,9 +158,6 @@ public class userAction {
         //得到session中的user实例
         Map<String, Object> session = ActionContext.getContext().getSession();
         user=(User)session.get("user");
-        System.out.println("本人");
-        System.out.println(user.getUserId());
-        System.out.println(user.getUserNikename());
         fans=relationservice.calfans(user);
         idols=relationservice.calidols(user);
         mymessageList=messageservice.myMessage(user);
@@ -151,19 +167,22 @@ public class userAction {
         //得到session中的user实例
        Map<String, Object> session = ActionContext.getContext().getSession();
         User user1=(User)session.get("user");
-        user=userservice.get(user.getUserId());
+        Map Getid=ActionContext.getContext().getParameters();
+        String [] userid= (String[]) Getid.get("userid");
+        id=Integer.parseInt(userid[0]);
+        user=userservice.get(id);
+        //得到登录用户的所有关注的人
+        status="+关注";
+        for(Relation relation:relationservice.myIdols(user1)){
+            if(relation.getUserByUserByid().getUserId()==user.getUserId()){
+                status="已关注";
+            }
+        }
        if(user1.getUserNikename().equals(user.getUserNikename())){
             //点击的头像为本人,根据用户名来判断
-           System.out.println("点击的头像为本人后");
-           System.out.println(user1.getUserId());
-           System.out.println(user1.getUserNikename());
             return personspace();
        }else {
             //点击的头像不为本人
-           System.out.println("点击的头像不为本人");
-           System.out.println(user.getUserId());
-           System.out.println(user.getUserNikename());
-           System.out.println("输出登录用户的信息:"+user1.getUserId()+user1.getUserNikename());
             fans=relationservice.calfans(user);
             idols=relationservice.calidols(user);
             mymessageList=messageservice.myMessage(user);

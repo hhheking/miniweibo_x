@@ -36,11 +36,11 @@ public class relationDAOImpl extends HibernateTemplate implements relationDAO {
 
     @Override
     public List<Relation> listFans(User user) {
-        return find("from Relation r where r.userByUserId="+user.getUserId());
+        return find("from Relation r where r.userByUserByid="+user.getUserId());
     }
 
     @Override
     public List<Relation> listIdols(User user) {
-        return find("from Relation  r where r.userByUserByid="+user.getUserId());
+        return find("from Relation  r where r.userByUserId="+user.getUserId());
     }
 }
