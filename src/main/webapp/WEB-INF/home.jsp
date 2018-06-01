@@ -98,7 +98,7 @@
                             "\n" +
                             "                        </div>\n" +
                             "                    </div>"
-                        $("#myWeibo").append(myweibo);
+                        $("#myWeibo").prepend(myweibo);
                     },
                     error:function (err) {
                         //成功发布微博
