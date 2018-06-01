@@ -35,6 +35,7 @@
           <unit-entry name="noname-applicationContext.xml@2176" />
           <unit-entry name="noname-applicationContext.xml@2300" />
           <unit-entry name="noname-applicationContext.xml@2879" value="ds" />
+          <unit-entry name="noname-applicationContext.xml@3369" />
         </datasource-map>
         <naming-strategy-map />
         <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/main/resources/hibernate.cfg.xml" />

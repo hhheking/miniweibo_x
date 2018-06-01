@@ -1,20 +1,19 @@
 package service;
 
 import bean.weibo;
-import pojo.Message;
-import pojo.Relation;
-import pojo.Transpond;
-import pojo.User;
+import pojo.*;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import dao.agreeDAO;
 
 public class idolweiboServiceImpl implements idolweiboService {
     messageService messageservice;
     relationService relationservice;
     userService userservice;
+    agreeDAO agreedao;
 
     public relationService getRelationservice() {
         return relationservice;
@@ -38,6 +37,14 @@ public class idolweiboServiceImpl implements idolweiboService {
 
     public void setUserservice(userService userservice) {
         this.userservice = userservice;
+    }
+
+    public void setAgreedao(agreeDAO agreedao) {
+        this.agreedao = agreedao;
+    }
+
+    public agreeDAO getAgreedao() {
+        return agreedao;
     }
 
     @Override
@@ -85,6 +92,12 @@ public class idolweiboServiceImpl implements idolweiboService {
                 wb.setCollect(message.getMessageCollectnum());
                 wb.setMessid(message.getMessageId());
                 wb.setId(user1.getUserId());
+                List<Agree> agrees= agreedao.findAgree(message.getMessageId(),user.getUserId());
+                if(agrees.isEmpty())
+                    wb.setAgree_status("no");
+                else
+                    wb.setAgree_status("yes");
+
                 weiboList.add(wb);
             }
         }

@@ -98,7 +98,9 @@
                             "\n" +
                             "                        </div>\n" +
                             "                    </div>"
-                        $("#myWeibo").prepend(myweibo);
+                        $("#myWeibo").append(myweibo);
+                        //添加评论点击时间
+                        //$("#myWeibo").children().eq(0).children().eq(1).children().eq(2).children("span").click(function () {});
                     },
                     error:function (err) {
                         //成功发布微博
@@ -267,7 +269,12 @@
                             </div>
                             <div class="col-md-3 column" style="text-align: center;padding: 10px;">
                                 <!--得到微博的赞同状态和赞同次数-->
-                                <span class="glyphicon glyphicon-thumbs-up">${weibo.getAgree_status()}${weibo.getAgree()}</span>
+                               <s:if test="#weibo.agree_status == \"no\""><span class="glyphicon glyphicon-thumbs-up">${weibo.getAgree()}</span></s:if>
+                                <s:else>
+                                    <span class="glyphicon glyphicon-thumbs-up" style="color: coral">${weibo.getAgree()}</span>
+                                </s:else>
+                                <input value="${weibo.getMessid()}" style="display: none">
+                                <input value="<%=user.getUserId()%>" style="display: none;">
                             </div>
                         </div>
                         <!--点击评价显示出来的div-->
