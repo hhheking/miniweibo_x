@@ -150,7 +150,6 @@
 <body>
 <!--导航栏 基于bootstrap框架-->
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand"><script type="text/javascript">for(var i=1;i<=30;i++){document.write("&nbsp;");}</script>mini微博</a>
