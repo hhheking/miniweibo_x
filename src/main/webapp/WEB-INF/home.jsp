@@ -19,7 +19,6 @@
     <meta charset="utf-8">
     <title>mini微博——发现身边的好玩事</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!--jquery插件-->
     <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -27,6 +26,7 @@
     <script src="https://code.jquery.com/jquery.js"></script>
     <!-- 包括所有已编译的插件 -->
     <script src="js/comment.js"></script>
+    <script src="js/transpond.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <!-- 引入 Bootstrap -->
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -97,8 +97,8 @@
                             "                        <div id=\"comment\" style=\"height: 100px;background: red;display: none\">\n" +
                             "\n" +
                             "                        </div>\n" +
-                            "                    </div>"
-                        $("#myWeibo").preappend(myweibo);
+                            "                    </div>";
+                        $("#myWeibo").prepend(myweibo);
                         //添加评论点击时间
                         //$("#myWeibo").children().eq(0).children().eq(1).children().eq(2).children("span").click(function () {});
                     },
@@ -112,7 +112,7 @@
     </script>
     <style type="text/css">
         body{
-            background: url("/images/bg.jpg") center top;
+            background: url("images/bg.jpg") center top;
         }
         #index_panel{
             position: fixed;
@@ -120,17 +120,14 @@
             left: 260px;
             width: 400px;
         }
-        #myModal{
-            text-align: center;
-        }
         .face{
-            background: url("/images/face.png")  no-repeat;
+            background: url("images/face.png")  no-repeat;
             padding:1px 0 10px 25px;
             cursor: pointer;
             font-size: 15px;
         }
         .pic{
-            background: url("/images/pic.png")  no-repeat;
+            background: url("images/pic.png")  no-repeat;
             margin-left: 10px;
             padding:1px 0 10px 25px;
             cursor: pointer;
@@ -295,8 +292,8 @@
                                             <span class="pic"></span>
                                             <button type="submit" class="btn btn-default pull-right" style="background-color: orange;height: 30px;">评论</button>
                                             <input value="${weibo.getMessid()}" style="display: none">
-                                            <input value="<%=user.getUserId()%>" style="display: none">
-                                            <input value="<%=user.getUserNikename()%>" style="display: none">
+                                            <input id="sessionuserid" value="<%=user.getUserId()%>" style="display: none">
+                                            <input id="sessionusername" value="<%=user.getUserNikename()%>" style="display: none">
                                         </div>
                                     </form>
                                     <!--分割线-->
@@ -392,39 +389,36 @@
 <!---点击转发弹出模态框->
 <!-- 模态框（Modal） -->
 <div class="modal fade" id="TransPondModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="width: 440px;">
+    <div class="modal-dialog" style="width: 480px;">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">转发微博</h4>
             </div>
-            <div class="modal-body" style="margin:20px;">
-                <form class="form-horizontal" role="form" action="###" method="post" style="border: 1px;">
-
+            <div class="modal-body" style="margin-top: 5px;margin-left: 10px;margin-right: 10px;">
+                <form class="form-horizontal" role="form" action="###" method="post" style="border: 1px;" onsubmit='return false'>
                     <div class="form-group" style="background-color: #F5F5F5;">
-                        <div>
-                            <p>转发的微博的具体内容转发的微博的具体内容转发的微博的具体内容转发的微博的具体内
-                                容转发的微博的具体内容转发 的微博的具体内容转发的微博的具体内容转发的微博的具体
-                                内容转发的微博的具体内容</p>
+                        <div style="padding: 10px;">
+                            微博内容:<p id="transpond_info">#</p>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <textarea class="form-control" rows="3"></textarea>
+                        <textarea class="form-control" rows="3" placeholder="请输入转发的理由......" id="transpond_reason"></textarea>
                     </div>
 
                     <div class="form-group">
                         <div class="checkbox" style="float: left">
-                            <label><input type="checkbox">同时评论给</label><span>##</span>
+                            <span class="face"></span>
+                            <span class="pic"></span>
+                            <label style="margin-left: 10px;"><input type="checkbox">同时评论给</label>
+                            <span id="transpond_username">#</span>
+                            <input id="messID" style="display: none">
+                        </div>
+                        <div style="float: right">
+                            <button id="transpondweibo" type="submit" class="btn btn-primary btn-sm btn-block">转发</button>
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <div >
-                            <button id="transpondweibo"type="submit" class="btn btn-primary btn-sm btn-block">转发</button>
-                        </div>
-                    </div>
-
                 </form>
             </div>
         </div><!-- /.modal-content -->

@@ -13,4 +13,5 @@ public interface messageService {
     public List<Message> myMessage(User user);
     public List<Message> idols_messages(List<User> users);
     public Message message(String info);
+    public Message transmessage(String info,String resaon,String name,int id);
 }

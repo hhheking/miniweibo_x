@@ -14,6 +14,34 @@ public class messageAction {
     List<Message> messageList;
     messageService messageservice;
     String messageInfo;
+    String messagrReason;
+    int messageID;
+    String message_username;
+
+    public String getMessage_username() {
+        return message_username;
+    }
+
+    public void setMessage_username(String message_username) {
+        this.message_username = message_username;
+    }
+
+    public int getMessageID() {
+        return messageID;
+    }
+
+    public void setMessageID(int messageID) {
+        this.messageID = messageID;
+    }
+
+    public String getMessagrReason() {
+        return messagrReason;
+    }
+
+    public void setMessagrReason(String messagrReason) {
+        this.messagrReason = messagrReason;
+    }
+
 
     public String getMessageInfo() {
         return messageInfo;
@@ -51,5 +79,10 @@ public class messageAction {
         message=messageservice.message(messageInfo);
         messageservice.add(message);
         return "success";
+    }
+    public String trans(){
+        message=messageservice.transmessage(messageInfo,messagrReason,message_username,messageID);
+        messageservice.add(message);
+        return "success1";
     }
 }

@@ -34,6 +34,9 @@
             <result name="success" type="json">
                 <param name="root">messageInfo</param>
             </result>
+            <result name="success1" type="json">
+                <param name="root">messagrReason</param>
+            </result>
         </action>
         <action name="*Relation" class="relationActionBean" method="{1}">
             <result name="success" type="json">

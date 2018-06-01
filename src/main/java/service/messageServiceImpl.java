@@ -91,4 +91,29 @@ public class messageServiceImpl implements messageService {
         message.setPictureByPictureId(picture);
         return message;
     }
+
+    @Override
+    public Message transmessage(String info, String resaon, String name,int id) {
+        Map<String, Object> session = ActionContext.getContext().getSession();
+        User u=(User)session.get("user");
+        User user=new User();
+        user.setUserId(u.getUserId());
+        Picture picture=new Picture();
+        picture.setPictureId(1);
+        Message message=new Message();
+        message.setMessageTranspondnum(0);
+        message.setMessageAgreenum(0);
+        message.setMessageCollectnum(0);
+        message.setMessageCommentnum(0);
+        message.setMessageType("Transpond");
+        message.setMessageTime(new Timestamp(System.currentTimeMillis()));
+        message.setMessageInfo("转发微博："+resaon+"//@"+name+"："+info);
+        message.setUserByUserId(user);
+        message.setPictureByPictureId(picture);
+        //得到当前用户转发的原始微博,将转发数加1
+        Message message1=messagedao.get(id);
+        message1.setMessageTranspondnum(message1.getMessageTranspondnum()+1);
+        messagedao.updata(message1);
+        return message;
+    }
 }
