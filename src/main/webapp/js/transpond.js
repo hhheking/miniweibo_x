@@ -17,6 +17,9 @@ $(function () {
                 dataType: 'json',
                 async:true,
                 success:function(data){
+                    //消除模态框
+                    $('#TransPondModal').hide();
+                    $(".modal-backdrop").remove();
                     //成功发布微博,消除文本框中的内容
                     $('#TransPondModal').modal('hide');
                     var info=$("#transpond_info").text();
@@ -70,7 +73,6 @@ $(function () {
                 }
             });
             //alert($(this).html());
-            $('#TransPondModal').hide();
         })
     })
     $(".glyphicon.glyphicon-link").click(function () {
