@@ -98,7 +98,7 @@
                             "\n" +
                             "                        </div>\n" +
                             "                    </div>"
-                        $("#myWeibo").append(myweibo);
+                        $("#myWeibo").preappend(myweibo);
                         //添加评论点击时间
                         //$("#myWeibo").children().eq(0).children().eq(1).children().eq(2).children("span").click(function () {});
                     },
