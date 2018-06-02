@@ -1,6 +1,7 @@
 package service;
 
 import bean.weibo;
+import com.opensymphony.xwork2.ActionContext;
 import pojo.*;
 
 import java.sql.Timestamp;
@@ -115,6 +116,40 @@ public class idolweiboServiceImpl implements idolweiboService {
                 weiboList.add(wb);
             }
         }
+        //此处按照微博发布的时间先后顺序 进行排序
+        weiboList.sort(new Comparator<weibo>() {
+            @Override
+            public int compare(weibo o1, weibo o2) {
+                return Long.compare(o1.getTime(), o2.getTime());
+            }
+        });
+        return weiboList;
+    }
+
+    @Override
+    public List<weibo> Myweibos() {
+        User user=(User) ActionContext.getContext().getSession().get("user");
+        List<weibo> weiboList=new ArrayList<>();
+            for(Message message:messageservice.myMessage(user)) {
+                weibo wb=new weibo();
+                //设置用户的头像
+                //
+                wb.setNikename(user.getUserNikename());
+                wb.setTime(timeCount(message));
+                wb.setWeiboInfo(message.getMessageInfo());
+                wb.setTranspond(message.getMessageTranspondnum());
+                wb.setAgree(message.getMessageAgreenum());
+                wb.setComment(message.getMessageCommentnum());
+                wb.setCollect(message.getMessageCollectnum());
+                wb.setMessid(message.getMessageId());
+                wb.setId(user.getUserId());
+                List<Agree> agrees= agreedao.findAgree(message.getMessageId(),user.getUserId());
+                if(agrees.isEmpty())
+                    wb.setAgree_status("no");
+                else
+                    wb.setAgree_status("yes");
+                weiboList.add(wb);
+            }
         //此处按照微博发布的时间先后顺序 进行排序
         weiboList.sort(new Comparator<weibo>() {
             @Override

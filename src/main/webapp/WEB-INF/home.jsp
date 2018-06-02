@@ -52,7 +52,6 @@
                     $("#send").removeClass("disabled");
                 }
             });
-
             $("#send").click(function () {
                 $.ajax({
                     type:'Post',
@@ -271,7 +270,7 @@
                             </div>
                             <div class="col-md-3 column" style="text-align: center;padding: 10px;">
                                 <!--得到微博的赞同状态和赞同次数-->
-                               <s:if test="#weibo.agree_status == \"no\""><span class="glyphicon glyphicon-thumbs-up">${weibo.getAgree()}</span></s:if>
+                                <s:if test="#weibo.agree_status == \"no\""><span class="glyphicon glyphicon-thumbs-up">${weibo.getAgree()}</span></s:if>
                                 <s:else>
                                     <span class="glyphicon glyphicon-thumbs-up" style="color: coral">${weibo.getAgree()}</span>
                                 </s:else>

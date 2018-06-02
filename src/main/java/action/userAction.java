@@ -161,6 +161,7 @@ public class userAction {
         fans=relationservice.calfans(user);
         idols=relationservice.calidols(user);
         mymessageList=messageservice.myMessage(user);
+        weibos=idolweiboservice.Myweibos();
         return "personspace";
     }
     public String to(){
