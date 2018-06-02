@@ -73,17 +73,15 @@ public class commentServiceImpl implements commentService {
     public String[][] commentInformation(int messid) {
         List<Comment> list=this.commentList(messid);
         String [][]result=new String[list.size()][5];
-        int i=0;
-        System.out.println(list.size());
+        int i=list.size()-1;
         Timestamp timestamp=new Timestamp(System.currentTimeMillis());
         for(Comment comment:list){
-            System.out.print(comment.getUserByUserId().getUserId());
             result[i][0]=userdao.get(comment.getUserByUserId().getUserId()).getUserNikename();//昵称
             result[i][1]="1";//照片url
             result[i][2]= String.valueOf((timestamp.getTime()-comment.getCommentTime().getTime())/(1000*60));//评论时间
             result[i][3]=comment.getCommentInfo();//评论内容
             result[i][4]= String.valueOf(comment.getUserByUserId().getUserId());//userid
-            i++;
+            i--;
         }
         return result;
     }
