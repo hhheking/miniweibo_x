@@ -64,6 +64,7 @@
                         //成功发布微博,消除文本框中的内容
                         var info=$("#mycontent").val();
                         $("#mycontent").val("");
+                        $("#mymessagenum").html((parseInt($("#mymessagenum").html())+1));
                         var myweibo="<div style=\"background-color: white;margin: 5px;\">\n" +
                             "                        <!--上层div-->\n" +
                             "                        <div class=\"row clearfix\">\n" +
@@ -334,7 +335,7 @@
                             <div class="sort">粉丝</div>
                         </div>
                         <div class="col-sm-4 col-xs-4">
-                            <div>${mymessageList.size()}</div>
+                            <div id="mymessagenum">${mymessageList.size()}</div>
                             <div class="sort">微博</div>
                         </div>
                     </div>
