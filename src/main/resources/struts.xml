@@ -56,5 +56,10 @@
                 <param name="root">yes</param>
             </result>
         </action>
+        <action name="collectionAction" class="collectionActionBean">
+            <result name="success" type="json">
+                <param name="root">yes</param>
+            </result>
+        </action>
     </package>
 </struts>

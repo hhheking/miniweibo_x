@@ -8,12 +8,14 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import dao.agreeDAO;
+import dao.collectionDAO;
 
 public class idolweiboServiceImpl implements idolweiboService {
     messageService messageservice;
     relationService relationservice;
     userService userservice;
     agreeDAO agreedao;
+    collectionDAO collectiondao;
 
     public relationService getRelationservice() {
         return relationservice;
@@ -45,6 +47,14 @@ public class idolweiboServiceImpl implements idolweiboService {
 
     public agreeDAO getAgreedao() {
         return agreedao;
+    }
+
+    public void setCollectiondao(collectionDAO collectiondao) {
+        this.collectiondao = collectiondao;
+    }
+
+    public collectionDAO getCollectiondao() {
+        return collectiondao;
     }
 
     @Override
@@ -97,7 +107,11 @@ public class idolweiboServiceImpl implements idolweiboService {
                     wb.setAgree_status("no");
                 else
                     wb.setAgree_status("yes");
-
+                List<Collection> collections = this.collectiondao.list(user.getUserId(),message.getMessageId());
+                if(collections.isEmpty())
+                    wb.setCollect_status("no");
+                else
+                    wb.setCollect_status("yes");
                 weiboList.add(wb);
             }
         }

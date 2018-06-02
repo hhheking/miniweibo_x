@@ -3,19 +3,19 @@ package service;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import pojo.Agree;
 import pojo.Message;
-import dao.agreeDAOImpl;
+import dao.agreeDAO;
 import pojo.User;
 
 import java.util.List;
 
 public class agreeServicesImpl implements agreeService {
-    agreeDAOImpl agreeDAO;
+    agreeDAO agreeDAO;
 
-    public void setAgreeDAO(agreeDAOImpl agreeDAO) {
+    public void setAgreeDAO(agreeDAO agreeDAO) {
         this.agreeDAO = agreeDAO;
     }
 
-    public agreeDAOImpl getAgreeDAO() {
+    public agreeDAO getAgreeDAO() {
         return agreeDAO;
     }
 
@@ -28,7 +28,7 @@ public class agreeServicesImpl implements agreeService {
         message.setMessageId(message_id);
         agree.setUserByUserId(user);
         agree.setMessageByMessageId(message);
-        agreeDAO.save(agree);
+        agreeDAO.addAgree(agree);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class agreeServicesImpl implements agreeService {
             message.setMessageAgreenum(message.getMessageAgreenum() + 1);
         else
             message.setMessageAgreenum(message.getMessageAgreenum() - 1);
-        agreeDAO.update(message);
+        agreeDAO.updateMessage(message);
 
     }
 }

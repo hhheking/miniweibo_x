@@ -112,7 +112,7 @@
     </script>
     <style type="text/css">
         body{
-            background: url("images/bg.jpg") center top;
+            background: url("/images/bg.jpg") center top;
         }
         #index_panel{
             position: fixed;
@@ -121,13 +121,13 @@
             width: 400px;
         }
         .face{
-            background: url("images/face.png")  no-repeat;
+            background: url("/images/face.png")  no-repeat;
             padding:1px 0 10px 25px;
             cursor: pointer;
             font-size: 15px;
         }
         .pic{
-            background: url("images/pic.png")  no-repeat;
+            background: url("/images/pic.png")  no-repeat;
             margin-left: 10px;
             padding:1px 0 10px 25px;
             cursor: pointer;
@@ -257,7 +257,12 @@
                             </div>
                             <div class="col-md-3 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;">
                                 <!--得到微博的收藏状态和收藏的次数-->
-                                <span class="glyphicon glyphicon-star-empty">${weibo.getCollect_status()}${weibo.getCollect()}</span>
+                                <s:if test="#weibo.collect_status == \"no\""><span class="glyphicon glyphicon-star-empty">收藏</span></s:if>
+                                <s:else>
+                                    <span class="glyphicon glyphicon-star-empty" style="color: coral">已收藏</span>
+                                </s:else>
+                                <input value="${weibo.getMessid()}" style="display: none">
+                                <input value="<%=user.getUserId()%>" style="display: none;">
                             </div>
                             <div class="col-md-3 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;">
                                 <span id="showcomment" class="glyphicon glyphicon-edit">评价${weibo.getComment()}</span>

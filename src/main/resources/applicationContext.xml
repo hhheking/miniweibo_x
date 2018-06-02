@@ -21,11 +21,15 @@
     <bean name="agreeActionBean" class="action.agreeAction">
         <property name="agreeService" ref="agreeserviceImpl"></property>
     </bean>
+    <bean name="collectionActionBean" class="action.collectionAction">
+        <property name="collectionservice" ref="collectionserviceImpl"></property>
+    </bean>
     <bean name="idolweiboserviceImpl" class="service.idolweiboServiceImpl">
         <property name="relationservice" ref="relationserviceImpl"></property>
         <property name="messageservice" ref="messageserviceImpl"></property>
         <property name="userservice" ref="userserviceImpl"></property>
         <property name="agreedao" ref="agreedaoImpl"></property>
+        <property name="collectiondao" ref="collectiondaoImpl"></property>
     </bean>
     <bean id="commentservice" class="service.commentServiceImpl">
         <property name="messagedao" ref="messagedaoimpl"></property>
@@ -62,6 +66,12 @@
     <bean name="agreedaoImpl" class="dao.agreeDAOImpl">
         <property name="sessionFactory" ref="sf"></property>
     </bean>
+    <bean name="collectionserviceImpl" class="service.collectionServiceImpl">
+        <property name="collection" ref="collectiondaoImpl"></property>
+    </bean>
+    <bean name="collectiondaoImpl" class="dao.collectionDAOImpl">
+        <property name="sessionFactory" ref="sf"></property>
+    </bean>
     <bean name="sf"     class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
         <property name="dataSource" ref="ds"/>
         <property name="mappingResources">
@@ -72,6 +82,7 @@
                 <value>Picture.hbm.xml</value>
                 <value>Comment.hbm.xml</value>
                 <value>Agree.hbm.xml</value>
+                <value>Collection.hbm.xml</value>
             </list>
         </property>
 
@@ -89,7 +100,7 @@
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/miniweibo?characterEncoding=UTF-8"/>
         <property name="username" value="root"/>
-        <property name="password" value=""/>
+        <property name="password" value="root"/>
     </bean>
 
 </beans>

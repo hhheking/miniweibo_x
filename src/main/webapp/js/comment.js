@@ -1,4 +1,40 @@
 $(function () {
+    //收藏功能
+    $(".glyphicon.glyphicon-star-empty").click(function () {
+        var message_id = $(this).next().val();
+        var user_id = $(this).next().next().val();
+        var add=1;
+        var status = $(this).html();
+        var yan = $(this).next().css("color");
+        if($(this).css("color") != yan) {
+            add = 0;
+            $(this).css("color",yan);
+            $(this).html("收藏");
+        }
+        else {
+            $(this).css("color", "coral");
+            $(this).html("已收藏");
+        }
+
+        $.ajax({
+            type : "POST",  //请求方式
+            url : "collectionAction",  //请求路径
+            data : {
+                'message_id' : message_id,
+                'user_id' : user_id,
+                'add' : add
+            },
+            async:true,
+            success : function(data) {  //异步请求成功执行的回调函数
+
+            },//ajax引擎一般用不到；状态信息；抛出的异常信息
+            error : function() {
+                alert("失败了")
+            }
+        });
+
+
+    });
     //点赞功能
     $(".glyphicon.glyphicon-thumbs-up").click(function () {
         var message_id = $(this).next().val();
