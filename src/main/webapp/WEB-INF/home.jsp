@@ -325,18 +325,22 @@
                     <a href="personspaceUser"><img src="images/icon.png" class="img-circle" width="90px;"></a>
                     <h4 style="font-weight: bold;"><%=user.getUserNikename()%></h4>
                     <div class="col-sm-12" >
-                        <div class="col-sm-4 col-xs-4">
+                        <a href="idolUser"><div class="col-sm-4 col-xs-4">
                             <div>${idols}</div>
                             <div class="sort">关注</div>
-                        </div>
-                        <div class="col-sm-4 col-xs-4">
-                            <div>${fans}</div>
-                            <div class="sort">粉丝</div>
-                        </div>
-                        <div class="col-sm-4 col-xs-4">
-                            <div id="mymessagenum">${mymessageList.size()}</div>
-                            <div class="sort">微博</div>
-                        </div>
+                        </div></a>
+                        <a href="fanUser">
+                            <div class="col-sm-4 col-xs-4">
+                                <div>${fans}</div>
+                                <div class="sort">粉丝</div>
+                            </div>
+                        </a>
+                        <a href="personspaceUser">
+                            <div class="col-sm-4 col-xs-4">
+                                <div id="mymessagenum">${mymessageList.size()}</div>
+                                <div class="sort">微博</div>
+                            </div>
+                        </a>
                     </div>
                 </div>
                 <!--大家正在看-->

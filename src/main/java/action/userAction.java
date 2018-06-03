@@ -1,5 +1,6 @@
 package action;
 
+import bean.fan;
 import bean.weibo;
 import com.opensymphony.xwork2.ActionContext;
 import pojo.Message;
@@ -11,6 +12,7 @@ import service.relationService;
 import service.userService;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +29,24 @@ public class userAction {
     List<weibo> weibos;
     String status;
     int id;
+    List<User> idolsuser;
+    List<fan> fanList;
+
+    public List<fan> getFanList() {
+        return fanList;
+    }
+
+    public void setFanList(List<fan> fanList) {
+        this.fanList = fanList;
+    }
+
+    public List<User> getIdolsuser() {
+        return idolsuser;
+    }
+
+    public void setIdolsuser(List<User> idolsuser) {
+        this.idolsuser = idolsuser;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -155,13 +175,13 @@ public class userAction {
     }
 
     public String personspace(){
-        //得到session中的user实例
+        //进入自己的空间
         Map<String, Object> session = ActionContext.getContext().getSession();
         user=(User)session.get("user");
         fans=relationservice.calfans(user);
         idols=relationservice.calidols(user);
         mymessageList=messageservice.myMessage(user);
-        weibos=idolweiboservice.Myweibos();
+        weibos=idolweiboservice.Myweibos(user);
         return "personspace";
     }
     public String to(){
@@ -187,7 +207,53 @@ public class userAction {
             fans=relationservice.calfans(user);
             idols=relationservice.calidols(user);
             mymessageList=messageservice.myMessage(user);
+            weibos=idolweiboservice.Myweibos(user);
             return "other_person";
        }
     }
+
+    public String idol(){
+        //进入个人主页 显示所有关注的人
+        Map<String, Object> session = ActionContext.getContext().getSession();
+        User user1=(User)session.get("user");
+        idolsuser=new ArrayList<>();
+        for(Relation relation:relationservice.myIdols(user1)){
+            idolsuser.add(userservice.get(relation.getUserByUserByid().getUserId()));
+        }
+        return "personspace_idols";
+    }
+
+    public String fan(){
+        //进入个人主页 显示所有关注“我”的人
+        //得到当前登录的用户
+        Map<String, Object> session = ActionContext.getContext().getSession();
+        User user1=(User)session.get("user");
+        //fanList为所有关注我的人
+        fanList=new ArrayList<>();
+        //idolsuer为所有我关注的人
+        idolsuser=new ArrayList<>();
+        for(Relation relation:relationservice.myIdols(user1)){
+            idolsuser.add(userservice.get(relation.getUserByUserByid().getUserId()));
+        }
+        for(Relation relation:relationservice.myFans(user1)){
+           user=userservice.get(relation.getUserByUserId().getUserId());
+           fan fan1=new fan();
+           fan1.setStatus("+关注");
+           fan1.setName(user.getUserNikename());
+           fan1.setUserid(user.getUserId());
+           //设置头像的url地址
+           fan1.setImageurl("");
+           for(User user2:idolsuser){
+               if(user2.getUserId()==user.getUserId()){
+                   fan1.setStatus("互相关注");
+               }
+           }
+           fan1.setFans(relationservice.calfans(user));
+           fan1.setIdols(relationservice.calidols(user));
+           fan1.setWeibos(messageservice.myMessage(user).size());
+           fanList.add(fan1);
+        }
+        return "personspace_fans";
+    }
+
 }

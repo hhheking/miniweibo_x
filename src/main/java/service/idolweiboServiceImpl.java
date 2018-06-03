@@ -127,8 +127,7 @@ public class idolweiboServiceImpl implements idolweiboService {
     }
 
     @Override
-    public List<weibo> Myweibos() {
-        User user=(User) ActionContext.getContext().getSession().get("user");
+    public List<weibo> Myweibos(User user) {
         List<weibo> weiboList=new ArrayList<>();
             for(Message message:messageservice.myMessage(user)) {
                 weibo wb=new weibo();

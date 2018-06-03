@@ -59,7 +59,7 @@
     </script>
     <style type="text/css">
         body{
-            background: url("/images/bg.jpg") center top;
+            background: url("images/bg.jpg") center top;
         }
         #index_panel{
             position: fixed;
@@ -68,13 +68,13 @@
             width: 400px;
         }
         .face{
-            background: url("/images/face.png")  no-repeat;
+            background: url("images/face.png")  no-repeat;
             padding:1px 0 10px 25px;
             cursor: pointer;
             font-size: 15px;
         }
         .pic{
-            background: url("/images/pic.png")  no-repeat;
+            background: url("images/pic.png")  no-repeat;
             margin-left: 10px;
             padding:1px 0 10px 25px;
             cursor: pointer;
@@ -94,7 +94,6 @@
 <body>
 <!--导航栏 基于bootstrap框架-->
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand"><script type="text/javascript">for(var i=1;i<=30;i++){document.write("&nbsp;");}</script>mini微博</a>
@@ -141,6 +140,7 @@
             </div>
         </div>
     </div>
+
     <!--选项卡div-->
     <div class="container-fluid">
         <div class="row clearfix" style="background-color: white;padding: 7px;">
@@ -151,6 +151,8 @@
                 <div>他的相册</div>
             </div>
         </div>
+    </div>
+
     <!--主体div-->
     <div class="row clearfix" style="margin-top: 10px;">
         <div class="col-md-4 column">
@@ -196,24 +198,111 @@
         <!--右侧主体div-->
         <div class="col-md-8 column">
             <!--tab选项卡-->
-            <div class="col-sm-12">
-
-            </div>
+            <s:iterator value="weibos" var="weibo">
+                <div style="background-color: white;margin: 5px;">
+                    <!--上层div-->
+                    <div class="row clearfix">
+                        <div class="col-md-2 column" style="padding-left: 25px;padding-top: 10px;">
+                            <!--点击头像 进入用户空间-->
+                            <a href="toUser?userid=${weibo.getId()}"><img src="images/icon.png" class="img-circle" width="70px;"></a>
+                        </div>
+                        <div class="col-md-10 column">
+                            <h4 style="font-weight: bold;">${weibo.getNikename()}</h4>
+                            <div class="dropdown" style="position: absolute;top: 10px;right: 20px;">
+                                <button type="button" class="btn dropdown-toggle"
+                                        id="dropdownMenu1" data-toggle="dropdown"><span class="caret"></span></button>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                    <li role="presentation">
+                                        <a role="menuitem" tabindex="-1" href="#">置顶</a>
+                                    </li>
+                                    <li role="presentation" class="divider"></li>
+                                    <li role="presentation">
+                                        <a role="menuitem" tabindex="-1" href="#">删除</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <h6>${weibo.getTime()}分钟前 来自miniweibo.com</h6>
+                            <p>${weibo.getWeiboInfo()}</p>
+                        </div>
+                    </div>
+                    <!--下层div-->
+                    <div class="row clearfix" style="border-top: 1px solid #ddd;border-bottom: 1px solid #ddd;">
+                        <div class="col-md-4 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;">
+                            <span class="glyphicon glyphicon-link" data-toggle="modal" data-target="#TransPondModal">转发${weibo.getTranspond()}</span>
+                        </div>
+                        <div class="col-md-3 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;display: none;"  >
+                            <!--得到微博的收藏状态和收藏的次数-->
+                            <s:if test="#weibo.collect_status == \"no\""><span class="glyphicon glyphicon-star-empty">收藏</span></s:if>
+                            <s:else>
+                                <span class="glyphicon glyphicon-star-empty" style="color: coral">已收藏</span>
+                            </s:else>
+                            <input value="${weibo.getMessid()}" style="display: none">
+                            <input value="<%=user.getUserId()%>" style="display: none;">
+                        </div>
+                        <div class="col-md-4 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;">
+                            <span id="showcomment" class="glyphicon glyphicon-edit">评价${weibo.getComment()}</span>
+                            <input id="MessageId" value="${weibo.getMessid()}" style="display: none">
+                        </div>
+                        <div class="col-md-4 column" style="text-align: center;padding: 10px;">
+                            <!--得到微博的赞同状态和赞同次数-->
+                            <s:if test="#weibo.agree_status == \"no\""><span class="glyphicon glyphicon-thumbs-up">${weibo.getAgree()}</span></s:if>
+                            <s:else>
+                                <span class="glyphicon glyphicon-thumbs-up" style="color: coral">${weibo.getAgree()}</span>
+                            </s:else>
+                            <input value="${weibo.getMessid()}" style="display: none">
+                            <input value="<%=user.getUserId()%>" style="display: none;">
+                        </div>
+                    </div>
+                    <!--点击评价显示出来的div-->
+                    <div id="comment" style="padding-left: 25px;background-color: #eee;display: none">
+                        <!--分割线-->
+                        <hr>
+                        <div class="row clearfix">
+                            <div class="col-md-1 column">
+                                <!--点击头像 进入用户空间-->
+                                <img src="images/icon.png" width="35px;">
+                            </div>
+                            <div class="col-md-11 column" style="padding-right: 35px;">
+                                <form role="form" onsubmit='return false'>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" style="height: 30px;">
+                                    </div>
+                                    <div class="form-group">
+                                        <span class="face"></span>
+                                        <span class="pic"></span>
+                                        <button type="submit" class="btn btn-default pull-right" style="background-color: orange;height: 30px;">评论</button>
+                                        <input value="${weibo.getMessid()}" style="display: none">
+                                        <input id="sessionuserid" value="<%=user.getUserId()%>" style="display: none">
+                                        <input id="sessionusername" value="<%=user.getUserNikename()%>" style="display: none">
+                                    </div>
+                                </form>
+                                <!--分割线-->
+                                <hr>
+                            </div>
+                            <!--自己发布的评论显示在这里-->
+                            <div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </s:iterator>
         </div>
-    </div>
-    <!--右侧空白div-->
-    <div class="col-md-2 column"></div>
-    <!--标题搜索栏获得焦点后，显示下拉搜索列表-->
-    <div id="index_panel" style="display:none; ">
-        <a href="#" class="list-group-item"> <span class="badge" style="background-color: #FF4500;">爆</span>1.第一条热搜第一条热搜第一条热搜</a>
-        <a href="#" class="list-group-item"><span class="badge" style="background-color: #FF0000;">热</span>2.第二条热搜第二条热搜第二条热搜</a>
-        <a href="#" class="list-group-item"><span class="badge" style="background-color: #DC143C;">新</span>3.第三条热搜第三条热搜第三条热搜</a>
-        <a href="#" class="list-group-item">4.第四条热搜第四条热搜第四条热搜</a>
-        <a href="#" class="list-group-item">5.第五条热搜第五条热搜第五条热搜</a>
-        <a href="#" class="list-group-item">6.第六条热搜第六条热搜第六条热搜</a>
-        <a href="#" class="list-group-item">7.第七条热搜第七条热搜第七条热搜</a>
+
     </div>
 </div>
+<!--右侧空白div-->
+<div class="col-md-2 column"></div>
+<!--标题搜索栏获得焦点后，显示下拉搜索列表-->
+<div id="index_panel" style="display:none; ">
+    <a href="#" class="list-group-item"> <span class="badge" style="background-color: #FF4500;">爆</span>1.第一条热搜第一条热搜第一条热搜</a>
+    <a href="#" class="list-group-item"><span class="badge" style="background-color: #FF0000;">热</span>2.第二条热搜第二条热搜第二条热搜</a>
+    <a href="#" class="list-group-item"><span class="badge" style="background-color: #DC143C;">新</span>3.第三条热搜第三条热搜第三条热搜</a>
+    <a href="#" class="list-group-item">4.第四条热搜第四条热搜第四条热搜</a>
+    <a href="#" class="list-group-item">5.第五条热搜第五条热搜第五条热搜</a>
+    <a href="#" class="list-group-item">6.第六条热搜第六条热搜第六条热搜</a>
+    <a href="#" class="list-group-item">7.第七条热搜第七条热搜第七条热搜</a>
+</div>
+
 <div class="bian">
     <header class="header">
         <a class="back"></a>
@@ -230,6 +319,7 @@
         <p>发送</p>
     </div>
 </div>
-<script src="js/chat.js" type="text/javascript" charset="utf-8"></script>
+
 </body>
+<script src="js/chat.js" type="text/javascript" charset="utf-8"></script>
 </html>
