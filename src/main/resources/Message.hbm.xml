@@ -15,11 +15,31 @@
         <property name="messageCommentnum" column="message_commentnum"/>
         <property name="messageTranspondnum" column="message_transpondnum"/>
         <property name="messageAgreenum" column="message_agreenum"/>
-        <many-to-one name="userByUserId" class="pojo.User">
+        <many-to-one name="userByUserId" class="pojo.User"  >
             <column name="user_id"/>
         </many-to-one>
         <many-to-one name="pictureByPictureId" class="pojo.Picture">
             <column name="picture_id" not-null="true"/>
         </many-to-one>
+        <set name="commentSet" lazy="false" cascade="delete" inverse="true">
+            <key column="message_id"></key>
+            <one-to-many class="pojo.Comment"></one-to-many>
+        </set>
+        <set name="agreeSet" lazy="false" cascade="delete" inverse="true">
+            <key column="message_id"></key>
+            <one-to-many class="pojo.Agree"></one-to-many>
+        </set>
+        <set name="collectionSet" lazy="false" cascade="delete" inverse="true">
+            <key column="message_id"></key>
+            <one-to-many class="pojo.Collection"></one-to-many>
+        </set>
+        <set name="transpondSet" lazy="false" cascade="delete" inverse="true">
+            <key column="message_id"></key>
+            <one-to-many class="pojo.Transpond"></one-to-many>
+        </set>
+        <set name="transpondresultSet" lazy="false" cascade="delete" inverse="true">
+            <key column="message_id"></key>
+            <one-to-many class="pojo.Transpond"></one-to-many>
+        </set>
     </class>
 </hibernate-mapping>

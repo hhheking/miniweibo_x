@@ -136,7 +136,10 @@ public class idolweiboServiceImpl implements idolweiboService {
                     wb.setAgree_status("yes");
                 if (message.getMessageType().equals("Transpond")) {
                     wb.setIsTransponpd("true");
-                    int OrignId = transponddao.findTranspondFrom(message.getMessageId()).getMessageByMessageId().getMessageId();
+                    Transpond transpond=transponddao.findTranspondFrom(message.getMessageId());
+                    int OrignId =0;
+                    if (transpond!=null)
+                        OrignId = transpond.getMessageByMessageId().getMessageId();
                     wb.setTranfrommessid(OrignId);
                     weiboList.add(wb);
                 }
@@ -163,9 +166,21 @@ public class idolweiboServiceImpl implements idolweiboService {
             Message message = messagedao.get(weiboList.get(i).getMessid());
             List<transInfo> list = new ArrayList<>();
             while (message.getMessageType().equals("Transpond")) {
-                int OrignId = transponddao.findTranspondFrom(message.getMessageId()).getMessageByMessageId().getMessageId();
+                Transpond transpond=transponddao.findTranspondFrom(message.getMessageId());
+                int OrignId =0;
+                if (transpond!=null)
+                    OrignId = transpond.getMessageByMessageId().getMessageId();
                 message = messagedao.get(OrignId);
-                User u = userdao.get(message.getUserByUserId().getUserId());
+                User u;
+                if(message==null){
+                    message=new Message();
+                    message.setMessageInfo("转发微博被删除");
+                    message.setMessageType("Orign");
+                    u=new User();
+                }
+                else {
+                    u = userdao.get(message.getUserByUserId().getUserId());
+                }
                 weiboList.get(i).setTranList(list);
                 transInfo transinfo = new transInfo();
                 transinfo.setMessage(message);

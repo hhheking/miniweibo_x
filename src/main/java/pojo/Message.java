@@ -2,6 +2,8 @@ package pojo;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Message {
@@ -15,6 +17,50 @@ public class Message {
     private Integer messageAgreenum;
     private User userByUserId;
     private Picture pictureByPictureId;
+    private Set<Collection> collectionSet=new HashSet<Collection>();
+    private Set<Comment> commentSet=new HashSet<Comment>();
+    private Set<Agree> agreeSet=new HashSet<Agree>();
+    private Set<Transpond> transpondSet=new HashSet<Transpond>();
+    private Set<Transpond> transpondresultSet=new HashSet<Transpond>();
+
+    public Set<Transpond> getTranspondresultSet() {
+        return transpondresultSet;
+    }
+
+    public void setTranspondresultSet(Set<Transpond> transpondresultSet) {
+        this.transpondresultSet = transpondresultSet;
+    }
+    public Set<Agree> getAgreeSet() {
+        return agreeSet;
+    }
+
+    public Set<Collection> getCollectionSet() {
+        return collectionSet;
+    }
+
+    public Set<Comment> getCommentSet() {
+        return commentSet;
+    }
+
+    public void setAgreeSet(Set<Agree> agreeSet) {
+        this.agreeSet = agreeSet;
+    }
+
+    public Set<Transpond> getTranspondSet() {
+        return transpondSet;
+    }
+
+    public void setCollectionSet(Set<Collection> collectionSet) {
+        this.collectionSet = collectionSet;
+    }
+
+    public void setCommentSet(Set<Comment> commentSet) {
+        this.commentSet = commentSet;
+    }
+
+    public void setTranspondSet(Set<Transpond> transpondSet) {
+        this.transpondSet = transpondSet;
+    }
 
     @Id
     @Column(name = "message_id")

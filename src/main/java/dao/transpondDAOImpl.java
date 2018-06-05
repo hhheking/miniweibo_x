@@ -28,6 +28,11 @@ public class transpondDAOImpl extends HibernateTemplate implements transpondDAO 
 
     @Override
     public Transpond findTranspondFrom(int result_id) {
-        return (Transpond)find("from Transpond t where t.resultmessid="+result_id).get(0);
+        List<Transpond> list= (List<Transpond>) find("from Transpond t where t.resultmessid="+result_id);
+        if(list.size()>0){
+            return list.get(0);
+        }
+        return null;
+
     }
 }
