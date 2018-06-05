@@ -190,12 +190,13 @@
         <div class="col-md-8 column">
             <!--tab选项卡-->
             <s:iterator value="weibos" var="weibo">
-                <div style="background-color: white;margin: 5px;">
-                    <!--上层div-->
-                    <div class="row clearfix">
+            <div style="background-color: white;margin: 5px;">
+                <!--上层div-->
+                <div class="row clearfix" style="padding-bottom: 1.5rem;">
+                    <div class="col-md-12 column">
                         <div class="col-md-2 column" style="padding-left: 25px;padding-top: 10px;">
                             <!--点击头像 进入用户空间-->
-                            <a href="toUser?userid=${weibo.getId()}"><img src="images/icon.png" class="img-circle" width="70px;"></a>
+                            <a href="toUser?userid=${weibo.getId()}"><img src="images/icon.png" class="img-circle" width="60px;"></a>
                         </div>
                         <div class="col-md-10 column">
                             <h4 style="font-weight: bold;">${weibo.getNikename()}</h4>
@@ -213,70 +214,102 @@
                                 </ul>
                             </div>
                             <h6>${weibo.getTime()}分钟前 来自miniweibo.com</h6>
-                            <p>${weibo.getWeiboInfo()}</p>
-                        </div>
-                    </div>
-                    <!--下层div-->
-                    <div class="row clearfix" style="border-top: 1px solid #ddd;border-bottom: 1px solid #ddd;">
-                        <div class="col-md-4 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;">
-                            <span class="glyphicon glyphicon-link" data-toggle="modal" data-target="#TransPondModal">转发${weibo.getTranspond()}</span>
-                        </div>
-                        <div class="col-md-3 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;display: none;"  >
-                            <!--得到微博的收藏状态和收藏的次数-->
-                            <s:if test="#weibo.collect_status == \"no\""><span class="glyphicon glyphicon-star-empty">收藏</span></s:if>
+                                ${weibo.getWeiboInfo()}
+                            <s:if test="#weibo.isTransponpd== \"true\"">
+                            <s:iterator value="#weibo.tranList" var="tran">
+                            <s:if test="#tran.message.messageType==\"Transpond\"">
+                                //<a href="toUser?userid=${tran.getUser().getUserId()}" ><b>@${tran.getUser().getUserNikename()}:</b></a>${tran.getMessage().getMessageInfo()}
+                            </s:if>
                             <s:else>
-                                <span class="glyphicon glyphicon-star-empty" style="color: coral">已收藏</span>
-                            </s:else>
-                            <input value="${weibo.getMessid()}" style="display: none">
-                            <input value="<%=user.getUserId()%>" style="display: none;">
                         </div>
-                        <div class="col-md-4 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;">
-                            <span id="showcomment" class="glyphicon glyphicon-edit">评价${weibo.getComment()}</span>
-                            <input id="MessageId" value="${weibo.getMessid()}" style="display: none">
+                        <div class="col-md-12 column" style="background-color:#eee;max-height: 500px;padding-top: 1rem;padding-left: 0px;">
+                            <div class="col-md-10 column pull-right">
+                                <a href="toUser?userid=${tran.getUser().getUserId()}" ><b>@${tran.getUser().getUserNikename()}</b></a>
+                                <p>${tran.getMessage().getMessageInfo()}</p>
+                                <br>
+                                <div>
+                                    <h6 class="pull-left">${tran.getMessage().getMessageTime()}</h6>
+                                    <h6 class="pull-right"><span class="glyphicon glyphicon-link">${tran.getMessage().getMessageTranspondnum()}</span>&nbsp;
+                                        <span class="glyphicon glyphicon-edit">${tran.getMessage().getMessageCommentnum()}</span>&nbsp;
+                                        <span class="glyphicon glyphicon-thumbs-up">${tran.getMessage().getMessageAgreenum()}</span>
+                                    </h6>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-4 column" style="text-align: center;padding: 10px;">
-                            <!--得到微博的赞同状态和赞同次数-->
-                            <s:if test="#weibo.agree_status == \"no\""><span class="glyphicon glyphicon-thumbs-up">${weibo.getAgree()}</span></s:if>
-                            <s:else>
-                                <span class="glyphicon glyphicon-thumbs-up" style="color: coral">${weibo.getAgree()}</span>
-                            </s:else>
-                            <input value="${weibo.getMessid()}" style="display: none">
-                            <input value="<%=user.getUserId()%>" style="display: none;">
-                        </div>
+                        </s:else>
+                        </s:iterator>
+                        </s:if>
+                        <s:else>
                     </div>
-                    <!--点击评价显示出来的div-->
-                    <div id="comment" style="padding-left: 25px;background-color: #eee;display: none">
+                    </s:else>
+                </div>
+            </div>
+            <!--下层div-->
+            <div class="row clearfix" style="border-top: 1px solid #ddd;border-bottom: 1px solid #ddd;">
+                <div class="col-md-3 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;">
+                    <span class="glyphicon glyphicon-link" data-toggle="modal" data-target="#TransPondModal">转发${weibo.getTranspond()}</span>
+                </div>
+                <div class="col-md-3 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;">
+                    <!--得到微博的收藏状态和收藏的次数-->
+                    <s:if test="#weibo.collect_status == \"no\""><span class="glyphicon glyphicon-star-empty">收藏</span></s:if>
+                    <s:else>
+                        <span class="glyphicon glyphicon-star-empty" style="color: coral">已收藏</span>
+                    </s:else>
+                    <input value="${weibo.getMessid()}" style="display: none">
+                    <input value="<%=user.getUserId()%>" style="display: none;">
+                </div>
+                <div class="col-md-3 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;">
+                    <span id="showcomment" class="glyphicon glyphicon-edit">评价${weibo.getComment()}</span>
+                    <input id="MessageId" value="${weibo.getMessid()}" style="display: none">
+                </div>
+                <div class="col-md-3 column" style="text-align: center;padding: 10px;">
+                    <!--得到微博的赞同状态和赞同次数-->
+                    <s:if test="#weibo.agree_status == \"no\""><span class="glyphicon glyphicon-thumbs-up">${weibo.getAgree()}</span></s:if>
+                    <s:else>
+                        <span class="glyphicon glyphicon-thumbs-up" style="color: coral">${weibo.getAgree()}</span>
+                    </s:else>
+                    <input value="${weibo.getMessid()}" style="display: none">
+                    <input value="<%=user.getUserId()%>" style="display: none;">
+                </div>
+            </div>
+            <!--点击评价显示出来的div-->
+            <div id="comment" style="padding-left: 25px;background-color: #eee;display: none">
+                <!--分割线-->
+                <hr>
+                <div class="row clearfix">
+                    <div class="col-md-1 column">
+                        <!--点击头像 进入用户空间-->
+                        <img src="images/icon.png" width="35px;">
+                    </div>
+                    <div class="col-md-11 column" style="padding-right: 35px;">
+                        <form role="form" onsubmit='return false'>
+                            <div class="form-group">
+                                <input type="text" class="form-control" style="height: 30px;">
+                            </div>
+                            <div class="form-group">
+                                <span class="face"></span>
+                                <span class="pic"></span>
+                                <button type="submit" class="btn btn-default pull-right" style="background-color: orange;height: 30px;">评论</button>
+                                <input value="${weibo.getMessid()}" style="display: none">
+                                <input id="sessionuserid" value="<%=user.getUserId()%>" style="display: none">
+                                <input id="sessionusername" value="<%=user.getUserNikename()%>" style="display: none">
+                            </div>
+                        </form>
                         <!--分割线-->
                         <hr>
-                        <div class="row clearfix">
-                            <div class="col-md-1 column">
-                                <!--点击头像 进入用户空间-->
-                                <img src="images/icon.png" width="35px;">
-                            </div>
-                            <div class="col-md-11 column" style="padding-right: 35px;">
-                                <form role="form" onsubmit='return false'>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" style="height: 30px;">
-                                    </div>
-                                    <div class="form-group">
-                                        <span class="face"></span>
-                                        <span class="pic"></span>
-                                        <button type="submit" class="btn btn-default pull-right" style="background-color: orange;height: 30px;">评论</button>
-                                        <input value="${weibo.getMessid()}" style="display: none">
-                                        <input id="sessionuserid" value="<%=user.getUserId()%>" style="display: none">
-                                        <input id="sessionusername" value="<%=user.getUserNikename()%>" style="display: none">
-                                    </div>
-                                </form>
-                                <!--分割线-->
-                                <hr>
-                            </div>
-                            <!--自己发布的评论显示在这里-->
-                            <div>
-                            </div>
-                        </div>
                     </div>
+                    <!--评论-->
+                    <!--自己发布的评论显示在这里-->
+                    <div>
+
+
+                    </div>
+
+
                 </div>
-            </s:iterator>
+            </div>
+        </div>
+        </s:iterator>
         </div>
 
     </div>

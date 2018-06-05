@@ -2,6 +2,7 @@ package service;
 
 import bean.transInfo;
 import bean.weibo;
+import com.opensymphony.xwork2.ActionContext;
 import dao.*;
 import pojo.*;
 
@@ -191,29 +192,46 @@ public class idolweiboServiceImpl implements idolweiboService {
         return weiboList;
     }
 
+    //计算自己的微博
     @Override
     public List<weibo> Myweibos(User user) {
         List<weibo> weiboList = new ArrayList<>();
-        for (Message message : messageservice.myMessage(user)) {
-            weibo wb = new weibo();
-            //设置用户的头像
-            //
-            wb.setNikename(user.getUserNikename());
-            wb.setTime(timeCount(message));
-            wb.setWeiboInfo(message.getMessageInfo());
-            wb.setTranspond(message.getMessageTranspondnum());
-            wb.setAgree(message.getMessageAgreenum());
-            wb.setComment(message.getMessageCommentnum());
-            wb.setCollect(message.getMessageCollectnum());
-            wb.setMessid(message.getMessageId());
-            wb.setId(user.getUserId());
-            List<Agree> agrees = agreedao.findAgree(message.getMessageId(), user.getUserId());
-            if (agrees.isEmpty())
-                wb.setAgree_status("no");
-            else
-                wb.setAgree_status("yes");
-            weiboList.add(wb);
-        }
+        User user1= (User)ActionContext.getContext().getSession().get("user");
+            for (Message message : messageservice.myMessage(user1)) {
+                weibo wb = new weibo();
+                //设置用户的头像
+                //
+                wb.setNikename(user1.getUserNikename());
+                wb.setTime(timeCount(message));
+                wb.setWeiboInfo(message.getMessageInfo());
+                wb.setTranspond(message.getMessageTranspondnum());
+                wb.setAgree(message.getMessageAgreenum());
+                wb.setComment(message.getMessageCommentnum());
+                wb.setCollect(message.getMessageCollectnum());
+                wb.setMessid(message.getMessageId());
+                wb.setId(user1.getUserId());
+                List<Agree> agrees = agreedao.findAgree(message.getMessageId(), user.getUserId());
+                if (agrees.isEmpty())
+                    wb.setAgree_status("no");
+                else
+                    wb.setAgree_status("yes");
+                if (message.getMessageType().equals("Transpond")) {
+                    wb.setIsTransponpd("true");
+                    int OrignId = transponddao.findTranspondFrom(message.getMessageId()).getMessageByMessageId().getMessageId();
+                    wb.setTranfrommessid(OrignId);
+                    weiboList.add(wb);
+                }
+                else {
+                    wb.setIsTransponpd("false");
+                    weiboList.add(wb);
+                }
+
+                List<Collection> collections = this.collectiondao.list(user.getUserId(), message.getMessageId());
+                if (collections.isEmpty())
+                    wb.setCollect_status("no");
+                else
+                    wb.setCollect_status("yes");
+            }
         //此处按照微博发布的时间先后顺序 进行排序
         weiboList.sort(new Comparator<weibo>() {
             @Override

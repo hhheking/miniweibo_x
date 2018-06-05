@@ -266,7 +266,7 @@
                                 <div class="col-md-10 column">
                                     <h4 style="font-weight: bold;">${weibo.getNikename()}</h4>
                                     <h6>${weibo.getTime()}分钟前 来自miniweibo.com</h6>
-                                        ${weibo.getWeiboInfo()}
+                                    <p>${weibo.getWeiboInfo()}</p>
                                 <s:if test="#weibo.isTransponpd== \"true\"">
                                     <s:iterator value="#weibo.tranList" var="tran">
                                         <s:if test="#tran.message.messageType==\"Transpond\"">

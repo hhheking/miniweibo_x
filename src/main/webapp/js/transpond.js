@@ -74,9 +74,9 @@ $(function () {
             });
             //alert($(this).html());
         })
-    })
+    });
     $(".glyphicon.glyphicon-link").click(function () {
-        var parentdiv=$(this).parent().parent().prev().children(".col-md-10.column");
+        var parentdiv=$(this).parent().parent().prev().find(".col-md-10.column");
         $("#transpond_info").text(parentdiv.children("p").text());
         $("#transpond_username").text(parentdiv.children("h4").text());
         $("#messID").val($(this).parent().next().next().children("#MessageId").val());
