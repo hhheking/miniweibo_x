@@ -21,17 +21,13 @@
     <title>mini微博——发现身边的好玩事</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <!--jquery插件-->
     <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
-    <script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
     <script src="https://code.jquery.com/jquery.js"></script>
     <!-- 包括所有已编译的插件 -->
     <script src="js/comment.js"></script>
     <script src="js/transpond.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <!-- 引入 Bootstrap -->
-    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script type="text/javascript">
         $(document).ready(function(){
             $("#index_sousuo").focus(function(){
@@ -98,8 +94,22 @@
                 <li><a href="#"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;发现</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-equalizer"></span>&nbsp;游戏</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;<%=user.getUserNikename()%></a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-comment"></span>&nbsp;通知</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-cog"></span>&nbsp;设置</a></li>
+                <li class="dropdown" style="border-left: 1px solid #ddd">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="tip">
+                        <span class="glyphicon glyphicon-comment" style="font-size: 20"></span>
+                        <span class="badge" style="background-color: orange;position: absolute;top: 6px;right: 0px;font-size: 6">28</span>
+                    </a>
+                    <ul class="dropdown-menu" style="font-size: 12;">
+                        <li><a href="#">@我的<span class="badge pull-right" style="background-color: grey;font-size: 5">7</span></a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">评论<span class="badge pull-right" style="background-color: grey;font-size: 5">7</span></a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">点赞<span class="badge pull-right" style="background-color: grey;font-size: 5">7</span></a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">私信<span class="badge pull-right" style="background-color: grey;font-size: 5">7</span></a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><span class="glyphicon glyphicon-cog"></span></a></li>
                 <li><script type="text/javascript">for(var i=1;i<=30;i++){document.write("&nbsp;");}</script></li>
             </ul>
         </div>
@@ -133,7 +143,6 @@
             </div>
         </div>
     </div>
-    <s:debug></s:debug>
     <!--主体div-->
     <div class="row clearfix" style="margin-top: 10px;">
         <div class="col-md-4 column">
@@ -193,7 +202,7 @@
                             <div class="dropdown" style="position: absolute;top: 10px;right: 20px;">
                                 <button type="button" class="btn dropdown-toggle"
                                         id="dropdownMenu1" data-toggle="dropdown"><span class="caret"></span></button>
-                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1"  style="min-width:100%;">
                                     <li role="presentation">
                                         <a role="menuitem" tabindex="-1" href="#">置顶</a>
                                     </li>
@@ -283,43 +292,43 @@
         <a href="#" class="list-group-item">6.第六条热搜第六条热搜第六条热搜</a>
         <a href="#" class="list-group-item">7.第七条热搜第七条热搜第七条热搜</a>
     </div>
+    <!---点击转发弹出模态框->
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="TransPondModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 480px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">转发微博</h4>
+                </div>
+                <div class="modal-body" style="margin-top: 5px;margin-left: 10px;margin-right: 10px;">
+                    <form class="form-horizontal" role="form" action="###" method="post" style="border: 1px;" onsubmit='return false'>
+                        <div class="form-group" style="background-color: #F5F5F5;">
+                            <div style="padding: 10px;">
+                                微博内容:<p id="transpond_info">#</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <textarea class="form-control" rows="3" placeholder="请输入转发的理由......" id="transpond_reason"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox" style="float: left">
+                                <span class="face"></span>
+                                <span class="pic"></span>
+                                <label style="margin-left: 10px;"><input type="checkbox">同时评论给</label>
+                                <span id="transpond_username">#</span>
+                                <input id="messID" style="display: none">
+                            </div>
+                            <div style="float: right">
+                                <button id="transpondweibo" type="submit" class="btn btn-primary btn-sm btn-block">转发</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
 </body>
-<!---点击转发弹出模态框->
-<!-- 模态框（Modal） -->
-<div class="modal fade" id="TransPondModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="width: 480px;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">转发微博</h4>
-            </div>
-            <div class="modal-body" style="margin-top: 5px;margin-left: 10px;margin-right: 10px;">
-                <form class="form-horizontal" role="form" action="###" method="post" style="border: 1px;" onsubmit='return false'>
-                    <div class="form-group" style="background-color: #F5F5F5;">
-                        <div style="padding: 10px;">
-                            微博内容:<p id="transpond_info">#</p>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <textarea class="form-control" rows="3" placeholder="请输入转发的理由......" id="transpond_reason"></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="checkbox" style="float: left">
-                            <span class="face"></span>
-                            <span class="pic"></span>
-                            <label style="margin-left: 10px;"><input type="checkbox">同时评论给</label>
-                            <span id="transpond_username">#</span>
-                            <input id="messID" style="display: none">
-                        </div>
-                        <div style="float: right">
-                            <button id="transpondweibo" type="submit" class="btn btn-primary btn-sm btn-block">转发</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
 </html>
