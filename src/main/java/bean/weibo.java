@@ -1,7 +1,12 @@
 package bean;
 
+import pojo.Message;
+import pojo.Transpond;
+
+import java.util.List;
+
 public class weibo {
-    int id;
+    int id;//userid
     String image;
     String nikename;
     long time;
@@ -13,7 +18,26 @@ public class weibo {
     int messid;
     String collect_status;
     String agree_status;
+    String isTransponpd;      //记录该微博是转发的还是原创的
+    int tranfrommessid;     //转发自哪条微博
+    List<transInfo> tranList;
 
+
+    public List<transInfo> getTranList() {
+        return tranList;
+    }
+
+    public void setTranList(List<transInfo> tranList) {
+        this.tranList = tranList;
+    }
+
+    public int getTranfrommessid() {
+        return tranfrommessid;
+    }
+
+    public void setTranfrommessid(int tranfrommessid) {
+        this.tranfrommessid = tranfrommessid;
+    }
     public String getAgree_status() {
         return agree_status;
     }
@@ -107,5 +131,13 @@ public class weibo {
 
     public void setTranspond(int transpond) {
         this.transpond = transpond;
+    }
+
+    public String getIsTransponpd() {
+        return isTransponpd;
+    }
+
+    public void setIsTransponpd(String isTransponpd) {
+        this.isTransponpd = isTransponpd;
     }
 }

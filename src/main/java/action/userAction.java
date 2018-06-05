@@ -178,6 +178,10 @@ public class userAction {
         //进入自己的空间
         Map<String, Object> session = ActionContext.getContext().getSession();
         user=(User)session.get("user");
+        if(user==null){
+            return "loginfail";
+
+        }
         fans=relationservice.calfans(user);
         idols=relationservice.calidols(user);
         mymessageList=messageservice.myMessage(user);
@@ -188,6 +192,10 @@ public class userAction {
         //得到session中的user实例
         Map<String, Object> session = ActionContext.getContext().getSession();
         User user1=(User)session.get("user");
+        if(user1==null){
+            return "loginfail";
+
+        }
         Map Getid=ActionContext.getContext().getParameters();
         String [] userid= (String[]) Getid.get("userid");
         id=Integer.parseInt(userid[0]);

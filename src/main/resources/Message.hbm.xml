@@ -5,7 +5,9 @@
 <hibernate-mapping>
 
     <class name="pojo.Message" table="message" schema="miniweibo">
-        <id name="messageId" column="message_id"/>
+        <id name="messageId" column="message_id">
+            <generator class="increment"></generator>
+        </id>
         <property name="messageType" column="message_type"/>
         <property name="messageInfo" column="message_info"/>
         <property name="messageTime" column="message_time"/>

@@ -25,4 +25,9 @@ public class transpondDAOImpl extends HibernateTemplate implements transpondDAO 
     public Transpond get(int id) {
         return (Transpond)get(Transpond.class,id);
     }
+
+    @Override
+    public Transpond findTranspondFrom(int result_id) {
+        return (Transpond)find("from Transpond t where t.resultmessid="+result_id).get(0);
+    }
 }

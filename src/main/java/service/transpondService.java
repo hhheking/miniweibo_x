@@ -10,4 +10,5 @@ public interface transpondService {
     public void delete(Transpond transpond);
     public void add(Transpond transpond);
     public Transpond get(int id);
+    public void add(int messid,int reslut_meddid);
 }

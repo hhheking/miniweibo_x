@@ -7,6 +7,7 @@ public class Transpond {
     private int transpondId;
     private User userByUserId;
     private Message messageByMessageId;
+    private Message resultmessid;
 
     @Id
     @Column(name = "transpond_id")
@@ -53,5 +54,13 @@ public class Transpond {
 
     public void setMessageByMessageId(Message messageByMessageId) {
         this.messageByMessageId = messageByMessageId;
+    }
+    @ManyToOne
+    @JoinColumn(name = "result_messid", referencedColumnName = "message_id", nullable = false)
+    public void setResultmessid(Message resultmessid) {
+        this.resultmessid = resultmessid;
+    }
+    public Message getResultmessid() {
+        return resultmessid;
     }
 }

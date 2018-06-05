@@ -64,7 +64,7 @@
                 <li><a href="#"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;发现</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-facetime-video"></span>&nbsp;视频</a></li>
                 <li><a href="register"><span class="glyphicon glyphicon-user"></span>&nbsp;注册</a></li>
-                <li><a data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-log-in"></span>&nbsp;登录</a></li>
+                <li><a data-toggle="modal" data-target="#myModal" id="myid"><span class="glyphicon glyphicon-log-in"></span>&nbsp;登录</a></li>
                 <li><script type="text/javascript">for(var i=1;i<=30;i++){document.write("&nbsp;");}</script></li>
             </ul>
         </div>
@@ -170,7 +170,6 @@
 
                 <div class="list-group" style="background-color:#F5F5F5;padding:5px;border: 1px;margin-top: 10px;">
                     <a href="#" class="list-group-item"><h4 class="list-group-item-heading">大家正在看...</h4></a>
-
                     <a href="#" class="list-group-item">
                         <h5 class="list-group-item-heading">萌宠新鲜事</h5>
                         <p class="list-group-item-text">萌宠新鲜事萌宠新鲜事萌宠新鲜事萌宠新鲜事萌宠新鲜事萌宠新鲜事</p>
@@ -223,7 +222,7 @@
     </div>
 </div>
 <!-- 模态框（Modal） -->
-<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModal" tabindex="1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="width: 350px;">
         <div class="modal-content">
             <div class="modal-header">

@@ -19,6 +19,7 @@
     <meta charset="utf-8">
     <title>mini微博——发现身边的好玩事</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!--jquery插件-->
     <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -97,8 +98,8 @@
                             "                        <div id=\"comment\" style=\"height: 100px;background: red;display: none\">\n" +
                             "\n" +
                             "                        </div>\n" +
-                            "                    </div>";
-                        $("#myWeibo").prepend(myweibo);
+                            "                    </div>"
+                        $("#myWeibo").preappend(myweibo);
                         //添加评论点击时间
                         //$("#myWeibo").children().eq(0).children().eq(1).children().eq(2).children("span").click(function () {});
                     },
@@ -119,6 +120,9 @@
             top: 45px;
             left: 260px;
             width: 400px;
+        }
+        #myModal{
+            text-align: center;
         }
         .face{
             background: url("/images/face.png")  no-repeat;
@@ -247,7 +251,28 @@
                             <div class="col-md-10 column">
                                 <h4 style="font-weight: bold;">${weibo.getNikename()}</h4>
                                 <h6>${weibo.getTime()}分钟前 来自miniweibo.com</h6>
-                                <p>${weibo.getWeiboInfo()}</p>
+                                <p>${weibo.getWeiboInfo()}
+                                <s:if test="#weibo.isTransponpd== \"true\"">
+                                    <s:iterator value="#weibo.tranList" var="tran">
+                                        <s:if test="#tran.message.messageType==\"Transpond\"">
+                                        //@<a href="toUser?userid=${tran.getUser().getUserId()}" >${tran.getUser().getUserNikename()}</a>${tran.getMessage().getMessageInfo()}
+                                        </s:if>
+                                        <s:else>
+                                            <div style="background-color:#eee;max-height: 500px">
+                                                 @<a href="toUser?userid=${tran.getUser().getUserId()}" >${tran.getUser().getUserNikename()}</a>
+                                                 <p>${tran.getMessage().getMessageInfo()}</p>
+                                                    <br>
+                                                <div style="margin-right:0">
+                                                    <h6>${tran.getMessage().getMessageTime()}</h6>
+                                                    <h6><span>转发${tran.getMessage().getMessageTranspondnum()}</span>&nbsp;<span>评论${tran.getMessage().getMessageCommentnum()}</span>&nbsp;
+                                                        <span>点赞${tran.getMessage().getMessageAgreenum()}</span>
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                        </s:else>
+                                    </s:iterator>
+                                </s:if>
+                                </p>
                             </div>
                         </div>
                         <!--下层div-->
@@ -428,6 +453,7 @@
                             <button id="transpondweibo" type="submit" class="btn btn-primary btn-sm btn-block">转发</button>
                         </div>
                     </div>
+
                 </form>
             </div>
         </div><!-- /.modal-content -->

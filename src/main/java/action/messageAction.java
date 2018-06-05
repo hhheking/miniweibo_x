@@ -4,6 +4,7 @@ import com.opensymphony.xwork2.ActionContext;
 import pojo.Message;
 import pojo.User;
 import service.messageService;
+import service.transpondService;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -17,6 +18,7 @@ public class messageAction {
     String messagrReason;
     int messageID;
     String message_username;
+    transpondService transpondservice;
 
     public String getMessage_username() {
         return message_username;
@@ -75,14 +77,23 @@ public class messageAction {
         this.messageservice = messageservice;
     }
 
+    public transpondService getTranspondservice() {
+        return transpondservice;
+    }
+
+    public void setTranspondservice(transpondService transpondservice) {
+        this.transpondservice = transpondservice;
+    }
+
     public String send(){
         message=messageservice.message(messageInfo);
         messageservice.add(message);
         return "success";
     }
     public String trans(){
-        message=messageservice.transmessage(messageInfo,messagrReason,message_username,messageID);
+        message=messageservice.transmessage(messagrReason,messageID);
         messageservice.add(message);
+        transpondservice.add(messageID,message.getMessageId());
         return "success1";
     }
 }

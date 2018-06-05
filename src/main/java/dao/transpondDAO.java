@@ -9,4 +9,5 @@ public interface transpondDAO {
     public void add(Transpond transpond);
     public void delete(Transpond transpond);
     public Transpond get(int id);
+    public Transpond findTranspondFrom(int result_id);
 }

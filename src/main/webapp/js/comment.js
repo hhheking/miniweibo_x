@@ -77,8 +77,8 @@ $(function () {
         commentdiv=parentdiv.next();
         commentdiv.toggle();
         var messid1=$(this).next().val();
-        var elementnum=commentdiv.children().length;
-        if(commentdiv.is(":visible")==true && elementnum==2){
+        var elementnum=commentdiv.children().length;//第一次点击评论时,评论框里的元素只有2,执行下面函数后增加了评论,评论框的孩子元素>2,用此判断是否第一次点击
+        if(commentdiv.is(":visible")==true && elementnum==2){//当评论框是可见的且是第一次点击
             $.ajax({
                 type : "POST",  //请求方式
                 url : "commentAction",  //请求路径

@@ -93,7 +93,7 @@ public class messageServiceImpl implements messageService {
     }
 
     @Override
-    public Message transmessage(String info, String resaon, String name,int id) {
+    public Message transmessage(String resaon,int id) {
         Map<String, Object> session = ActionContext.getContext().getSession();
         User u=(User)session.get("user");
         User user=new User();
@@ -107,7 +107,7 @@ public class messageServiceImpl implements messageService {
         message.setMessageCommentnum(0);
         message.setMessageType("Transpond");
         message.setMessageTime(new Timestamp(System.currentTimeMillis()));
-        message.setMessageInfo("转发微博："+resaon+"//@"+name+"："+info);
+        message.setMessageInfo(resaon);
         message.setUserByUserId(user);
         message.setPictureByPictureId(picture);
         //得到当前用户转发的原始微博,将转发数加1
