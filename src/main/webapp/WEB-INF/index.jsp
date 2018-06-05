@@ -13,19 +13,14 @@
     <title>mini微博——发现身边的好玩事</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <!--jquery插件-->
     <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
-    <script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
-    <script src="https://code.jquery.com/jquery.js"></script>
-    <!-- 包括所有已编译的插件 -->
-    <script src="js/bootstrap.min.js"></script>
-    <!-- 引入 Bootstrap -->
-    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
+            $('#myModal').modal('show');
             $("#index_sousuo").focus(function(){
                 $("#index_panel").css("display","");
+                $('#myModal').modal('show');
             });
             $("#index_sousuo").blur(function(){
                 $("#index_panel").css("display","none");

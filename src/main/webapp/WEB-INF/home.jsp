@@ -113,7 +113,7 @@
     </script>
     <style type="text/css">
         body{
-            background: url("/images/bg.jpg") center top;
+            background: url("images/bg.jpg") center top;
         }
         #index_panel{
             position: fixed;
@@ -125,13 +125,13 @@
             text-align: center;
         }
         .face{
-            background: url("/images/face.png")  no-repeat;
+            background: url("images/face.png")  no-repeat;
             padding:1px 0 10px 25px;
             cursor: pointer;
             font-size: 15px;
         }
         .pic{
-            background: url("/images/pic.png")  no-repeat;
+            background: url("images/pic.png")  no-repeat;
             margin-left: 10px;
             padding:1px 0 10px 25px;
             cursor: pointer;
@@ -168,8 +168,22 @@
                 <li><a href="#"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;发现</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-equalizer"></span>&nbsp;游戏</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;<%=user.getUserNikename()%></a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-comment"></span>&nbsp;通知</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-cog"></span>&nbsp;设置</a></li>
+                <li class="dropdown" style="border-left: 1px solid #ddd">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="tip">
+                        <span class="glyphicon glyphicon-comment" style="font-size: 20"></span>
+                        <span class="badge" style="background-color: orange;position: absolute;top: 6px;right: 0px;font-size: 6">28</span>
+                    </a>
+                    <ul class="dropdown-menu" style="font-size: 12;">
+                        <li><a href="#">@我的<span class="badge pull-right" style="background-color: grey;font-size: 5">7</span></a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">评论<span class="badge pull-right" style="background-color: grey;font-size: 5">7</span></a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">点赞<span class="badge pull-right" style="background-color: grey;font-size: 5">7</span></a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">私信<span class="badge pull-right" style="background-color: grey;font-size: 5">7</span></a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><span class="glyphicon glyphicon-cog"></span></a></li>
                 <li><script type="text/javascript">for(var i=1;i<=30;i++){document.write("&nbsp;");}</script></li>
             </ul>
         </div>
@@ -243,36 +257,43 @@
                 <s:iterator value="weibos" var="weibo">
                     <div style="background-color: white;margin: 5px;">
                         <!--上层div-->
-                        <div class="row clearfix">
-                            <div class="col-md-2 column" style="padding-left: 25px;padding-top: 10px;">
-                                <!--点击头像 进入用户空间-->
-                                <a href="toUser?userid=${weibo.getId()}"><img src="images/icon.png" class="img-circle" width="70px;"></a>
-                            </div>
-                            <div class="col-md-10 column">
-                                <h4 style="font-weight: bold;">${weibo.getNikename()}</h4>
-                                <h6>${weibo.getTime()}分钟前 来自miniweibo.com</h6>
-                                <p>${weibo.getWeiboInfo()}
+                        <div class="row clearfix" style="padding-bottom: 1.5rem;">
+                            <div class="col-md-12 column">
+                                <div class="col-md-2 column" style="padding-left: 25px;padding-top: 10px;">
+                                    <!--点击头像 进入用户空间-->
+                                    <a href="toUser?userid=${weibo.getId()}"><img src="images/icon.png" class="img-circle" width="60px;"></a>
+                                </div>
+                                <div class="col-md-10 column">
+                                    <h4 style="font-weight: bold;">${weibo.getNikename()}</h4>
+                                    <h6>${weibo.getTime()}分钟前 来自miniweibo.com</h6>
+                                        ${weibo.getWeiboInfo()}
                                 <s:if test="#weibo.isTransponpd== \"true\"">
                                     <s:iterator value="#weibo.tranList" var="tran">
                                         <s:if test="#tran.message.messageType==\"Transpond\"">
-                                        //@<a href="toUser?userid=${tran.getUser().getUserId()}" >${tran.getUser().getUserNikename()}</a>${tran.getMessage().getMessageInfo()}
+                                            //<a href="toUser?userid=${tran.getUser().getUserId()}" ><b>@${tran.getUser().getUserNikename()}:</b></a>${tran.getMessage().getMessageInfo()}
                                         </s:if>
                                         <s:else>
-                                            <div style="background-color:#eee;max-height: 500px">
-                                                 @<a href="toUser?userid=${tran.getUser().getUserId()}" >${tran.getUser().getUserNikename()}</a>
-                                                 <p>${tran.getMessage().getMessageInfo()}</p>
-                                                    <br>
-                                                <div style="margin-right:0">
-                                                    <h6>${tran.getMessage().getMessageTime()}</h6>
-                                                    <h6><span>转发${tran.getMessage().getMessageTranspondnum()}</span>&nbsp;<span>评论${tran.getMessage().getMessageCommentnum()}</span>&nbsp;
-                                                        <span>点赞${tran.getMessage().getMessageAgreenum()}</span>
+                                </div>
+                                            <div class="col-md-12 column" style="background-color:#eee;max-height: 500px;padding-top: 1rem;padding-left: 0px;">
+                                                <div class="col-md-10 column pull-right">
+                                                    <a href="toUser?userid=${tran.getUser().getUserId()}" ><b>@${tran.getUser().getUserNikename()}</b></a>
+                                                <p>${tran.getMessage().getMessageInfo()}</p>
+                                                <br>
+                                                <div>
+                                                    <h6 class="pull-left">${tran.getMessage().getMessageTime()}</h6>
+                                                    <h6 class="pull-right"><span class="glyphicon glyphicon-link">${tran.getMessage().getMessageTranspondnum()}</span>&nbsp;
+                                                        <span class="glyphicon glyphicon-edit">${tran.getMessage().getMessageCommentnum()}</span>&nbsp;
+                                                        <span class="glyphicon glyphicon-thumbs-up">${tran.getMessage().getMessageAgreenum()}</span>
                                                     </h6>
+                                                </div>
                                                 </div>
                                             </div>
                                         </s:else>
                                     </s:iterator>
                                 </s:if>
-                                </p>
+                                <s:else>
+                            </div>
+                                </s:else>
                             </div>
                         </div>
                         <!--下层div-->

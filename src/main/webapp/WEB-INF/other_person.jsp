@@ -26,8 +26,6 @@
     <script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
     <script src="https://code.jquery.com/jquery.js"></script>
-    <!-- 包括所有已编译的插件 -->
-    <script src="js/bootstrap.min.js"></script>
     <!-- 引入 Bootstrap -->
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/chat.css" />
@@ -111,8 +109,22 @@
                 <li><a href="#"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;发现</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-equalizer"></span>&nbsp;游戏</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;<%=user.getUserNikename()%></a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-comment"></span>&nbsp;通知</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-cog"></span>&nbsp;设置</a></li>
+                <li class="dropdown" style="border-left: 1px solid #ddd">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="tip">
+                        <span class="glyphicon glyphicon-comment" style="font-size: 20"></span>
+                        <span class="badge" style="background-color: orange;position: absolute;top: 6px;right: 0px;font-size: 6">28</span>
+                    </a>
+                    <ul class="dropdown-menu" style="font-size: 12;">
+                        <li><a href="#">@我的<span class="badge pull-right" style="background-color: grey;font-size: 5">7</span></a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">评论<span class="badge pull-right" style="background-color: grey;font-size: 5">7</span></a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">点赞<span class="badge pull-right" style="background-color: grey;font-size: 5">7</span></a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">私信<span class="badge pull-right" style="background-color: grey;font-size: 5">7</span></a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><span class="glyphicon glyphicon-cog"></span></a></li>
                 <li><script type="text/javascript">for(var i=1;i<=30;i++){document.write("&nbsp;");}</script></li>
             </ul>
         </div>
@@ -211,7 +223,7 @@
                             <div class="dropdown" style="position: absolute;top: 10px;right: 20px;">
                                 <button type="button" class="btn dropdown-toggle"
                                         id="dropdownMenu1" data-toggle="dropdown"><span class="caret"></span></button>
-                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="min-width: 100%;">
                                     <li role="presentation">
                                         <a role="menuitem" tabindex="-1" href="#">置顶</a>
                                     </li>
