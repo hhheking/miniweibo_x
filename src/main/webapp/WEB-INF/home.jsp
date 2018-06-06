@@ -54,12 +54,11 @@
                             +str+
                             "</span>\"相关微博</a>";
                         var count=0;
-                        for(i in data.messageListBySearch){
+                        for(var i in data.messageListBySearch){
                             //i是一个Message对象，要考虑messageInfo过长的问题
                             default_result=default_result+"<a href=\"#\" class=\"list-group-item\">"
-                                +i.messageInfo+
+                                +data.messageListBySearch[parseInt(i)].messageInfo+
                                 "</a>";
-                            alert(i.messageInfo);
                             count=count+1;
                             //下拉列表最多显示5个
                             if(count>=5){
