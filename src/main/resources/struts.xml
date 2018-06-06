@@ -63,5 +63,10 @@
                 <param name="root">yes</param>
             </result>
         </action>
+        <action name="search" class="searchActionBean" method="search">
+            <result name="success" type="json">
+                <param name="root">searcresult</param>
+            </result>
+        </action>
     </package>
 </struts>

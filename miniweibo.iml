@@ -39,6 +39,7 @@
           <unit-entry name="noname-applicationContext.xml@3911" />
           <unit-entry name="noname-applicationContext.xml@4018" value="ds" />
           <unit-entry name="noname-applicationContext.xml@4560" value="ds" />
+          <unit-entry name="noname-applicationContext.xml@4771" />
           <unit-entry name="noname-bean.xml@614" value="ds" />
         </datasource-map>
         <naming-strategy-map />

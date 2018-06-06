@@ -22,6 +22,10 @@
     <bean name="agreeActionBean" class="action.agreeAction">
         <property name="agreeService" ref="agreeserviceImpl"></property>
     </bean>
+    <bean name="searchActionBean" class="action.searchAction">
+        <property name="userdao" ref="userdaoImpl"></property>
+        <property name="messagedao" ref="messagedaoimpl"></property>
+    </bean>
     <bean name="transpondserviceImple" class="service.transpondServiceImpl">
         <property name="transponddao" ref="transponddaoImpl"></property>
         <property name="messagedao" ref="messagedaoimpl"></property>
@@ -30,7 +34,7 @@
         <property name="collectionservice" ref="collectionserviceImpl"></property>
     </bean>
     <bean name="idolweiboserviceImpl" class="service.idolweiboServiceImpl">
-        <property name="userdao" ref="userdao"></property>
+        <property name="userdao" ref="userdaoImpl"></property>
         <property name="relationservice" ref="relationserviceImpl"></property>
         <property name="messageservice" ref="messageserviceImpl"></property>
         <property name="userservice" ref="userserviceImpl"></property>

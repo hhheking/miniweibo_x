@@ -10,4 +10,5 @@ public interface messageDAO {
     public void delete(Message message);
     public  void updata(Message message);
     public Message get(int id);
+    public List<Message> searchByInfo(String info);
 }

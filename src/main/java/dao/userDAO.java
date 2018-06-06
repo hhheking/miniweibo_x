@@ -10,4 +10,5 @@ public interface userDAO {
     public void delete(User user);
     public void update(User user);
     public User get(int id);
+    public List<User> searchByName(String name);
 }

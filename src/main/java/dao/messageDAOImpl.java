@@ -30,4 +30,9 @@ public class messageDAOImpl extends HibernateTemplate implements messageDAO {
     public Message get(int id) {
        return (Message) get(Message.class,id);
     }
+
+    @Override
+    public List<Message> searchByInfo(String info) {
+        return find("from Message m where m.messageInfo like '%"+info+"%'");
+    }
 }

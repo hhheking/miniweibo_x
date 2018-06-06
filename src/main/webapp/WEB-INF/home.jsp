@@ -34,11 +34,78 @@
 
     <script type="text/javascript">
         $(document).ready(function(){
+            $('#index_sousuo').bind('input propertychange', function(){
+                //输入框内容改变后，先改变热搜框的可见属性
+                $("#index_panel").css("display","none");
+                //执行ajax请求，请求查找的数据
+                var str=$("#index_sousuo").val();
+                $.ajax({
+                    type:'Post',
+                    url:'search',
+                    data:{'keywords':$("#index_sousuo").val()},
+                    dataType:'json',
+                    async:true,
+                    success:function (data) {
+                        $("#searchResult").html("");
+                        //解析json数据,拼接成html代码
+                        var default_result="<div>\n" +
+                            "    <a href=\"#\" class=\"list-group-item\">搜\"<span id=\"default_weibo\" style=\"color: orange;\">" +
+                            +str+
+                            "</span>\"相关微博</a>";
+                        var count=0;
+                        for(i in data.messageListBySearch){
+                            //i是一个Message对象，要考虑messageInfo过长的问题
+                            default_result=default_result+"<a href=\"#\" class=\"list-group-item\">" +
+                                +i.messageInfo+
+                                "</a>";
+                            count=count+1;
+                            //下拉列表最多显示5个
+                            if(count>=5){
+                                break;
+                            }
+                        }
+                        default_result=default_result+"<a href=\"#\" class=\"list-group-item\">搜\"<span id=\"default_user\"  style=\"color: orange;\">" +
+                            +str+
+                            "</span>\"相关用户</a>";
+                        count = 0;
+                        for(i in data.userListBySearch){
+                            //i是一个User对象，一般而言，userNikename过长的问题不用考虑
+                            default_result=default_result+"<a href=\"#\" class=\"list-group-item\">" +
+                                +i.userNikename+
+                                "</a>";
+                            count=count+1;
+                            //下拉列表最多显示5个
+                            if(count>=5){
+                                break;
+                            }
+                        }
+                        default_result=default_result+"</div>";
+                        $("#searchResult").append(default_result);
+                        $("#searchResult").css("display","");
+                    },
+                    error:function (error) {
+                        //找不到搜索值的时候也会导致失败
+                        //清空内容，然后添加div进去
+                        $("#searchResult").html("");
+                        var default_result="<div>\n" +
+                            "<a href=\"#\" class=\"list-group-item\">搜\"<span id=\"default_weibo\" style=\"color: orange;\">"
+                            +str+
+                            "</span>\"相关微博</a>\n" +
+                            "<a href=\"#\" class=\"list-group-item\">搜\"<span id=\"default_user\"  style=\"color: orange;\">"
+                            +str+
+                            "</span>\"相关用户</a>\n" +
+                            "</div>";
+                        $("#searchResult").append(default_result);
+                        $("#searchResult").css("display","");
+                    }
+                });
+            });
             $("#index_sousuo").focus(function(){
                 $("#index_panel").css("display","");
             });
             $("#index_sousuo").blur(function(){
                 $("#index_panel").css("display","none");
+                $("#searchResult").css("display","none");
             });
             $("#mycontent").keyup(function(){
                 //判断输入的字符串长度
@@ -121,8 +188,11 @@
             left: 260px;
             width: 400px;
         }
-        #myModal{
-            text-align: center;
+        #searchResult{
+            position: fixed;
+            top: 45px;
+            left: 260px;
+            width: 400px;
         }
         .face{
             background: url("images/face.png")  no-repeat;
@@ -255,181 +325,181 @@
                 </div>
                 <!--关注好友的所有微博动态-->
                 <s:iterator value="weibos" var="weibo">
-                    <div style="background-color: white;margin: 5px;">
-                        <!--上层div-->
-                        <div class="row clearfix" style="padding-bottom: 1.5rem;">
-                            <div class="col-md-12 column">
-                                <div class="col-md-2 column" style="padding-left: 25px;padding-top: 10px;">
-                                    <!--点击头像 进入用户空间-->
-                                    <a href="toUser?userid=${weibo.getId()}"><img src="images/icon.png" class="img-circle" width="60px;"></a>
-                                </div>
-                                <div class="col-md-10 column">
-                                    <h4 style="font-weight: bold;">${weibo.getNikename()}</h4>
-                                    <h6>${weibo.getTime()}分钟前 来自miniweibo.com</h6>
-                                    <p>${weibo.getWeiboInfo()}</p>
+                <div style="background-color: white;margin: 5px;">
+                    <!--上层div-->
+                    <div class="row clearfix" style="padding-bottom: 1.5rem;">
+                        <div class="col-md-12 column">
+                            <div class="col-md-2 column" style="padding-left: 25px;padding-top: 10px;">
+                                <!--点击头像 进入用户空间-->
+                                <a href="toUser?userid=${weibo.getId()}"><img src="images/icon.png" class="img-circle" width="60px;"></a>
+                            </div>
+                            <div class="col-md-10 column">
+                                <h4 style="font-weight: bold;">${weibo.getNikename()}</h4>
+                                <h6>${weibo.getTime()}分钟前 来自miniweibo.com</h6>
+                                <p>${weibo.getWeiboInfo()}</p>
                                 <s:if test="#weibo.isTransponpd== \"true\"">
-                                    <s:iterator value="#weibo.tranList" var="tran">
-                                        <s:if test="#tran.message.messageType==\"Transpond\"">
-                                            //<a href="toUser?userid=${tran.getUser().getUserId()}" ><b>@${tran.getUser().getUserNikename()}:</b></a>${tran.getMessage().getMessageInfo()}
-                                        </s:if>
-                                        <s:else>
-                                </div>
-                                            <div class="col-md-12 column" style="background-color:#eee;max-height: 500px;padding-top: 1rem;padding-left: 0px;">
-                                                <div class="col-md-10 column pull-right">
-                                                    <a href="toUser?userid=${tran.getUser().getUserId()}" ><b>@${tran.getUser().getUserNikename()}</b></a>
-                                                <p>${tran.getMessage().getMessageInfo()}</p>
-                                                <br>
-                                                <div>
-                                                    <h6 class="pull-left">${tran.getMessage().getMessageTime()}</h6>
-                                                    <h6 class="pull-right"><span class="glyphicon glyphicon-link">${tran.getMessage().getMessageTranspondnum()}</span>&nbsp;
-                                                        <span class="glyphicon glyphicon-edit">${tran.getMessage().getMessageCommentnum()}</span>&nbsp;
-                                                        <span class="glyphicon glyphicon-thumbs-up">${tran.getMessage().getMessageAgreenum()}</span>
-                                                    </h6>
-                                                </div>
-                                                </div>
-                                            </div>
-                                        </s:else>
-                                    </s:iterator>
+                                <s:iterator value="#weibo.tranList" var="tran">
+                                <s:if test="#tran.message.messageType==\"Transpond\"">
+                                    //<a href="toUser?userid=${tran.getUser().getUserId()}" ><b>@${tran.getUser().getUserNikename()}:</b></a>${tran.getMessage().getMessageInfo()}
                                 </s:if>
                                 <s:else>
                             </div>
-                                </s:else>
+                            <div class="col-md-12 column" style="background-color:#eee;max-height: 500px;padding-top: 1rem;padding-left: 0px;">
+                                <div class="col-md-10 column pull-right">
+                                    <a href="toUser?userid=${tran.getUser().getUserId()}" ><b>@${tran.getUser().getUserNikename()}</b></a>
+                                    <p>${tran.getMessage().getMessageInfo()}</p>
+                                    <br>
+                                    <div>
+                                        <h6 class="pull-left">${tran.getMessage().getMessageTime()}</h6>
+                                        <h6 class="pull-right"><span class="glyphicon glyphicon-link">${tran.getMessage().getMessageTranspondnum()}</span>&nbsp;
+                                            <span class="glyphicon glyphicon-edit">${tran.getMessage().getMessageCommentnum()}</span>&nbsp;
+                                            <span class="glyphicon glyphicon-thumbs-up">${tran.getMessage().getMessageAgreenum()}</span>
+                                        </h6>
+                                    </div>
+                                </div>
                             </div>
+                            </s:else>
+                            </s:iterator>
+                            </s:if>
+                            <s:else>
                         </div>
-                        <!--下层div-->
-                        <div class="row clearfix" style="border-top: 1px solid #ddd;border-bottom: 1px solid #ddd;">
-                            <div class="col-md-3 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;">
-                                <span class="glyphicon glyphicon-link" data-toggle="modal" data-target="#TransPondModal">转发${weibo.getTranspond()}</span>
-                            </div>
-                            <div class="col-md-3 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;">
-                                <!--得到微博的收藏状态和收藏的次数-->
-                                <s:if test="#weibo.collect_status == \"no\""><span class="glyphicon glyphicon-star-empty">收藏</span></s:if>
-                                <s:else>
-                                    <span class="glyphicon glyphicon-star-empty" style="color: coral">已收藏</span>
-                                </s:else>
-                                <input value="${weibo.getMessid()}" style="display: none">
-                                <input value="<%=user.getUserId()%>" style="display: none;">
-                            </div>
-                            <div class="col-md-3 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;">
-                                <span id="showcomment" class="glyphicon glyphicon-edit">评价${weibo.getComment()}</span>
-                                <input id="MessageId" value="${weibo.getMessid()}" style="display: none">
-                            </div>
-                            <div class="col-md-3 column" style="text-align: center;padding: 10px;">
-                                <!--得到微博的赞同状态和赞同次数-->
-                                <s:if test="#weibo.agree_status == \"no\""><span class="glyphicon glyphicon-thumbs-up">${weibo.getAgree()}</span></s:if>
-                                <s:else>
-                                    <span class="glyphicon glyphicon-thumbs-up" style="color: coral">${weibo.getAgree()}</span>
-                                </s:else>
-                                <input value="${weibo.getMessid()}" style="display: none">
-                                <input value="<%=user.getUserId()%>" style="display: none;">
-                            </div>
+                        </s:else>
+                    </div>
+                </div>
+                <!--下层div-->
+                <div class="row clearfix" style="border-top: 1px solid #ddd;border-bottom: 1px solid #ddd;">
+                    <div class="col-md-3 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;">
+                        <span class="glyphicon glyphicon-link" data-toggle="modal" data-target="#TransPondModal">转发${weibo.getTranspond()}</span>
+                    </div>
+                    <div class="col-md-3 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;">
+                        <!--得到微博的收藏状态和收藏的次数-->
+                        <s:if test="#weibo.collect_status == \"no\""><span class="glyphicon glyphicon-star-empty">收藏</span></s:if>
+                        <s:else>
+                            <span class="glyphicon glyphicon-star-empty" style="color: coral">已收藏</span>
+                        </s:else>
+                        <input value="${weibo.getMessid()}" style="display: none">
+                        <input value="<%=user.getUserId()%>" style="display: none;">
+                    </div>
+                    <div class="col-md-3 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;">
+                        <span id="showcomment" class="glyphicon glyphicon-edit">评价${weibo.getComment()}</span>
+                        <input id="MessageId" value="${weibo.getMessid()}" style="display: none">
+                    </div>
+                    <div class="col-md-3 column" style="text-align: center;padding: 10px;">
+                        <!--得到微博的赞同状态和赞同次数-->
+                        <s:if test="#weibo.agree_status == \"no\""><span class="glyphicon glyphicon-thumbs-up">${weibo.getAgree()}</span></s:if>
+                        <s:else>
+                            <span class="glyphicon glyphicon-thumbs-up" style="color: coral">${weibo.getAgree()}</span>
+                        </s:else>
+                        <input value="${weibo.getMessid()}" style="display: none">
+                        <input value="<%=user.getUserId()%>" style="display: none;">
+                    </div>
+                </div>
+                <!--点击评价显示出来的div-->
+                <div id="comment" style="padding-left: 25px;background-color: #eee;display: none">
+                    <!--分割线-->
+                    <hr>
+                    <div class="row clearfix">
+                        <div class="col-md-1 column">
+                            <!--点击头像 进入用户空间-->
+                            <img src="images/icon.png" width="35px;">
                         </div>
-                        <!--点击评价显示出来的div-->
-                        <div id="comment" style="padding-left: 25px;background-color: #eee;display: none">
+                        <div class="col-md-11 column" style="padding-right: 35px;">
+                            <form role="form" onsubmit='return false'>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" style="height: 30px;">
+                                </div>
+                                <div class="form-group">
+                                    <span class="face"></span>
+                                    <span class="pic"></span>
+                                    <button type="submit" class="btn btn-default pull-right" style="background-color: orange;height: 30px;">评论</button>
+                                    <input value="${weibo.getMessid()}" style="display: none">
+                                    <input id="sessionuserid" value="<%=user.getUserId()%>" style="display: none">
+                                    <input id="sessionusername" value="<%=user.getUserNikename()%>" style="display: none">
+                                </div>
+                            </form>
                             <!--分割线-->
                             <hr>
-                            <div class="row clearfix">
-                                <div class="col-md-1 column">
-                                    <!--点击头像 进入用户空间-->
-                                    <img src="images/icon.png" width="35px;">
-                                </div>
-                                <div class="col-md-11 column" style="padding-right: 35px;">
-                                    <form role="form" onsubmit='return false'>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" style="height: 30px;">
-                                        </div>
-                                        <div class="form-group">
-                                            <span class="face"></span>
-                                            <span class="pic"></span>
-                                            <button type="submit" class="btn btn-default pull-right" style="background-color: orange;height: 30px;">评论</button>
-                                            <input value="${weibo.getMessid()}" style="display: none">
-                                            <input id="sessionuserid" value="<%=user.getUserId()%>" style="display: none">
-                                            <input id="sessionusername" value="<%=user.getUserNikename()%>" style="display: none">
-                                        </div>
-                                    </form>
-                                    <!--分割线-->
-                                    <hr>
-                                </div>
-                                <!--评论-->
-                                <!--自己发布的评论显示在这里-->
-                                <div>
-
-
-                                </div>
-
-
-                            </div>
                         </div>
+                        <!--评论-->
+                        <!--自己发布的评论显示在这里-->
+                        <div>
+
+
+                        </div>
+
+
                     </div>
-                </s:iterator>
+                </div>
+            </div>
+            </s:iterator>
+
+        </div>
+
+        <div class="col-md-4 column">
+            <!--个人信息概览-->
+            <div class="row text-center inform" style="margin-top: 5px;padding: 15px;background-color: white;">
+                <a href="personspaceUser"><img src="images/icon.png" class="img-circle" width="90px;"></a>
+                <h4 style="font-weight: bold;"><%=user.getUserNikename()%></h4>
+                <div class="col-sm-12" >
+                    <a href="idolUser"><div class="col-sm-4 col-xs-4">
+                        <div>${idols}</div>
+                        <div class="sort">关注</div>
+                    </div></a>
+                    <a href="fanUser">
+                        <div class="col-sm-4 col-xs-4">
+                            <div>${fans}</div>
+                            <div class="sort">粉丝</div>
+                        </div>
+                    </a>
+                    <a href="personspaceUser">
+                        <div class="col-sm-4 col-xs-4">
+                            <div id="mymessagenum">${mymessageList.size()}</div>
+                            <div class="sort">微博</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <!--大家正在看-->
+            <div class="row part_hot" style="margin-top: 5px;padding: 15px;background-color: white;">
+                <div class="col-sm-12">
+                    <span class="pull-left" style="padding: 10px;font-size:16px;font-weight: bold;">热门话题</span>
+                    <span class="pull-right" style="padding: 10px;">换话题</span>
+                </div>
+                <hr style="margin: 0;padding: 0;width: 100%">
+
+                <div class="col-sm-12 item_hot" >
+                    <span class="pull-left">#何张出道#</span>
+                    <span class="pull-right item_num">34.6亿</span>
+                </div>
+
+                <div class="col-sm-12 item_hot" >
+                    <span class="pull-left">#男生夺冠#</span>
+                    <span class="pull-right item_num">2.6亿</span>
+                </div>
+
+                <div class="col-sm-12 item_hot" >
+                    <span class="pull-left">#rng冠军#</span>
+                    <span class="pull-right item_num">10.4亿</span>
+                </div>
+
+                <div class="col-sm-12 item_hot" >
+                    <span class="pull-left">#李志谦回归#</span>
+                    <span class="pull-right item_num">1.5亿</span>
+                </div>
+
+                <div class="col-sm-12 item_hot" >
+                    <span class="pull-left">#突然开心#</span>
+                    <span class="pull-right item_num">1.1亿</span>
+                </div>
+                <hr style="margin: 0;padding: 0;width: 100%">
+
+                <div class="col-sm-12 text-center" style="padding: 10px"><a href="#">查看更多</a></div>
 
             </div>
 
-            <div class="col-md-4 column">
-                <!--个人信息概览-->
-                <div class="row text-center inform" style="margin-top: 5px;padding: 15px;background-color: white;">
-                    <a href="personspaceUser"><img src="images/icon.png" class="img-circle" width="90px;"></a>
-                    <h4 style="font-weight: bold;"><%=user.getUserNikename()%></h4>
-                    <div class="col-sm-12" >
-                        <a href="idolUser"><div class="col-sm-4 col-xs-4">
-                            <div>${idols}</div>
-                            <div class="sort">关注</div>
-                        </div></a>
-                        <a href="fanUser">
-                            <div class="col-sm-4 col-xs-4">
-                                <div>${fans}</div>
-                                <div class="sort">粉丝</div>
-                            </div>
-                        </a>
-                        <a href="personspaceUser">
-                            <div class="col-sm-4 col-xs-4">
-                                <div id="mymessagenum">${mymessageList.size()}</div>
-                                <div class="sort">微博</div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <!--大家正在看-->
-                <div class="row part_hot" style="margin-top: 5px;padding: 15px;background-color: white;">
-                    <div class="col-sm-12">
-                        <span class="pull-left" style="padding: 10px;font-size:16px;font-weight: bold;">热门话题</span>
-                        <span class="pull-right" style="padding: 10px;">换话题</span>
-                    </div>
-                    <hr style="margin: 0;padding: 0;width: 100%">
-
-                    <div class="col-sm-12 item_hot" >
-                        <span class="pull-left">#何张出道#</span>
-                        <span class="pull-right item_num">34.6亿</span>
-                    </div>
-
-                    <div class="col-sm-12 item_hot" >
-                        <span class="pull-left">#男生夺冠#</span>
-                        <span class="pull-right item_num">2.6亿</span>
-                    </div>
-
-                    <div class="col-sm-12 item_hot" >
-                        <span class="pull-left">#rng冠军#</span>
-                        <span class="pull-right item_num">10.4亿</span>
-                    </div>
-
-                    <div class="col-sm-12 item_hot" >
-                        <span class="pull-left">#李志谦回归#</span>
-                        <span class="pull-right item_num">1.5亿</span>
-                    </div>
-
-                    <div class="col-sm-12 item_hot" >
-                        <span class="pull-left">#突然开心#</span>
-                        <span class="pull-right item_num">1.1亿</span>
-                    </div>
-                    <hr style="margin: 0;padding: 0;width: 100%">
-
-                    <div class="col-sm-12 text-center" style="padding: 10px"><a href="#">查看更多</a></div>
-
-                </div>
-
-            </div>
         </div>
     </div>
+</div>
 </div>
 <!--标题搜索栏获得焦点后，显示下拉搜索列表-->
 <div id="index_panel" style="display:none; ">
@@ -440,6 +510,9 @@
     <a href="#" class="list-group-item">5.第五条热搜第五条热搜第五条热搜</a>
     <a href="#" class="list-group-item">6.第六条热搜第六条热搜第六条热搜</a>
     <a href="#" class="list-group-item">7.第七条热搜第七条热搜第七条热搜</a>
+</div>
+<div id="searchResult" style="display: none">
+
 </div>
 <!---点击转发弹出模态框->
 <!-- 模态框（Modal） -->

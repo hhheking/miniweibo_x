@@ -30,4 +30,9 @@ public class userDAOImpl extends HibernateTemplate implements userDAO {
     public User get(int id) {
         return (User)get(User.class,id);
     }
+
+    @Override
+    public List<User> searchByName(String name) {
+        return find("from User u where u.userNikename like '%"+name+"%'");
+    }
 }
