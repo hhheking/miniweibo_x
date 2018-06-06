@@ -29,9 +29,13 @@
     <bean name="transpondserviceImple" class="service.transpondServiceImpl">
         <property name="transponddao" ref="transponddaoImpl"></property>
         <property name="messagedao" ref="messagedaoimpl"></property>
+        <property name="reminddao" ref="reminddaoImpl"></property>
     </bean>
     <bean name="collectionActionBean" class="action.collectionAction">
         <property name="collectionservice" ref="collectionserviceImpl"></property>
+    </bean>
+    <bean name="remindActionBean" class="action.remindAction">
+        <property name="remindservice" ref="remindserviceImpl"></property>
     </bean>
     <bean name="idolweiboserviceImpl" class="service.idolweiboServiceImpl">
         <property name="userdao" ref="userdaoImpl"></property>
@@ -47,6 +51,7 @@
         <property name="messagedao" ref="messagedaoimpl"></property>
         <property name="userdao" ref="userdaoImpl"></property>
         <property name="commentdao" ref="commentdaoImpl"></property>
+        <property name="reminddao" ref="reminddaoImpl"></property>
     </bean>
     <bean name="userserviceImpl" class="service.userServiceImpl">
         <property name="userdao" ref="userdaoImpl"></property>
@@ -74,6 +79,7 @@
     </bean>
     <bean name="agreeserviceImpl" class="service.agreeServicesImpl">
         <property name="agreeDAO" ref="agreedaoImpl"></property>
+        <property name="remindDAO" ref="reminddaoImpl"></property>
     </bean>
     <bean name="agreedaoImpl" class="dao.agreeDAOImpl">
         <property name="sessionFactory" ref="sf"></property>
@@ -82,6 +88,12 @@
         <property name="collection" ref="collectiondaoImpl"></property>
     </bean>
     <bean name="collectiondaoImpl" class="dao.collectionDAOImpl">
+        <property name="sessionFactory" ref="sf"></property>
+    </bean>
+    <bean name="remindserviceImpl" class="service.remindServiceImpl">
+        <property name="reminddao" ref="reminddaoImpl"></property>
+    </bean>
+    <bean name="reminddaoImpl" class="dao.remindDAOImpl">
         <property name="sessionFactory" ref="sf"></property>
     </bean>
     <bean id="transponddaoImpl" class="dao.transpondDAOImpl">
@@ -99,6 +111,7 @@
                 <value>Agree.hbm.xml</value>
                 <value>Collection.hbm.xml</value>
                 <value>Transpond.hbm.xml</value>
+                <value>Remind.hbm.xml</value>
             </list>
         </property>
 
@@ -116,7 +129,7 @@
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/miniweibo?characterEncoding=UTF-8"/>
         <property name="username" value="root"/>
-        <property name="password" value=""/>
+        <property name="password" value="root"/>
     </bean>
 
 </beans>

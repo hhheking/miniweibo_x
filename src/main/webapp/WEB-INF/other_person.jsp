@@ -29,6 +29,7 @@
     <!-- 引入 Bootstrap -->
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/chat.css" />
+    <script src="js/remind.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/flexible.js"></script>
     <script type="text/javascript">
@@ -57,7 +58,7 @@
     </script>
     <style type="text/css">
         body{
-            background: url("images/bg.jpg") center top;
+            background: url("/images/bg.jpg") center top;
         }
         #index_panel{
             position: fixed;
@@ -66,13 +67,13 @@
             width: 400px;
         }
         .face{
-            background: url("images/face.png")  no-repeat;
+            background: url("/images/face.png")  no-repeat;
             padding:1px 0 10px 25px;
             cursor: pointer;
             font-size: 15px;
         }
         .pic{
-            background: url("images/pic.png")  no-repeat;
+            background: url("/images/pic.png")  no-repeat;
             margin-left: 10px;
             padding:1px 0 10px 25px;
             cursor: pointer;
@@ -110,18 +111,18 @@
                 <li><a href="#"><span class="glyphicon glyphicon-equalizer"></span>&nbsp;游戏</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;<%=user.getUserNikename()%></a></li>
                 <li class="dropdown" style="border-left: 1px solid #ddd">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="tip">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <span class="glyphicon glyphicon-comment" style="font-size: 20"></span>
-                        <span class="badge" style="background-color: orange;position: absolute;top: 6px;right: 0px;font-size: 6">28</span>
+                        <span id="tip" class="badge" style="background-color: orange;position: absolute;top: 6px;right: 0px;font-size: 6"></span>
                     </a>
                     <ul class="dropdown-menu" style="font-size: 12;">
-                        <li><a href="#">@我的<span class="badge pull-right" style="background-color: grey;font-size: 5">7</span></a></li>
+                        <li><a href="#">转发<span id="tip1" class="badge pull-right" style="background-color: grey;font-size: 5"></span></a></li>
                         <li class="divider"></li>
-                        <li><a href="#">评论<span class="badge pull-right" style="background-color: grey;font-size: 5">7</span></a></li>
+                        <li><a href="#">评论<span id="tip2" class="badge pull-right" style="background-color: grey;font-size: 5"></span></a></li>
                         <li class="divider"></li>
-                        <li><a href="#">点赞<span class="badge pull-right" style="background-color: grey;font-size: 5">7</span></a></li>
+                        <li><a href="#">点赞<span id="tip3" class="badge pull-right" style="background-color: grey;font-size: 5"></span></a></li>
                         <li class="divider"></li>
-                        <li><a href="#">私信<span class="badge pull-right" style="background-color: grey;font-size: 5">7</span></a></li>
+                        <li><a href="#">私信<span id="tip4" class="badge pull-right" style="background-color: grey;font-size: 5"></span></a></li>
                     </ul>
                 </li>
                 <li><a href="#"><span class="glyphicon glyphicon-cog"></span></a></li>
@@ -152,7 +153,6 @@
             </div>
         </div>
     </div>
-
     <!--选项卡div-->
     <div class="container-fluid">
         <div class="row clearfix" style="background-color: white;padding: 7px;">
@@ -314,7 +314,7 @@
     <a href="#" class="list-group-item">6.第六条热搜第六条热搜第六条热搜</a>
     <a href="#" class="list-group-item">7.第七条热搜第七条热搜第七条热搜</a>
 </div>
-
+</div>
 <div class="bian">
     <header class="header">
         <a class="back"></a>
@@ -334,4 +334,5 @@
 
 </body>
 <script src="js/chat.js" type="text/javascript" charset="utf-8"></script>
+</body>
 </html>

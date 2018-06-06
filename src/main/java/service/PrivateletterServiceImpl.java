@@ -2,12 +2,15 @@ package service;
 
 import dao.PrivateletterDAO;
 import pojo.Privateletter;
+import pojo.Remind;
 import pojo.User;
 
+import java.sql.Timestamp;
 import java.util.List;
-
+import dao.remindDAO;
 public class PrivateletterServiceImpl implements PrivateletterService {
     PrivateletterDAO privateletterDAO;
+    remindDAO reminddao;
 
     public void setPrivateletterDAO(PrivateletterDAO privateletterDAO) {
         this.privateletterDAO = privateletterDAO;
@@ -15,6 +18,14 @@ public class PrivateletterServiceImpl implements PrivateletterService {
 
     public PrivateletterDAO getPrivateletterDAO() {
         return privateletterDAO;
+    }
+
+    public void setReminddao(remindDAO reminddao) {
+        this.reminddao = reminddao;
+    }
+
+    public remindDAO getReminddao() {
+        return reminddao;
     }
 
     @Override
@@ -26,8 +37,28 @@ public class PrivateletterServiceImpl implements PrivateletterService {
     }
 
     @Override
-    public void add(Privateletter privateletter) {
-        privateletterDAO.add(privateletter);
+    public void add(String user,String touser,String content) {
+        Privateletter pri = new Privateletter();
+        User user1 = getID(user).get(0);
+        User user2 = getID(touser).get(0);
+        pri.setUserByUserId(user1);
+        pri.setUserByTouserId(user2);
+        pri.setPrivateletterInfo(content);
+        pri.setPrivateletterTime(new Timestamp(System.currentTimeMillis()));
+        privateletterDAO.add(pri);
+        //添加聊天提醒
+        int user_id = user1.getUserId();
+        int touser_id = user2.getUserId();
+        if(user_id!= touser_id) {
+            Remind remind = new Remind();
+            remind.setIsnew(false);
+            remind.setTouserId(touser_id);
+            remind.setUsreId(user_id);
+            remind.setType("letter");
+            remind.setContent(content);
+            remind.setTime(new Timestamp(System.currentTimeMillis()));
+            this.reminddao.addRemind(remind);
+        }
     }
 
     @Override

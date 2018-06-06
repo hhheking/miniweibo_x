@@ -28,6 +28,10 @@
     <mapping class="pojo.User"/>
     <mapping class="pojo.Userinfo"/>
     <mapping resource="Userinfo.hbm.xml"/>
+      <mapping resource="Remind.hbm.xml"/>
+      <mapping resource="Remind.hbm.xml"/>
+      <mapping resource="Remind.hbm.xml"/>
+    <mapping class="pojo.Remind"/>
     <!-- <property name="connection.username"/> -->
     <!-- <property name="connection.password"/> -->
 

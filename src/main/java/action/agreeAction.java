@@ -2,6 +2,7 @@ package action;
 
 import com.opensymphony.xwork2.ActionSupport;
 import service.agreeService;
+import service.remindService;
 
 public class agreeAction extends ActionSupport {
     private int message_id;

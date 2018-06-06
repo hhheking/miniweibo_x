@@ -63,6 +63,12 @@
                 <param name="root">yes</param>
             </result>
         </action>
+
+        <action name="remindAction" class="remindActionBean">
+            <result name="success" type="json">
+                <param name="root">result</param>
+            </result>
+        </action>
         <action name="search" class="searchActionBean" method="search">
             <result name="success" type="json">
                 <param name="root">searcresult</param>

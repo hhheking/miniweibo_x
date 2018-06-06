@@ -5,8 +5,12 @@
 
     <bean name="privateletterservixeImpl" class="service.PrivateletterServiceImpl">
         <property name="privateletterDAO" ref="privateletterImpl"></property>
+        <property name="reminddao" ref="reminddaoImpl"></property>
     </bean>
     <bean name="privateletterImpl" class="dao.PrivateletterDAOImpl">
+        <property name="sessionFactory" ref="sf"></property>
+    </bean>
+    <bean name="reminddaoImpl" class="dao.remindDAOImpl">
         <property name="sessionFactory" ref="sf"></property>
     </bean>
     <bean name="sf"     class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
@@ -19,6 +23,7 @@
                 <value>Picture.hbm.xml</value>
                 <value>Privateletter.hbm.xml</value>
                 <value>Comment.hbm.xml</value>
+                <value>Remind.hbm.xml</value>
             </list>
         </property>
 
@@ -36,7 +41,7 @@
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/miniweibo?characterEncoding=UTF-8"/>
         <property name="username" value="root"/>
-        <property name="password" value=""/>
+        <property name="password" value="root"/>
     </bean>
 
 </beans>

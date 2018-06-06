@@ -1,10 +1,13 @@
 package service;
 
+import com.opensymphony.xwork2.ActionContext;
 import dao.*;
 import pojo.Comment;
 import pojo.Message;
+import pojo.Remind;
 import pojo.User;
 
+import javax.swing.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +19,7 @@ public class commentServiceImpl implements commentService {
     private userDAO userdao;
     private messageDAO messagedao;
     private commentDAO commentdao;
+    private remindDAO reminddao;
 
     public void setCommentdao(commentDAO commentdao) {
         this.commentdao = commentdao;
@@ -40,6 +44,14 @@ public class commentServiceImpl implements commentService {
         this.userdao = userdao;
     }
 
+    public remindDAO getReminddao() {
+        return reminddao;
+    }
+
+    public void setReminddao(remindDAO reminddao) {
+        this.reminddao = reminddao;
+    }
+
     @Override
     public List<Comment> commentList(int messid) {
         return commentdao.list(messid);
@@ -57,11 +69,32 @@ public class commentServiceImpl implements commentService {
         com.setUserByUserId(user);
         com.setMessageByMessageId(message);
         commentdao.add(com);
+        int user_id =message.getUserByUserId().getUserId();
+        if(userid!= user_id) {
+            Remind remind = new Remind();
+            remind.setIsnew(false);
+            remind.setMessageId(message);
+            remind.setTouserId(user_id);
+            remind.setUsreId(userid);
+            remind.setType("comment");
+            remind.setTime(new Timestamp(System.currentTimeMillis()));
+            this.reminddao.addRemind(remind);
+        }
     }
 
     @Override
     public void deleteComment(int commentid) {
-        commentdao.delete(commentdao.get(commentid));
+        Comment comment = commentdao.get(commentid);
+        Message message = messagedao.get(comment.getCommentId());
+        commentdao.delete(comment);
+        User u = (User) ActionContext.getContext().getSession().get("user");
+        int user_id = u.getUserId();
+        int touser_id = message.getUserByUserId().getUserId();
+        int message_id = message.getMessageId();
+        if(touser_id != user_id) {
+            Remind remind = reminddao.getRemind(touser_id, user_id, message_id, "comment").get(0);
+            reminddao.deleteRemind(remind);
+        }
     }
 
     @Override

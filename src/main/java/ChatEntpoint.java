@@ -1,16 +1,13 @@
 import bean.chatinfo;
-import bean.letter;
 import com.opensymphony.xwork2.ActionSupport;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import pojo.Privateletter;
-import pojo.User;
 import service.PrivateletterService;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -24,8 +21,8 @@ public class ChatEntpoint extends ActionSupport {
     private static final Set<ChatEntpoint> clientSet = new CopyOnWriteArraySet<ChatEntpoint>();
     private Session session;
     private String picture;
-    private List<letter> list;
     private List<String> data;
+    private PrivateletterService p;
 
     public void setUser(String user) {
         this.user = user;
@@ -40,32 +37,16 @@ public class ChatEntpoint extends ActionSupport {
     }
 
     @OnOpen
-    public void start(Session session){
+    public void start(Session session) {
         this.session = session;
         clientSet.add(this);
-        this.list = new ArrayList<letter>();
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("bean.xml");
+        p = ctx.getBean("privateletterservixeImpl", PrivateletterService.class);
     }
 
     @OnClose
     public void end(){
         clientSet.remove(this);
-        ApplicationContext ctx = new ClassPathXmlApplicationContext("bean.xml");
-        PrivateletterService p = ctx.getBean("privateletterservixeImpl", PrivateletterService.class);
-        Privateletter pri = new Privateletter();
-        User user1 = new User();
-        User user2 = new User();
-        letter le = new letter();
-        while(!list.isEmpty()) {
-            le = list.get(0);
-            user1 = p.getID(this.user).get(0);
-            user2 = p.getID(this.touser).get(0);
-            pri.setUserByUserId(user1);
-            pri.setUserByTouserId(user2);
-            pri.setPrivateletterInfo(le.content);
-            pri.setPrivateletterTime(le.timestamp);
-            p.add(pri);
-            list.remove(0);
-        }
     }
 
     @OnMessage
@@ -78,10 +59,7 @@ public class ChatEntpoint extends ActionSupport {
         }
         else {
             String s[] = message.split("#");
-            letter le = new letter();
-            le.content = s[0];
-            le.timestamp = new Timestamp(System.currentTimeMillis());
-            list.add(le);
+            p.add(this.user,this.touser,s[0]);
             for (ChatEntpoint client : clientSet) {
                 if (client.user.equals(s[1])) {
                     synchronized (client) {

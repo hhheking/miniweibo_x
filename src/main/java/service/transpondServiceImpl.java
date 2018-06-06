@@ -4,9 +4,12 @@ import com.opensymphony.xwork2.ActionContext;
 import dao.messageDAO;
 import dao.transpondDAO;
 import pojo.Message;
+import pojo.Remind;
 import pojo.Transpond;
 import pojo.User;
+import dao.remindDAO;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +17,8 @@ import java.util.Map;
 public class transpondServiceImpl implements transpondService {
     transpondDAO transponddao;
     messageDAO messagedao;
+    remindDAO reminddao;
+
     @Override
     //得到该用户转发的所有数据
     public List<Transpond> listMyTranspond(User user) {
@@ -54,10 +59,22 @@ public class transpondServiceImpl implements transpondService {
         t.setResultmessid(r);
         Map<String, Object> session = ActionContext.getContext().getSession();
         User u=(User)session.get("user");
-        User user=new User();
-        user.setUserId(u.getUserId());
-        t.setUserByUserId(user);
+        t.setUserByUserId(u);
         add(t);
+        //将转发写入数据库
+        int user_id = u.getUserId();
+        m = messagedao.get(messid);
+        int touser_id = m.getUserByUserId().getUserId();
+        if(user_id!= touser_id) {
+            Remind remind = new Remind();
+            remind.setIsnew(false);
+            remind.setMessageId(m);
+            remind.setTouserId(touser_id);
+            remind.setUsreId(user_id);
+            remind.setType("transpond");
+            remind.setTime(new Timestamp(System.currentTimeMillis()));
+            this.reminddao.addRemind(remind);
+        }
     }
 
     public transpondDAO getTransponddao() {
@@ -74,5 +91,13 @@ public class transpondServiceImpl implements transpondService {
 
     public void setMessagedao(messageDAO messagedao) {
         this.messagedao = messagedao;
+    }
+
+    public remindDAO getReminddao() {
+        return reminddao;
+    }
+
+    public void setReminddao(remindDAO reminddao) {
+        this.reminddao = reminddao;
     }
 }

@@ -65,7 +65,7 @@ $(function () {
 
             },//ajax引擎一般用不到；状态信息；抛出的异常信息
             error : function() {
-                alert("失败了")
+                alert("点赞失败了")
             }
         });
 
@@ -115,11 +115,8 @@ $(function () {
                 }
             });
         }
-    })
-})
-$(function(){
-    $(".btn.btn-default.pull-right").click(
-        function() {
+    });
+    $(".btn.btn-default.pull-right").click(function() {
             if ($(this).html() == "评论") {
                 var commentinfo = $(this).parent().prev().children().val();
                 var userid = $(this).next().next().val();
@@ -158,7 +155,5 @@ $(function(){
                 commentdiv = "评价" + (parseInt(commentdiv.substring(2)) + 1);
                 $(this).parent().parent().parent().parent().parent().prev().children("div").eq(2).children("span").html(commentdiv);
             }
-        }
-    )
-}
-)
+        });
+})

@@ -90,5 +90,6 @@ $(function(){
     });
     $("#chat").click(function(){
         $(".bian").show();
+        addtime("----以上为历史记录----");
     });
 })
