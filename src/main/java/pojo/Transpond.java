@@ -55,12 +55,14 @@ public class Transpond {
     public void setMessageByMessageId(Message messageByMessageId) {
         this.messageByMessageId = messageByMessageId;
     }
+
     @ManyToOne
     @JoinColumn(name = "result_messid", referencedColumnName = "message_id", nullable = false)
-    public void setResultmessid(Message resultmessid) {
-        this.resultmessid = resultmessid;
-    }
     public Message getResultmessid() {
         return resultmessid;
+    }
+
+    public void setResultmessid(Message resultmessid) {
+        this.resultmessid = resultmessid;
     }
 }

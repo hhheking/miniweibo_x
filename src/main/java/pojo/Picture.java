@@ -2,6 +2,8 @@ package pojo;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Picture {
@@ -9,7 +11,15 @@ public class Picture {
     private String pictureUrl;
     private Timestamp pictureTime;
     private User userByUserId;
+    private Set<Message> messageSet=new HashSet<>();
 
+    public Set<Message> getMessageSet() {
+        return messageSet;
+    }
+
+    public void setMessageSet(Set<Message> messageSet) {
+        this.messageSet = messageSet;
+    }
     @Id
     @Column(name = "picture_id")
     public int getPictureId() {

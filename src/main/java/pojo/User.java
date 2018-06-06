@@ -1,10 +1,14 @@
 package pojo;
 
+import com.sun.org.apache.bcel.internal.generic.NEW;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -13,6 +17,56 @@ public class User {
     private String userPassword;
     private String userNikename;
     private Timestamp userTime;
+    private Set<Picture> pictureSet=new HashSet<>();
+    private Set<Privateletter> privateletterSet=new HashSet<>();
+    private Set<Privateletter> toPivateLetterSet=new HashSet<>();
+    private Set<Relation> relationSet=new HashSet<>();
+    private Set<Userinfo> userinfoSet=new HashSet<>();
+    private Set<Relation> touserrelationSet=new HashSet<>();
+
+
+    public Set<Picture> getPictureSet() {
+        return pictureSet;
+    }
+
+    public void setPictureSet(Set<Picture> pictureSet) {
+        this.pictureSet = pictureSet;
+    }
+    public Set<Privateletter> getToPivateLetterSet() {
+        return toPivateLetterSet;
+    }
+
+    public void setToPivateLetterSet(Set<Privateletter> toPivateLetterSet) {
+        this.toPivateLetterSet = toPivateLetterSet;
+    }
+
+    public Set<Relation> getTouserrelationSet() {
+        return touserrelationSet;
+    }
+    public void setTouserrelationSet(Set<Relation> touserrelationSet) {
+        this.touserrelationSet = touserrelationSet;
+    }
+    public Set<Privateletter> getPrivateletterSet() {
+        return privateletterSet;
+    }
+    public Set<Relation> getRelationSet() {
+        return relationSet;
+    }
+    public Set<Userinfo> getUserinfoSet() {
+        return userinfoSet;
+    }
+
+    public void setPrivateletterSet(Set<Privateletter> privateletterSet) {
+        this.privateletterSet = privateletterSet;
+    }
+
+    public void setRelationSet(Set<Relation> relationSet) {
+        this.relationSet = relationSet;
+    }
+
+    public void setUserinfoSet(Set<Userinfo> userinfoSet) {
+        this.userinfoSet = userinfoSet;
+    }
 
     @Id
     @Column(name = "user_id")

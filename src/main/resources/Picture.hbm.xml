@@ -5,11 +5,17 @@
 <hibernate-mapping>
 
     <class name="pojo.Picture" table="picture" schema="miniweibo">
-        <id name="pictureId" column="picture_id"/>
+        <id name="pictureId" column="picture_id">
+            <generator class="increment"></generator>
+        </id>
         <property name="pictureUrl" column="picture_url"/>
         <property name="pictureTime" column="picture_time"/>
         <many-to-one name="userByUserId" class="pojo.User">
             <column name="user_id"/>
         </many-to-one>
+        <set name="messageSet" lazy="false" cascade="delete" inverse="true">
+            <key column="picture_id"></key>
+            <one-to-many class="pojo.Message"></one-to-many>
+        </set>
     </class>
 </hibernate-mapping>

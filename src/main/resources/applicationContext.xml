@@ -81,6 +81,9 @@
         <property name="agreeDAO" ref="agreedaoImpl"></property>
         <property name="remindDAO" ref="reminddaoImpl"></property>
     </bean>
+    <bean name="picturedaoImpl" class="dao.pictureDAOImpl">
+        <property name="sessionFactory" ref="sf"></property>
+    </bean>
     <bean name="agreedaoImpl" class="dao.agreeDAOImpl">
         <property name="sessionFactory" ref="sf"></property>
     </bean>
@@ -111,6 +114,8 @@
                 <value>Agree.hbm.xml</value>
                 <value>Collection.hbm.xml</value>
                 <value>Transpond.hbm.xml</value>
+                <value>Userinfo.hbm.xml</value>
+                <value>Privateletter.hbm.xml</value>
                 <value>Remind.hbm.xml</value>
             </list>
         </property>
@@ -129,7 +134,7 @@
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/miniweibo?characterEncoding=UTF-8"/>
         <property name="username" value="root"/>
-        <property name="password" value="root"/>
+        <property name="password" value="lizhiqian512"/>
     </bean>
 
 </beans>
