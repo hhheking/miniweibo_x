@@ -21,8 +21,12 @@
                 <value>Relation.hbm.xml</value>
                 <value>Message.hbm.xml</value>
                 <value>Picture.hbm.xml</value>
-                <value>Privateletter.hbm.xml</value>
                 <value>Comment.hbm.xml</value>
+                <value>Agree.hbm.xml</value>
+                <value>Collection.hbm.xml</value>
+                <value>Transpond.hbm.xml</value>
+                <value>Userinfo.hbm.xml</value>
+                <value>Privateletter.hbm.xml</value>
                 <value>Remind.hbm.xml</value>
             </list>
         </property>

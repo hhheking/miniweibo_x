@@ -1,6 +1,7 @@
 package service;
 
 import com.opensymphony.xwork2.ActionContext;
+import com.sun.xml.internal.ws.api.message.MessageWritable;
 import dao.messageDAO;
 import dao.userDAO;
 import pojo.Message;
@@ -35,9 +36,11 @@ public class messageServiceImpl implements messageService {
     }
 
     @Override
-    public void delete(Message message) {
+    public void delete(int messageid) {
+        Message message=messagedao.get(messageid);
         messagedao.delete(message);
     }
+
 
     @Override
     public Message get(int id) {

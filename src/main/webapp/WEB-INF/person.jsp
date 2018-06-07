@@ -37,8 +37,24 @@
             $("#index_sousuo").blur(function(){
                 $("#index_panel").css("display","none");
             });
-
         });
+        function deleteMessage(self){
+             var div=$(self).parent().parent().parent().parent().parent().parent().parent().parent();
+            $.ajax({
+                type : "POST",  //请求方式
+                url : "deleteMessage",  //请求路径
+                data : {
+                    'messageID' :$(self).next().val()
+                },
+                async:true,
+                success : function(data) {  //异步请求成功执行的回调函数
+                    div.remove();
+                },//ajax引擎一般用不到；状态信息；抛出的异常信息
+                error : function() {
+                    alert("失败了")
+                }
+            });
+        };
     </script>
     <style type="text/css">
         body{
@@ -210,7 +226,8 @@
                                     </li>
                                     <li role="presentation" class="divider"></li>
                                     <li role="presentation">
-                                        <a role="menuitem" tabindex="-1" href="#">删除</a>
+                                        <a role="menuitem" tabindex="-1" href="javascript:void(0)" onclick="deleteMessage(this)">删除</a>
+                                        <input value="${weibo.getMessid()}" style="display:none">
                                     </li>
                                 </ul>
                             </div>

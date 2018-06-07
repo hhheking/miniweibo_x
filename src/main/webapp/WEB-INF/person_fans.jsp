@@ -40,6 +40,21 @@
             $("#index_sousuo").blur(function(){
                 $("#index_panel").css("display","none");
             });
+            $(".col-sm-2").click(function(){
+                var span=$(this).children('span');
+                $.ajax({
+                    url:'judgeRelation',
+                    data:{'user_id':$(this).children('input').val()},
+                    dataType: 'json',
+                    async:true,
+                    success:function (data) {
+                        span.html(data);
+                    },
+                    error:function (err) {
+                        alert("fail");
+                    }
+                });
+            })
 
         });
     </script>
@@ -198,7 +213,7 @@
                                 <div class="row clearfix" style="margin-top: 5px;">
                                     <div class="col-sm-3" style="font-size: 15;"><b>${fa.getName()}</b></div>
                                     <div class="col-sm-5"></div>
-                                    <div class="col-sm-2" style="text-align: center;padding:1px;background-color: white;cursor: pointer;border: 1px solid #ddd;margin-right: 5px;"><span style="color: gray;">${fa.getStatus()}</span></div>
+                                    <div class="col-sm-2" style="text-align: center;padding:1px;background-color: white;cursor: pointer;border: 1px solid #ddd;margin-right: 5px;"><span style="color: gray;">${fa.getStatus()}</span><input value="${fa.getUserid()}" style="display: none" ></div>
                                     <div class="col-sm-1" style="text-align: center;padding:1px;background-color: white;cursor: pointer;border: 1px solid #ddd;"><span style="color: gray; ">私信</span></div>
                                 </div>
                                 <!--关注、粉丝、微博-->

@@ -97,4 +97,8 @@ public class messageAction {
 
         return "success1";
     }
+    public String delete(){
+        messageservice.delete(messageID);
+        return "success";
+    }
 }
