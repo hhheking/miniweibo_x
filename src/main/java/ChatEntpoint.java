@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-@ServerEndpoint(value = "/other_person.jsp")
+@ServerEndpoint(value = "/websocket")
 public class ChatEntpoint extends ActionSupport {
     private String user;
     private String touser;
@@ -79,7 +79,7 @@ public class ChatEntpoint extends ActionSupport {
     public String chatajax(){
         List<chatinfo> chat = new ArrayList<chatinfo>();
         ApplicationContext ctx = new ClassPathXmlApplicationContext("bean.xml");
-        PrivateletterService p = ctx.getBean("privateletterservixeImpl", PrivateletterService.class);
+        p = ctx.getBean("privateletterservixeImpl", PrivateletterService.class);
         int user_id = p.getID(this.user).get(0).getUserId();
         int touser_id = p.getID(this.touser).get(0).getUserId();
         List<Privateletter> priletter;

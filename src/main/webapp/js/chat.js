@@ -1,4 +1,4 @@
-var webSocket = new WebSocket("ws://localhost:8080/other_person.jsp");
+var webSocket = new WebSocket("ws://localhost:8080/websocket");
 
 function send(headSrc, str) {
     var html="<div class='send'><div class='msg'><img src="+headSrc+" />"+
@@ -57,6 +57,7 @@ webSocket.onopen = function () {
                 else
                     send("images/"+$("#pic").html()+".png",infos[0]);
            }
+            addtime("----以上为历史记录----");
         },
 
         error:function(){
@@ -90,6 +91,7 @@ $(function(){
     });
     $("#chat").click(function(){
         $(".bian").show();
-        addtime("----以上为历史记录----");
+        var myDiv =document.getElementById('myDiv');
+        myDiv.scrollTop = myDiv.scrollHeight;
     });
 })

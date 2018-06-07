@@ -43,7 +43,7 @@
                 $("#index_panel").css("display","none");
                 setTimeout(function(){
                     $("#searchResult").css("display","none");
-                }, 100);
+                }, 300);
             });
             $("#mycontent").keyup(function(){
                 //判断输入的字符串长度
