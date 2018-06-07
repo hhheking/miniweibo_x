@@ -6,22 +6,22 @@ import pojo.User;
 import java.util.List;
 
 public class searchResult {
-    List<User> userListBySearch;
-    List<Message> messageListBySearch;
+    List<search_user> users;
+    List<search_message> messages;
 
-    public List<User> getUserListBySearch() {
-        return userListBySearch;
+    public List<search_user> getUsers() {
+        return users;
     }
 
-    public void setUserListBySearch(List<User> userListBySearch) {
-        this.userListBySearch = userListBySearch;
+    public void setUsers(List<search_user> users) {
+        this.users = users;
     }
 
-    public List<Message> getMessageListBySearch() {
-        return messageListBySearch;
+    public List<search_message> getMessages() {
+        return messages;
     }
 
-    public void setMessageListBySearch(List<Message> messageListBySearch) {
-        this.messageListBySearch = messageListBySearch;
+    public void setMessages(List<search_message> messages) {
+        this.messages = messages;
     }
 }

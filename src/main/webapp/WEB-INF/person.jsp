@@ -39,7 +39,7 @@
             });
         });
         function deleteMessage(self){
-             var div=$(self).parent().parent().parent().parent().parent().parent().parent().parent();
+             var div=$(self).parent().parent().parent().parent().parent().parent().parent();
             $.ajax({
                 type : "POST",  //请求方式
                 url : "deleteMessage",  //请求路径
@@ -49,6 +49,7 @@
                 async:true,
                 success : function(data) {  //异步请求成功执行的回调函数
                     div.remove();
+                    $("#myweibonum").text((parseInt($("#myweibonum").text())-1));
                 },//ajax引擎一般用不到；状态信息；抛出的异常信息
                 error : function() {
                     alert("失败了")
@@ -174,7 +175,7 @@
                     <div>粉丝</div>
                 </div>
                 <div class="col-sm-4" style="text-align: center;">
-                    <div><b>${mymessageList.size()}</b></div>
+                    <div><b id="myweibonum">${mymessageList.size()}</b></div>
                     <div>微博</div>
 
                 </div>

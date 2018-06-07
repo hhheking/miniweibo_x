@@ -25,6 +25,7 @@
     <bean name="searchActionBean" class="action.searchAction">
         <property name="userdao" ref="userdaoImpl"></property>
         <property name="messagedao" ref="messagedaoimpl"></property>
+        <property name="service" ref="relationserviceImpl"></property>
     </bean>
     <bean name="transpondserviceImple" class="service.transpondServiceImpl">
         <property name="transponddao" ref="transponddaoImpl"></property>
@@ -134,7 +135,7 @@
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/miniweibo?characterEncoding=UTF-8"/>
         <property name="username" value="root"/>
-        <property name="password" value="lizhiqian512"/>
+        <property name="password" value=""/>
     </bean>
 
 </beans>

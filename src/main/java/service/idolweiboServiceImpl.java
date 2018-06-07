@@ -194,9 +194,8 @@ public class idolweiboServiceImpl implements idolweiboService {
 
     //计算自己的微博
     @Override
-    public List<weibo> Myweibos(User user) {
+    public List<weibo> Myweibos(User user1) {
         List<weibo> weiboList = new ArrayList<>();
-            User user1=(User)ActionContext.getContext().getSession().get("user");
             for (Message message : messageservice.myMessage(user1)) {
                 weibo wb = new weibo();
                 //设置用户的头像
@@ -210,7 +209,7 @@ public class idolweiboServiceImpl implements idolweiboService {
                 wb.setCollect(message.getMessageCollectnum());
                 wb.setMessid(message.getMessageId());
                 wb.setId(user1.getUserId());
-                List<Agree> agrees = agreedao.findAgree(message.getMessageId(), user.getUserId());
+                List<Agree> agrees = agreedao.findAgree(message.getMessageId(), user1.getUserId());
                 if (agrees.isEmpty())
                     wb.setAgree_status("no");
                 else
@@ -229,7 +228,7 @@ public class idolweiboServiceImpl implements idolweiboService {
                     weiboList.add(wb);
                 }
 
-                List<Collection> collections = this.collectiondao.list(user.getUserId(), message.getMessageId());
+                List<Collection> collections = this.collectiondao.list(user1.getUserId(), message.getMessageId());
                 if (collections.isEmpty())
                     wb.setCollect_status("no");
                 else

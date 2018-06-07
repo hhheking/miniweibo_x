@@ -8,7 +8,7 @@ import java.util.List;
 public class messageDAOImpl extends HibernateTemplate implements messageDAO {
     @Override
     public List<Message> list() {
-        return find("from Message ");
+        return find("from Message");
     }
 
     @Override

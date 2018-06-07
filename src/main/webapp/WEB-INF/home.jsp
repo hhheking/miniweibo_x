@@ -26,6 +26,7 @@
     <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
     <script src="https://code.jquery.com/jquery.js"></script>
     <!-- 包括所有已编译的插件 -->
+    <script src="js/search.js"></script>
     <script src="js/remind.js"></script>
     <script src="js/comment.js"></script>
     <script src="js/transpond.js"></script>
@@ -35,78 +36,14 @@
 
     <script type="text/javascript">
         $(document).ready(function(){
-            $('#index_sousuo').bind('input propertychange', function(){
-                //输入框内容改变后，先改变热搜框的可见属性
-                $("#index_panel").css("display","none");
-                //执行ajax请求，请求查找的数据
-                var str=$("#index_sousuo").val();
-                $.ajax({
-                    type:'Post',
-                    url:'search',
-                    data:{'keywords':$("#index_sousuo").val()},
-                    dataType:'json',
-                    async:true,
-                    success:function (data) {
-                        $("#searchResult").html("");
-                        //解析json数据,拼接成html代码
-                        var default_result="<div>" +
-                            "<a href=\"#\" class=\"list-group-item\">搜\"<span style=\"color: orange;\">"
-                            +str+
-                            "</span>\"相关微博</a>";
-                        var count=0;
-                        for(var i in data.messageListBySearch){
-                            //i是一个Message对象，要考虑messageInfo过长的问题
-                            default_result=default_result+"<a href=\"#\" class=\"list-group-item\">"
-                                +data.messageListBySearch[parseInt(i)].messageInfo+
-                                "</a>";
-                            count=count+1;
-                            //下拉列表最多显示5个
-                            if(count>=5){
-                                break;
-                            }
-                        }
-                        default_result=default_result+"<a href=\"#\" class=\"list-group-item\">搜\"<span  style=\"color: orange;\">"
-                            +str+
-                            "</span>\"相关用户</a>";
-                        count = 0;
-                        for(var i in data.userListBySearch){
-                            //i是一个User对象，一般而言，userNikename过长的问题不用考虑
-                            default_result=default_result+"<a href='#' class='list-group-item'>" +
-                                data.userListBySearch[parseInt(i)].userNikename+
-                                "</a>";
-                            count=count+1;
-                            //下拉列表最多显示5个
-                            if(count>=5){
-                                break;
-                            }
-                        }
-                        default_result=default_result+"</div>";
-                        $("#searchResult").append(default_result);
-                        $("#searchResult").css("display","");
-                    },
-                    error:function (error) {
-                        //找不到搜索值的时候也会导致失败
-                        //清空内容，然后添加div进去
-                        $("#searchResult").html("");
-                        var default_result="<div>\n" +
-                            "<a href=\"#\" class=\"list-group-item\">搜\"<span id=\"default_weibo\" style=\"color: orange;\">"
-                            +str+
-                            "</span>\"相关微博</a>\n" +
-                            "<a href=\"#\" class=\"list-group-item\">搜\"<span id=\"default_user\"  style=\"color: orange;\">"
-                            +str+
-                            "</span>\"相关用户</a>\n" +
-                            "</div>";
-                        $("#searchResult").append(default_result);
-                        $("#searchResult").css("display","");
-                    }
-                });
-            });
             $("#index_sousuo").focus(function(){
                 $("#index_panel").css("display","");
             });
             $("#index_sousuo").blur(function(){
                 $("#index_panel").css("display","none");
-                $("#searchResult").css("display","none");
+                setTimeout(function(){
+                    $("#searchResult").css("display","none");
+                }, 100);
             });
             $("#mycontent").keyup(function(){
                 //判断输入的字符串长度
