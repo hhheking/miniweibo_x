@@ -18,6 +18,10 @@
     <bean name="messageActionBean" class="action.messageAction">
         <property name="messageservice" ref="messageserviceImpl"></property>
         <property name="transpondservice" ref="transpondserviceImple"></property>
+        <property name="userservice" ref="userserviceImpl"></property>
+        <property name="agreedao" ref="agreedaoImpl"></property>
+        <property name="collectiondao" ref="collectiondaoImpl"></property>
+        <property name="transponddao" ref="transponddaoImpl"></property>
     </bean>
     <bean name="agreeActionBean" class="action.agreeAction">
         <property name="agreeService" ref="agreeserviceImpl"></property>
@@ -135,7 +139,7 @@
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/miniweibo?characterEncoding=UTF-8"/>
         <property name="username" value="root"/>
-        <property name="password" value="root"/>
+        <property name="password" value=""/>
     </bean>
 
 </beans>

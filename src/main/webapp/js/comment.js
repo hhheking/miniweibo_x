@@ -74,6 +74,7 @@ $(function () {
     // 评价功能
     $(".glyphicon.glyphicon-edit").click(function () {
         var parentdiv=$(this).parent().parent();
+        var messageid=$(this).next().val();
         commentdiv=parentdiv.next();
         commentdiv.toggle();
         var messid1=$(this).next().val();
@@ -106,7 +107,7 @@ $(function () {
                         commentdiv.append(com);
                     }
                     if(i==5){
-                        var com="<div style=\'text-align: center\'><a href=\"#\">查看更多</a></div>"
+                        var com="<div style='text-align: center'><a href='toMessage?messageID="+messageid+"'>查看更多</a></div>";
                         commentdiv.append(com);
                     }
                 },//ajax引擎一般用不到；状态信息；抛出的异常信息

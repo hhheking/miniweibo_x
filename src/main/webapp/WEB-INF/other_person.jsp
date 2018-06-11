@@ -220,19 +220,6 @@
                         </div>
                         <div class="col-md-10 column">
                             <h4 style="font-weight: bold;">${weibo.getNikename()}</h4>
-                            <div class="dropdown" style="position: absolute;top: 10px;right: 20px;">
-                                <button type="button" class="btn dropdown-toggle"
-                                        id="dropdownMenu1" data-toggle="dropdown"><span class="caret"></span></button>
-                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="min-width: 100%;">
-                                    <li role="presentation">
-                                        <a role="menuitem" tabindex="-1" href="#">置顶</a>
-                                    </li>
-                                    <li role="presentation" class="divider"></li>
-                                    <li role="presentation">
-                                        <a role="menuitem" tabindex="-1" href="#">删除</a>
-                                    </li>
-                                </ul>
-                            </div>
                             <h6>${weibo.getTime()}分钟前 来自miniweibo.com</h6>
                             <p>${weibo.getWeiboInfo()}</p>
                         </div>

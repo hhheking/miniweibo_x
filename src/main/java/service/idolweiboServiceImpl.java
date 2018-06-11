@@ -111,7 +111,6 @@ public class idolweiboServiceImpl implements idolweiboService {
         return (timestamp.getTime() - message.getMessageTime().getTime()) / (1000 * 60);
     }
 
-
     //此处的user为登录用户的实例
     @Override
     public List<weibo> calidolweibos(User user) {

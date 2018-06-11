@@ -37,6 +37,7 @@
             <result name="success" type="json">
                 <param name="root">messageInfo</param>
             </result>
+            <result name="messagejsp">WEB-INF/message.jsp</result>
             <result name="success1" type="json">
                 <param name="root">messagrReason</param>
             </result>
