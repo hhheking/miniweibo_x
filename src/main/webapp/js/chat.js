@@ -32,8 +32,8 @@ function sj(){
 }
 /*接受消息*/
 webSocket.onopen = function () {
-	webSocket.send("$$$#"+$("#user").html()+"#"+$("#pic").html()+"#"+$("#touser").html());
 
+	webSocket.send("$$$#"+$("#user").html()+"#"+$("#pic").html()+"#"+$("#touser").html());
     $.ajax({
         type:'post',
         url:'chat',

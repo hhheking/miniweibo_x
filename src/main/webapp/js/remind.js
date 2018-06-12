@@ -2,7 +2,7 @@ $(function () {
     setInterval(function () {
         $.ajax({
             type : "POST",  //请求方式
-            url : "remindAction",  //请求路径
+            url : "rootRemind",  //请求路径
             data : {},
             async:true,
             success : function(data) {  //异步请求成功执行的回调函数

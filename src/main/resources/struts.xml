@@ -66,15 +66,21 @@
             </result>
         </action>
 
-        <action name="remindAction" class="remindActionBean">
+        <action name="*Remind" class="remindActionBean" method="{1}">
             <result name="success" type="json">
                 <param name="root">result</param>
+            </result>
+            <result name="letter" type="json">
+                <param name="root">letters</param>
             </result>
         </action>
         <action name="search" class="searchActionBean" method="search">
             <result name="success" type="json">
                 <param name="root">searchresult</param>
             </result>
+        </action>
+        <action name="jump" class="action.jumpAction" method="jump">
+            <result name="success">WEB-INF/remind.jsp</result>
         </action>
     </package>
 </struts>

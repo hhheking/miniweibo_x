@@ -2,10 +2,16 @@ package dao;
 
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import pojo.Remind;
+import pojo.User;
 
 import java.util.List;
 
 public class remindDAOImpl extends HibernateTemplate implements remindDAO {
+    @Override
+    public User getUser(int id) {
+        return (User) find("from User u where u.userId ="+ id).get(0);
+    }
+
     @Override
     public void addRemind(Remind remind) {
         save(remind);
@@ -37,6 +43,7 @@ public class remindDAOImpl extends HibernateTemplate implements remindDAO {
 
     @Override
     public List<Remind> list(int touser_id, String type) {
-        return find("from Remind r where r.touserId =" + touser_id + "and r.type=" + type);
+        return find("from Remind r where r.touserId =" + touser_id + "and r.type=?",type);
     }
+
 }

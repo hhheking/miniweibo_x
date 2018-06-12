@@ -1,10 +1,12 @@
 package dao;
 
 import pojo.Remind;
+import pojo.User;
 
 import java.util.List;
 
 public interface remindDAO {
+    public User getUser(int id);
     public void addRemind(Remind remind);
     public List<Remind> getRemind(int touser_id,int user_id,int message_id,String type);
     public void updateRemind(Remind remind);

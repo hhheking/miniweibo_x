@@ -2,6 +2,8 @@ package service;
 
 import pojo.Remind;
 import dao.remindDAO;
+import pojo.User;
+
 import java.util.List;
 
 public class remindServiceImpl implements remindService {
@@ -13,6 +15,11 @@ public class remindServiceImpl implements remindService {
 
     public remindDAO getReminddao() {
         return reminddao;
+    }
+
+    @Override
+    public User getUser(int id) {
+        return reminddao.getUser(id);
     }
 
     @Override

@@ -188,7 +188,7 @@
                         <li class="divider"></li>
                         <li><a href="#">点赞<span id="tip3" class="badge pull-right" style="background-color: grey;font-size: 5"></span></a></li>
                         <li class="divider"></li>
-                        <li><a href="#">私信<span id="tip4" class="badge pull-right" style="background-color: grey;font-size: 5"></span></a></li>
+                        <li><a href="jump?param = 1">私信<span id="tip4" class="badge pull-right" style="background-color: grey;font-size: 5"></span></a></li>
                     </ul>
                 </li>
                 <li><a href="#"><span class="glyphicon glyphicon-cog"></span></a></li>
