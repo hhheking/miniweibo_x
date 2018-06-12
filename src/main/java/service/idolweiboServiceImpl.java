@@ -118,8 +118,7 @@ public class idolweiboServiceImpl implements idolweiboService {
         for (User user1 : idols(user)) {
             for (Message message : messageservice.myMessage(user1)) {
                 weibo wb = new weibo();
-                //设置用户的头像
-                //
+                wb.setImage(user1.getIcon());
                 wb.setNikename(user1.getUserNikename());
                 wb.setTime(timeCount(message));
                 wb.setWeiboInfo(message.getMessageInfo());
@@ -198,7 +197,7 @@ public class idolweiboServiceImpl implements idolweiboService {
             for (Message message : messageservice.myMessage(user1)) {
                 weibo wb = new weibo();
                 //设置用户的头像
-                //
+                wb.setImage(user1.getIcon());
                 wb.setNikename(user1.getUserNikename());
                 wb.setTime(timeCount(message));
                 wb.setWeiboInfo(message.getMessageInfo());

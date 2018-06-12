@@ -129,7 +129,7 @@
     <!--包含昵称和头像的div-->
     <div style="height: 280px;background-color: white;">
         <div class="row text-center inform" style="margin-top: 5px;padding: 50px;">
-            <img src="images/icon.png" class="img-circle" width="110px;">
+            <img src="<%=user.getIcon()%>" class="img-circle" width="110px;">
             <h4 style="font-weight: bold;"><%=user.getUserNikename()%></h4>
             <div class="col-sm-12" >
                 <p>一句话介绍一下自己吧，让别人更了解你</p>
@@ -206,7 +206,7 @@
                         <!--粉丝或者关注的人的头像-->
                         <div class="clearfix">
                             <div class="col-sm-2" style="text-align: center;padding-top: 10px;">
-                                <a href="toUser?userid=${fa.getUserid()}"><img src="images/icon.png" class="img-circle" width="60px;"></a>
+                                <a href="toUser?userid=${fa.getUserid()}"><img src="${fa.getImageurl()}" class="img-circle" width="60px;"></a>
                             </div>
                             <!--基本资料-->
                             <div class="col-sm-10">

@@ -12,6 +12,7 @@
         <property name="userPassword" column="user_password"/>
         <property name="userNikename" column="user_nikename"/>
         <property name="userTime" column="user_time"/>
+        <property name="icon" column="icon"/>
 
        <set name="pictureSet" lazy="false" cascade="delete" inverse="true">
             <key column="user_id"></key>

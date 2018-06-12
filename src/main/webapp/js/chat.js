@@ -53,9 +53,9 @@ webSocket.onopen = function () {
                     first = day;
                 }
                 if(infos[2] == "show")
-                    show("images/"+$("#pic").html()+".png",infos[0]);
+                    show($("#pic").html(),infos[0]);
                 else
-                    send("images/"+$("#pic").html()+".png",infos[0]);
+                    send($("#topic").attr("src"),infos[0]);
            }
             addtime("----以上为历史记录----");
         },
@@ -68,7 +68,7 @@ webSocket.onopen = function () {
     }
 webSocket.onmessage = function (event) {
     var pic = event.data.split("#");
-    send("/images/"+pic[1]+".png",pic[0]);
+    send(pic[1],pic[0]);
 };
 $(function(){
 
@@ -83,7 +83,7 @@ $(function(){
 	$('.footer p').click(function(){
 		var message = $(this).prev().val();
 		webSocket.send(message+"#"+$("#touser").html());
-		show("images/"+$("#pic").html()+".png",message);
+		show($("#pic").html(),message);
 		$(this).prev().val("");
 	})
     $(".back").click(function(){

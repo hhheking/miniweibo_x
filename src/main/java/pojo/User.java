@@ -17,6 +17,7 @@ public class User {
     private String userPassword;
     private String userNikename;
     private Timestamp userTime;
+    private String icon;
     private Set<Picture> pictureSet=new HashSet<>();
     private Set<Privateletter> privateletterSet=new HashSet<>();
     private Set<Privateletter> toPivateLetterSet=new HashSet<>();
@@ -116,6 +117,15 @@ public class User {
 
     public void setUserTime(Timestamp userTime) {
         this.userTime = userTime;
+    }
+
+    @Basic
+    @Column(name = "icon")
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+    public String getIcon() {
+        return icon;
     }
 
     @Override

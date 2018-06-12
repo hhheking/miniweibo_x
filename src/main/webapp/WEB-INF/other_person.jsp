@@ -138,7 +138,7 @@
     <!--包含昵称和头像的div-->
     <div style="height: 280px;background-color: white;">
         <div class="row text-center inform" style="margin-top: 5px;padding: 50px;">
-            <img src="images/icon.png" class="img-circle" width="110px;">
+            <img id="topic" src="${user.getIcon()}" class="img-circle" width="110px;">
             <h4 style="font-weight: bold;">${user.getUserNikename()}</h4>
             <div class="col-sm-12" >
                 <p>一句话介绍一下自己吧，让别人更了解你</p>
@@ -216,7 +216,7 @@
                     <div class="row clearfix">
                         <div class="col-md-2 column" style="padding-left: 25px;padding-top: 10px;">
                             <!--点击头像 进入用户空间-->
-                            <a href="toUser?userid=${weibo.getId()}"><img src="images/icon.png" class="img-circle" width="70px;"></a>
+                            <a href="toUser?userid=${weibo.getId()}"><img src="${weibo.getImage()}" class="img-circle" width="70px;"></a>
                         </div>
                         <div class="col-md-10 column">
                             <h4 style="font-weight: bold;">${weibo.getNikename()}</h4>
@@ -286,7 +286,6 @@
                 </div>
             </s:iterator>
         </div>
-
     </div>
 </div>
 <!--右侧空白div-->
@@ -307,7 +306,7 @@
         <a class="back"></a>
         <h5 class="tit"id="touser">${user.getUserNikename()}</h5>
         <span id="user" style="display: none"><%=user.getUserNikename()%></span>
-        <span id="pic" style="display: none">f</span>
+        <span id="pic" style="display: none"><%=user.getIcon()%></span>
         <div class="right">历史</div>
     </header>
     <div class="message" id="myDiv">

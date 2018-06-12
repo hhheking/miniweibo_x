@@ -47,6 +47,7 @@
           <unit-entry name="noname-applicationContext.xml@5191" />
           <unit-entry name="noname-applicationContext.xml@5402" />
           <unit-entry name="noname-applicationContext.xml@5606" />
+          <unit-entry name="noname-applicationContext.xml@5890" />
           <unit-entry name="noname-bean.xml@614" value="ds" />
           <unit-entry name="noname-bean.xml@812" value="ds" />
         </datasource-map>

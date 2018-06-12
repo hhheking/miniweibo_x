@@ -269,7 +269,7 @@
                         <div class="col-md-12 column">
                             <div class="col-md-2 column" style="padding-left: 25px;padding-top: 10px;">
                                 <!--点击头像 进入用户空间-->
-                                <a href="toUser?userid=${weibo.getId()}"><img src="images/icon.png" class="img-circle" width="60px;"></a>
+                                <a href="toUser?userid=${weibo.getId()}"><img src="${weibo.getImage()}" class="img-circle" width="60px;"></a>
                             </div>
                             <div class="col-md-10 column">
                                 <h4 style="font-weight: bold;">${weibo.getNikename()}</h4>
@@ -339,7 +339,7 @@
                     <div class="row clearfix">
                         <div class="col-md-1 column">
                             <!--点击头像 进入用户空间-->
-                            <img src="images/icon.png" width="35px;">
+                            <img src="<%=user.getIcon()%>" width="35px;">
                         </div>
                         <div class="col-md-11 column" style="padding-right: 35px;">
                             <form role="form" onsubmit='return false'>
@@ -372,7 +372,7 @@
         <div class="col-md-4 column">
             <!--个人信息概览-->
             <div class="row text-center inform" style="margin-top: 5px;padding: 15px;background-color: white;">
-                <a href="personspaceUser"><img src="images/icon.png" class="img-circle" width="90px;"></a>
+                <a href="personspaceUser"><img src="<%=user.getIcon()%>" class="img-circle" width="90px;"></a>
                 <h4 style="font-weight: bold;"><%=user.getUserNikename()%></h4>
                 <div class="col-sm-12" >
                     <a href="idolUser"><div class="col-sm-4 col-xs-4">

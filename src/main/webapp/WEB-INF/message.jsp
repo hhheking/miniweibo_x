@@ -273,7 +273,7 @@
     <div class="col-md-4 column" style="background-color: white">
         <div style="padding-top: 15px;">
             <span><b>相关推荐</b></span>
-            <span class="pull-right">刷新</span>
+            <span class="glyphicon glyphicon-refresh pull-right">刷新</span>
         </div>
         <hr>
         <div class="row">

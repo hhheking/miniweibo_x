@@ -246,6 +246,7 @@ public class userAction {
         for(Relation relation:relationservice.myFans(user1)){
            user=userservice.get(relation.getUserByUserId().getUserId());
            fan fan1=new fan();
+           fan1.setImageurl(user.getIcon());
            fan1.setStatus("+关注");
            fan1.setName(user.getUserNikename());
            fan1.setUserid(user.getUserId());

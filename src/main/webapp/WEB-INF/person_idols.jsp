@@ -114,7 +114,7 @@
     <!--包含昵称和头像的div-->
     <div style="height: 280px;background-color: white;">
         <div class="row text-center inform" style="margin-top: 5px;padding: 50px;">
-            <img src="images/icon.png" class="img-circle" width="110px;">
+            <img src="<%=user.getIcon()%>" class="img-circle" width="110px;">
             <h4 style="font-weight: bold;"><%=user.getUserNikename()%></h4>
             <div class="col-sm-12" >
                 <p>一句话介绍一下自己吧，让别人更了解你</p>
@@ -192,7 +192,7 @@
                         <div class="clearfix" style="background-color: #ddd;padding-bottom: 5px;">
                             <div class="col-sm-4" style="text-align: center;padding-top: 10px;">
                                 <!--点击头像进入关注的人的空间-->
-                                <a href="toUser?userid=${idoluser.getUserId()}"><img src="images/icon.png" class="img-circle" width="70px;"></a>
+                                <a href="toUser?userid=${idoluser.getUserId()}"><img src="${idoluser.getIcon()}" class="img-circle" width="70px;"></a>
                             </div>
                             <!--基本资料-->
                             <div class="col-sm-8">
