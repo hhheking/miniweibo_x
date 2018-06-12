@@ -30,7 +30,7 @@ function sj(){
 	return parseInt(Math.random()*10)
 }
 /*接受消息*/
-function open() {
+function open(topic) {
 	websocket.send("$$$#"+$("#user").html()+"#"+$("#pic").html());
     $.ajax({
         type:'post',
@@ -53,7 +53,7 @@ function open() {
                 if(infos[2] == "show")
                     show($("#pic").html(),infos[0]);
                 else
-                    send($("#topic").attr("src"),infos[0]);
+                    send(topic,infos[0]);
            }
             addtime("----以上为历史记录----");
         },
@@ -68,10 +68,13 @@ function message(event) {
     var pic = event.data.split("#");
     send(pic[1],pic[0]);
 };
-function Chatclick(){
+function Chatclick(c){
     websocket = new WebSocket("ws://localhost:8080/websocket");
-    websocket.onopen = function () {open();}
+    var touser = $(c).parent().next().children().eq(0).children().eq(0).html();
+    var topic = $(c).children().eq(0).attr("src");
+    websocket.onopen = function () {open(topic);}
     websocket.onmessage = function (ev) { message(ev); }
+    $("#touser").html(touser);
     $(".bian").show();
     var myDiv =document.getElementById('myDiv');
     myDiv.scrollTop = myDiv.scrollHeight;

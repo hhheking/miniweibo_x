@@ -55,11 +55,10 @@ public class ChatEntpoint extends ActionSupport {
             String s[] = message.split("#");
             this.user = s[1];
             this.picture = s[2];
-            this.touser = s[3];
         }
         else {
             String s[] = message.split("#");
-            p.add(this.user,this.touser,s[0]);
+            p.add(this.user,s[1],s[0]);
             for (ChatEntpoint client : clientSet) {
                 if (client.user.equals(s[1])) {
                     synchronized (client) {

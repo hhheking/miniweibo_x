@@ -2,12 +2,10 @@ package action;
 
 import bean.remindletter;
 import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
 import org.springframework.context.ApplicationContext;
 import pojo.Remind;
 import pojo.User;
 import service.remindService;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +36,7 @@ public class remindAction{
         touser_id = u.getUserId();
         result = new int[5];
         List<Remind> list = remindservice.findnew(touser_id);
-       for(Remind remind:list){
+        for(Remind remind:list){
            if(remind.getType().equals("transpond"))
                result[0]++;
            else if(remind.getType().equals("comment"))
@@ -54,9 +52,9 @@ public class remindAction{
     }
 
     public String letter(){
-        letters = new ArrayList<>();
         User u=(User)ActionContext.getContext().getSession().get("user");
         touser_id = u.getUserId();
+        letters = new ArrayList<>();
         List<Remind> list = remindservice.list(touser_id,"letter");
         List<Integer> userid = new ArrayList<>();
         Remind remind;
@@ -64,11 +62,11 @@ public class remindAction{
             remind = list.get(i);
             if(!userid.contains(remind.getUsreId())){
                 remindletter rletter = new remindletter();
-                rletter.content = remind.getContent();
+                rletter.setContent(remind.getContent());
                 u = remindservice.getUser(remind.getUsreId());
-                rletter.name = u.getUserNikename();
-                rletter.pic = u.getIcon();
-                rletter.time = remind.getTime().toString().substring(0,remind.getTime().toString().length()-2);
+                rletter.setName(u.getUserNikename());
+                rletter.setPic(u.getIcon());
+                rletter.setTime(remind.getTime().toString().substring(0,remind.getTime().toString().length()-2));
                 userid.add(remind.getUsreId());
                 letters.add(rletter);
             }

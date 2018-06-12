@@ -19,14 +19,15 @@
     <script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
     <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- 引入 Bootstrap -->
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/allchat.css" />
     <!-- 包括所有已编译的插件 -->
     <script src="js/search.js"></script>
     <script src="js/remind.js"></script>
     <script src="js/comment.js"></script>
     <script src="js/transpond.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <!-- 引入 Bootstrap -->
-    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
     <script type="text/javascript">
         $(document).ready(function(){
@@ -46,7 +47,7 @@
                 $("#ct").children().removeClass("glyphicon-ok").addClass("glyphicon-minus");
                 $("#ae").children().removeClass("glyphicon-ok").addClass("glyphicon-minus");
                 //清空当前内容
-                $("#notification").html("");
+                $("#notification").empty();
             });
             //点击私信
             $("#pe").click(function(){
@@ -54,16 +55,25 @@
                 $("#td").children().removeClass("glyphicon-ok").addClass("glyphicon-minus");
                 $("#ct").children().removeClass("glyphicon-ok").addClass("glyphicon-minus");
                 $("#ae").children().removeClass("glyphicon-ok").addClass("glyphicon-minus");
-                $("#notification").html("");
+                $("#notification").empty();
                 $.ajax({
                     type : "POST",  //请求方式
                     url : "letterRemind",  //请求路径
                     data : {},
                     async:true,
                     success : function(data) {  //异步请求成功执行的回调函数
-                        alert(JSON.stringify(data));
+                        var html;
                        for(var d in data){
-
+                            html="<div class=\"col-sm-12\">\n" +
+                                "                               <div class=\"col-sm-2\" style=\"padding-top: 10px;padding-left: 10px;\">\n" +
+                                "                                 <p onclick='Chatclick(this)' href=\"#\"><img src="+ data[d].pic +" class=\"img-circle\" width=\"50px;\"></p>\n" +
+                                "                             </div>\n" +
+                                "                             <div class=\"col-sm-10\" style=\"padding-top: 10px;padding-left: 0px;\">\n" +
+                                "                                 <h5><b>"+data[d].name+"</b><span class=\"pull-right\" style=\"color: #999;font-size: 13;\">&nbsp;"+data[d].time+"</span></h5>\n" +
+                                "                                 <h6 style=\"color: #999\">"+data[d].content+"</h6>\n" +
+                                "                             </div>\n" +
+                                "                            </div></hr>";
+                            $("#notification").append(html);
                        }
                     },//ajax引擎一般用不到；状态信息；抛出的异常信息
                     error : function() {
@@ -77,7 +87,7 @@
                 $("#pe").children().removeClass("glyphicon-ok").addClass("glyphicon-minus");
                 $("#td").children().removeClass("glyphicon-ok").addClass("glyphicon-minus");
                 $("#ae").children().removeClass("glyphicon-ok").addClass("glyphicon-minus");
-                $("#notification").html("");
+                $("#notification").empty();
             });
             //点击
             $("#ae").click(function(){
@@ -85,7 +95,7 @@
                 $("#pe").children().removeClass("glyphicon-ok").addClass("glyphicon-minus");
                 $("#ct").children().removeClass("glyphicon-ok").addClass("glyphicon-minus");
                 $("#td").children().removeClass("glyphicon-ok").addClass("glyphicon-minus");
-                $("#notification").html("");
+                $("#notification").empty();
             });
         });
     </script>
@@ -373,5 +383,26 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+
+<div class="bian">
+    <header class="header">
+        <a class="back"></a>
+        <h5 class="tit"id="touser"></h5>
+        <span id="user" style="display: none"><%=user.getUserNikename()%></span>
+        <span id="pic" style="display: none"><%=user.getIcon()%></span>
+        <div class="right">历史</div>
+    </header>
+    <div class="message" id="myDiv">
+    </div>
+    <div class="footer">
+        <img src="images/hua.png" alt="" />
+        <img src="images/face.png" alt="" />
+        <input id="shu" type="text"/>
+        <p>发送</p>
+    </div>
+</div>
+
+</body>
+<script src="js/allchat.js" type="text/javascript" charset="utf-8"></script>
 </body>
 </html>
