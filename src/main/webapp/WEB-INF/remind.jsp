@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/allchat.css" />
     <!-- 包括所有已编译的插件 -->
+    <script src="js/hotSearch.js"></script>
     <script src="js/search.js"></script>
     <script src="js/remind.js"></script>
     <script src="js/comment.js"></script>
@@ -31,15 +32,6 @@
 
     <script type="text/javascript">
         $(document).ready(function(){
-            $("#index_sousuo").focus(function(){
-                $("#index_panel").css("display","");
-            });
-            $("#index_sousuo").blur(function(){
-                $("#index_panel").css("display","none");
-                setTimeout(function(){
-                    $("#searchResult").css("display","none");
-                }, 300);
-            });
             //点击转发
             $("#td").click(function(){
                 $("#td").children().removeClass("glyphicon-minus").addClass("glyphicon-ok");
@@ -88,17 +80,6 @@
                 $("#td").children().removeClass("glyphicon-ok").addClass("glyphicon-minus");
                 $("#ae").children().removeClass("glyphicon-ok").addClass("glyphicon-minus");
                 $("#notification").empty();
-                $.ajax({
-                    type : "POST",  //请求方式
-                    url : "commentRemind",  //请求路径
-                    data : {},
-                    async:true,
-                    success : function(data) {  //异步请求成功执行的回调函数
-
-                    },//ajax引擎一般用不到；状态信息；抛出的异常信息
-                    error : function() {
-                        alert("评论查询失败了失败了")
-                    }
             });
             //点击
             $("#ae").click(function(){

@@ -41,6 +41,9 @@
             <result name="success1" type="json">
                 <param name="root">messagrReason</param>
             </result>
+            <result name="success2" type="json">
+                <param name="root">refreshweibos</param>
+            </result>
         </action>
         <action name="*Relation" class="relationActionBean" method="{1}">
             <result name="success" type="json">
@@ -81,6 +84,17 @@
         </action>
         <action name="jump" class="action.jumpAction" method="jump">
             <result name="success">WEB-INF/remind.jsp</result>
+        </action>
+        <action name="hotSearch" class="searchActionBean" method="hotSearch">
+            <result name="success" type="json">
+                <param name="root">messageList</param>
+            </result>
+        </action>
+        <action name="*Userinfo" class="userinfoActionBean" method="{1}">
+            <result name="success">WEB-INF/person.jsp</result>
+        </action>
+        <action name="toUserinfo">
+            <result>WEB-INF/userInfo.jsp</result>
         </action>
     </package>
 </struts>

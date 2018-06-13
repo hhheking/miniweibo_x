@@ -29,17 +29,12 @@
     <!-- 引入 Bootstrap -->
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/chat.css" />
+    <script src="js/hotSearch.js"></script>
     <script src="js/remind.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/flexible.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
-            $("#index_sousuo").focus(function(){
-                $("#index_panel").css("display","");
-            });
-            $("#index_sousuo").blur(function(){
-                $("#index_panel").css("display","none");
-            });
             $("#focus").click(function () {
                 $.ajax({
                     url:'judgeRelation',

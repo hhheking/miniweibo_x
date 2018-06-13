@@ -27,22 +27,12 @@
     <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
     <script src="https://code.jquery.com/jquery.js"></script>
     <!-- 包括所有已编译的插件 -->
+    <script src="js/hotSearch.js"></script>
     <script src="js/comment.js"></script>
     <script src="js/transpond.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <!-- 引入 Bootstrap -->
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $("#index_sousuo").focus(function(){
-                $("#index_panel").css("display","");
-            });
-            $("#index_sousuo").blur(function(){
-                $("#index_panel").css("display","none");
-            });
-
-        });
-    </script>
     <style type="text/css">
         body{
             background: url("images/bg.jpg") center top;

@@ -26,18 +26,11 @@
     <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
     <script src="https://code.jquery.com/jquery.js"></script>
     <!-- 包括所有已编译的插件 -->
+    <script src="js/hotSearch.js"></script>
     <script src="js/remind.js"></script>
     <script src="js/comment.js"></script>
     <script src="js/transpond.js"></script>
     <script type="text/javascript">
-        $(document).ready(function(){
-            $("#index_sousuo").focus(function(){
-                $("#index_panel").css("display","");
-            });
-            $("#index_sousuo").blur(function(){
-                $("#index_panel").css("display","none");
-            });
-        });
         function deleteMessage(self){
              var div=$(self).parent().parent().parent().parent().parent().parent().parent();
             $.ajax({
@@ -194,7 +187,7 @@
                 </div>
                 <!--横线-->
                 <hr>
-                <div style="text-align: center;">编辑个人资料></div>
+                <a href="toUserinfo"><div style="text-align: center;">编辑个人资料></div></a>
             </div>
             <!--个人点赞记录-->
             <div class="col-sm-12" style="background-color: white;margin-top: 10px;padding: 10px;">

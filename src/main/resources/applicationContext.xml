@@ -2,6 +2,15 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean name="userinfoActionBean" class="action.userinfoAction">
+        <property name="userinfoservice" ref="userinfoserviceImpl"></property>
+    </bean>
+    <bean name="userinfoserviceImpl" class="service.userinfoServiceImpl">
+        <property name="userinfodao" ref="userinfodaoImpl"></property>
+    </bean>
+    <bean name="userinfodaoImpl" class="dao.userinfoDAOImpl">
+        <property name="sessionFactory" ref="sf"></property>
+    </bean>
 <bean name="relationActionBean" class="action.relationAction">
     <property name="relationservice" ref="relationserviceImpl"></property>
     <property name="userservice" ref="userserviceImpl"></property>
@@ -22,6 +31,7 @@
         <property name="agreedao" ref="agreedaoImpl"></property>
         <property name="collectiondao" ref="collectiondaoImpl"></property>
         <property name="transponddao" ref="transponddaoImpl"></property>
+        <property name="relationservice" ref="relationserviceImpl"></property>
     </bean>
     <bean name="agreeActionBean" class="action.agreeAction">
         <property name="agreeService" ref="agreeserviceImpl"></property>
@@ -139,7 +149,7 @@
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/miniweibo?characterEncoding=UTF-8"/>
         <property name="username" value="root"/>
-        <property name="password" value="root"/>
+        <property name="password" value=""/>
     </bean>
 
 </beans>

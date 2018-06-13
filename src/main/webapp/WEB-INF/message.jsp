@@ -27,6 +27,8 @@
     <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
     <script src="https://code.jquery.com/jquery.js"></script>
     <!-- 包括所有已编译的插件 -->
+    <script src="js/hotSearch.js"></script>
+    <script src="js/refresh.js"></script>
     <script src="js/search.js"></script>
     <script src="js/remind.js"></script>
     <script src="js/comment.js"></script>
@@ -35,15 +37,6 @@
 
     <script type="text/javascript">
         $(document).ready(function(){
-            $("#index_sousuo").focus(function(){
-                $("#index_panel").css("display","");
-            });
-            $("#index_sousuo").blur(function(){
-                $("#index_panel").css("display","none");
-                setTimeout(function(){
-                    $("#searchResult").css("display","none");
-                }, 300);
-            });
             var messid1=$("#MessageId").val();
             var parentdiv=$(".glyphicon.glyphicon-edit").parent().parent();
             commentdiv=parentdiv.next();
@@ -176,8 +169,8 @@
                             <h4 style="font-weight: bold;">${weibo.getNikename()}</h4>
                             <h6>${weibo.getTime()}分钟前 来自miniweibo.com</h6>
                             <p>${weibo.getWeiboInfo()}</p>
-                            <s:if test="#weibo.isTransponpd== \"true\"">
-                            <s:iterator value="#weibo.tranList" var="tran">
+                            <s:if test="weibo.isTransponpd== \"true\"">
+                            <s:iterator value="weibo.tranList" var="tran">
                             <s:if test="#tran.message.messageType==\"Transpond\"">
                                 //<a href="toUser?userid=${tran.getUser().getUserId()}" ><b>@${tran.getUser().getUserNikename()}:</b></a>${tran.getMessage().getMessageInfo()}
                             </s:if>
@@ -213,7 +206,7 @@
                 </div>
                 <div class="col-md-3 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;">
                     <!--得到微博的收藏状态和收藏的次数-->
-                    <s:if test="#weibo.collect_status == \"no\""><span class="glyphicon glyphicon-star-empty">收藏</span></s:if>
+                    <s:if test="weibo.collect_status == \"no\""><span class="glyphicon glyphicon-star-empty">收藏</span></s:if>
                     <s:else>
                         <span class="glyphicon glyphicon-star-empty" style="color: coral">已收藏</span>
                     </s:else>
@@ -226,7 +219,7 @@
                 </div>
                 <div class="col-md-3 column" style="text-align: center;padding: 10px;">
                     <!--得到微博的赞同状态和赞同次数-->
-                    <s:if test="#weibo.agree_status == \"no\""><span class="glyphicon glyphicon-thumbs-up">${weibo.getAgree()}</span></s:if>
+                    <s:if test="weibo.agree_status == \"no\""><span class="glyphicon glyphicon-thumbs-up">${weibo.getAgree()}</span></s:if>
                     <s:else>
                         <span class="glyphicon glyphicon-thumbs-up" style="color: coral">${weibo.getAgree()}</span>
                     </s:else>
@@ -270,119 +263,51 @@
 
         </div>
     </div>
-    <div class="col-md-4 column" style="background-color: white">
+    <div id="right" class="col-md-4 column" style="background-color: white">
         <div style="padding-top: 15px;">
             <span><b>相关推荐</b></span>
-            <span class="glyphicon glyphicon-refresh pull-right">刷新</span>
+            <span id="refresh" class="glyphicon glyphicon-refresh pull-right">刷新</span>
         </div>
         <hr>
-        <div class="row">
-            <!--头像-->
-            <div class="col-md-1 column" style="padding-top: 8px;">
-                <a href="#"><img src="images/icon.png" class="img-circle" width="40px;"></a>
-            </div>
-            <div class="col-md-5 column" style="padding-left: 30px;">
-                <!--昵称-->
-                <h5><b>我叫任方成</b></h5>
-                <h6>0分钟前</h6>
-            </div>
-            <div class="col-md-6 column">
-                <!--关注按钮-->
-                <div class="pull-right" style="margin-top: 5px;">
-                    <div  style="text-align: center;padding:3px;background-color: orange;
+        <s:iterator value="refreshweibos" var="wb" >
+            <div class="row">
+                <!--头像-->
+                <div class="col-md-1 column" style="padding-top: 8px;">
+                    <a href="#"><img src="${wb.getImage()}" class="img-circle" width="40px;"></a>
+                </div>
+                <div class="col-md-5 column" style="padding-left: 30px;">
+                    <!--昵称-->
+                    <h5><b>${wb.getNikename()}</b></h5>
+                    <h6>${wb.getTime()}分钟前</h6>
+                </div>
+                <div class="col-md-6 column">
+                    <!--关注按钮-->
+                    <div class="pull-right" style="margin-top: 5px;">
+                        <div  style="text-align: center;padding:3px;background-color: orange;
                     cursor: pointer;"><span style="color: white; ">+关注</span></div>
+                    </div>
+                </div>
+                <!--微博具体内容-->
+                <div class="col-md-12 column">
+                    <div class="col-md-1 column">
+                    </div>
+                    <div class="col-md-11 column">
+                            ${wb.getWeiboInfo()}
+                    </div>
+                </div>
+                <div>
+                    <!--点赞、评论、转发-->
+                    <h6 class="pull-right" style="padding-right: 10px;">
+                        <span class="glyphicon glyphicon-link">${wb.getTranspond()}</span>&nbsp;
+                        <span class="glyphicon glyphicon-edit">${wb.getComment()}</span>&nbsp;
+                        <span class="glyphicon glyphicon-thumbs-up">${wb.getAgree()}</span>
+                    </h6>
                 </div>
             </div>
-            <!--微博具体内容-->
-            <div class="col-md-12 column">
-                <div class="col-md-1 column">
-                </div>
-                <div class="col-md-11 column">
-                    这是一条推荐微博，做最好的自己。
-                </div>
-            </div>
-            <div>
-                <!--点赞、评论、转发-->
-                <h6 class="pull-right" style="padding-right: 10px;">
-                    <span class="glyphicon glyphicon-link">0</span>&nbsp;
-                    <span class="glyphicon glyphicon-edit">0</span>&nbsp;
-                    <span class="glyphicon glyphicon-thumbs-up">0</span>
-                </h6>
-            </div>
-        </div>
-        <hr>
-        <div class="row">
-            <!--头像-->
-            <div class="col-md-1 column" style="padding-top: 8px;">
-                <a href="#"><img src="images/icon.png" class="img-circle" width="40px;"></a>
-            </div>
-            <div class="col-md-5 column" style="padding-left: 30px;">
-                <!--昵称-->
-                <h5><b>我叫任方成</b></h5>
-                <h6>0分钟前</h6>
-            </div>
-            <div class="col-md-6 column">
-                <!--关注按钮-->
-                <div class="pull-right" style="margin-top: 5px;">
-                    <div  style="text-align: center;padding:3px;background-color: orange;
-                    cursor: pointer;"><span style="color: white; ">+关注</span></div>
-                </div>
-            </div>
-            <!--微博具体内容-->
-            <div class="col-md-12 column">
-                <div class="col-md-1 column">
-                </div>
-                <div class="col-md-11 column">
-                    这是一条推荐微博，做最好的自己。
-                </div>
-            </div>
-            <div>
-                <!--点赞、评论、转发-->
-                <h6 class="pull-right" style="padding-right: 10px;">
-                    <span class="glyphicon glyphicon-link">0</span>&nbsp;
-                    <span class="glyphicon glyphicon-edit">0</span>&nbsp;
-                    <span class="glyphicon glyphicon-thumbs-up">0</span>
-                </h6>
-            </div>
-        </div>
-        <hr>
-        <div class="row">
-            <!--头像-->
-            <div class="col-md-1 column" style="padding-top: 8px;">
-                <a href="#"><img src="images/icon.png" class="img-circle" width="40px;"></a>
-            </div>
-            <div class="col-md-5 column" style="padding-left: 30px;">
-                <!--昵称-->
-                <h5><b>我叫任方成</b></h5>
-                <h6>0分钟前</h6>
-            </div>
-            <div class="col-md-6 column">
-                <!--关注按钮-->
-                <div class="pull-right" style="margin-top: 5px;">
-                    <div  style="text-align: center;padding:3px;background-color: orange;
-                    cursor: pointer;"><span style="color: white; ">+关注</span></div>
-                </div>
-            </div>
-            <!--微博具体内容-->
-            <div class="col-md-12 column">
-                <div class="col-md-1 column">
-                </div>
-                <div class="col-md-11 column">
-                    这是一条推荐微博，做最好的自己。
-                </div>
-            </div>
-            <div>
-                <!--点赞、评论、转发-->
-                <h6 class="pull-right" style="padding-right: 10px;">
-                    <span class="glyphicon glyphicon-link">0</span>&nbsp;
-                    <span class="glyphicon glyphicon-edit">0</span>&nbsp;
-                    <span class="glyphicon glyphicon-thumbs-up">0</span>
-                </h6>
-            </div>
-        </div>
+            <hr>
+        </s:iterator>
     </div>
 
-</div>
 </div>
 <!--主题内容-->
 <!--标题搜索栏获得焦点后，显示下拉搜索列表-->

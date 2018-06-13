@@ -26,6 +26,7 @@
     <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
     <script src="https://code.jquery.com/jquery.js"></script>
     <!-- 包括所有已编译的插件 -->
+    <script src="js/hotSearch.js"></script>
     <script src="js/search.js"></script>
     <script src="js/remind.js"></script>
     <script src="js/comment.js"></script>
@@ -36,15 +37,6 @@
 
     <script type="text/javascript">
         $(document).ready(function(){
-            $("#index_sousuo").focus(function(){
-                $("#index_panel").css("display","");
-            });
-            $("#index_sousuo").blur(function(){
-                $("#index_panel").css("display","none");
-                setTimeout(function(){
-                    $("#searchResult").css("display","none");
-                }, 300);
-            });
             $("#mycontent").keyup(function(){
                 //判断输入的字符串长度
                 var content_len = $("#mycontent").val().length;
@@ -440,10 +432,6 @@
     <a href="#" class="list-group-item"> <span class="badge" style="background-color: #FF4500;">爆</span>1.第一条热搜第一条热搜第一条热搜</a>
     <a href="#" class="list-group-item"><span class="badge" style="background-color: #FF0000;">热</span>2.第二条热搜第二条热搜第二条热搜</a>
     <a href="#" class="list-group-item"><span class="badge" style="background-color: #DC143C;">新</span>3.第三条热搜第三条热搜第三条热搜</a>
-    <a href="#" class="list-group-item">4.第四条热搜第四条热搜第四条热搜</a>
-    <a href="#" class="list-group-item">5.第五条热搜第五条热搜第五条热搜</a>
-    <a href="#" class="list-group-item">6.第六条热搜第六条热搜第六条热搜</a>
-    <a href="#" class="list-group-item">7.第七条热搜第七条热搜第七条热搜</a>
 </div>
 <div id="searchResult" style="display: none">
 

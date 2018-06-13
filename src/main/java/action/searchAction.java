@@ -10,6 +10,7 @@ import pojo.User;
 import service.relationService;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 //搜索的逻辑实现
@@ -19,6 +20,16 @@ public class searchAction {
     String keywords;
     searchResult searchresult;
     relationService service;
+    List<search_message> messageList;
+
+
+    public void setMessageList(List<search_message> messageList) {
+        this.messageList = messageList;
+    }
+
+    public List<search_message> getMessageList() {
+        return messageList;
+    }
 
     public searchResult getSearchresult() {
         return searchresult;
@@ -76,6 +87,31 @@ public class searchAction {
         }
         searchresult.setUsers(list);
         searchresult.setMessages(list1);
+        return "success";
+    }
+
+    public String hotSearch(){
+        //只统计7条热搜微博
+        int count=0;
+        List<Message> messages=messagedao.list();
+        messages.sort(new Comparator<Message>() {
+            @Override
+            public int compare(Message o1, Message o2) {
+                return Long.compare(o2.getMessageAgreenum()+o2.getMessageCommentnum()+o2.getMessageCollectnum()+o2.getMessageTranspondnum(),
+                        o1.getMessageAgreenum()+o1.getMessageCommentnum()+o1.getMessageCollectnum()+o1.getMessageTranspondnum());
+            }
+        });
+        messageList=new ArrayList<>();
+        for(Message message:messages){
+            search_message sm=new search_message();
+            sm.setInfo(message.getMessageInfo());
+            sm.setId(message.getMessageId());
+            messageList.add(sm);
+            count++;
+            if(count==7){
+               break;
+            }
+        }
         return "success";
     }
 }

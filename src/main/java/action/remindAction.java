@@ -13,7 +13,7 @@ public class remindAction{
     private remindService remindservice;
     private int touser_id;
     private int[] result;
-    private List<remindletter> letters;
+    List<remindletter> letters;
 
     public remindService getRemindservice() {
         return remindservice;
