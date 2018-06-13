@@ -88,6 +88,17 @@
                 $("#td").children().removeClass("glyphicon-ok").addClass("glyphicon-minus");
                 $("#ae").children().removeClass("glyphicon-ok").addClass("glyphicon-minus");
                 $("#notification").empty();
+                $.ajax({
+                    type : "POST",  //请求方式
+                    url : "commentRemind",  //请求路径
+                    data : {},
+                    async:true,
+                    success : function(data) {  //异步请求成功执行的回调函数
+
+                    },//ajax引擎一般用不到；状态信息；抛出的异常信息
+                    error : function() {
+                        alert("评论查询失败了失败了")
+                    }
             });
             //点击
             $("#ae").click(function(){

@@ -37,7 +37,7 @@ public class PrivateletterServiceImpl implements PrivateletterService {
     }
 
     @Override
-    public void add(String user,String touser,String content) {
+    public void add(String user,String touser,String content,int flag) {
         Privateletter pri = new Privateletter();
         User user1 = getID(user).get(0);
         User user2 = getID(touser).get(0);
@@ -47,6 +47,8 @@ public class PrivateletterServiceImpl implements PrivateletterService {
         pri.setPrivateletterTime(new Timestamp(System.currentTimeMillis()));
         privateletterDAO.add(pri);
         //添加聊天提醒
+        if(flag == 1)
+        {return;}
         int user_id = user1.getUserId();
         int touser_id = user2.getUserId();
         if(user_id!= touser_id) {

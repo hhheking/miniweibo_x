@@ -57,16 +57,18 @@ public class ChatEntpoint extends ActionSupport {
             this.picture = s[2];
         }
         else {
+            int flag = 0;
             String s[] = message.split("#");
-            p.add(this.user,s[1],s[0]);
             for (ChatEntpoint client : clientSet) {
                 if (client.user.equals(s[1])) {
                     synchronized (client) {
                         client.session.getBasicRemote().sendText(s[0] + "#" + picture);
                     }
+                    flag=1;
                     break;
                 }
             }
+            p.add(this.user,s[1],s[0],flag);
         }
 
     }
