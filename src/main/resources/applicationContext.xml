@@ -51,6 +51,9 @@
     </bean>
     <bean name="remindActionBean" class="action.remindAction">
         <property name="remindservice" ref="remindserviceImpl"></property>
+        <property name="transponddao" ref="transponddaoImpl"></property>
+        <property name="messageservice" ref="messageserviceImpl"></property>
+        <property name="commentdao" ref="commentdaoImpl"></property>
     </bean>
     <bean name="idolweiboserviceImpl" class="service.idolweiboServiceImpl">
         <property name="userdao" ref="userdaoImpl"></property>

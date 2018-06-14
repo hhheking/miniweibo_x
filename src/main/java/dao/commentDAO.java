@@ -11,8 +11,9 @@ public interface commentDAO {
     public List<Comment> list();
     public void add(Comment comment);
     public void delete(Comment comment);
-    public  void updata(Comment comment);
+    public void updata(Comment comment);
     public Comment get(int id);
     public List<Comment> list(int messid);
+    public List<String> findByUseridAndMessageid(int userid,int messageid);
 }
 

@@ -74,7 +74,16 @@
                 <param name="root">result</param>
             </result>
             <result name="letter" type="json">
-                <param name="root">letters</param>
+            <param name="root">letters</param>
+        </result>
+            <result name="agree" type="json">
+                <param name="root">agrees</param>
+            </result>
+            <result name="comment" type="json">
+                <param name="root">comments</param>
+            </result>
+            <result name="transPond" type="json">
+                <param name="root">transponds</param>
             </result>
         </action>
         <action name="search" class="searchActionBean" method="search">

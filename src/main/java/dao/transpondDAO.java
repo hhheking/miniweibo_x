@@ -10,4 +10,5 @@ public interface transpondDAO {
     public void delete(Transpond transpond);
     public Transpond get(int id);
     public Transpond findTranspondFrom(int result_id);
+    public List<Transpond> getTranspondByuseridAndmessageid(int userid,int messageid);
 }

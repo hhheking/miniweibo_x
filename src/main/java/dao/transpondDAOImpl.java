@@ -35,4 +35,9 @@ public class transpondDAOImpl extends HibernateTemplate implements transpondDAO 
         return null;
 
     }
+
+    @Override
+    public List<Transpond> getTranspondByuseridAndmessageid(int userid, int messageid) {
+        return find("from Transpond  t where t.userByUserId="+userid+"and t.messageByMessageId.messageId="+messageid);
+    }
 }
