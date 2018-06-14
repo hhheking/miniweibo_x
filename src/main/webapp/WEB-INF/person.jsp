@@ -131,7 +131,7 @@
 <!--网站主题内容-->
 <div class="col-md-8 column" style="margin-top: 70px;">
     <!--包含昵称和头像的div-->
-    <div style="height: 280px;background-color: white;">
+    <div style="height: 280px;background-color: white; background: url('/images/bg1.jpg')">
         <div class="row text-center inform" style="margin-top: 5px;padding: 50px;">
             <img src="<%=user.getIcon()%>" class="img-circle" width="110px;">
             <h4 style="font-weight: bold;"><%=user.getUserNikename()%></h4>
@@ -225,8 +225,9 @@
                                     </li>
                                 </ul>
                             </div>
+                            <p style="display: none">${weibo.getWeiboInfo()}</p>
                             <h6>${weibo.getTime()}分钟前 来自miniweibo.com</h6>
-                                ${weibo.getWeiboInfo()}
+                            <p>${weibo.getWeiboInfo()}</p>
                             <s:if test="#weibo.isTransponpd== \"true\"">
                             <s:iterator value="#weibo.tranList" var="tran">
                             <s:if test="#tran.message.messageType==\"Transpond\"">

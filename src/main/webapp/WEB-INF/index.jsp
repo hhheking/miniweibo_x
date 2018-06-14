@@ -71,18 +71,18 @@
     <div class="row clearfix">
         <!--网站侧标导航栏-->
         <div class="col-md-2 column" style="text-align: center; font-size:18px;position: fixed;">
-            <a href="#" class="list-group-item">热门</a>
-            <a href="#" class="list-group-item">头条</a>
-            <a href="#" class="list-group-item">视频</a>
-            <a href="#" class="list-group-item">新鲜事</a>
-            <a href="#" class="list-group-item">榜单</a>
-            <a href="#" class="list-group-item">搞笑</a>
-            <a href="#" class="list-group-item">社会</a>
-            <a href="#" class="list-group-item">时尚</a>
-            <a href="#" class="list-group-item">军事</a>
-            <a href="#" class="list-group-item">美女</a>
-            <a href="#" class="list-group-item">体育</a>
-            <a href="#" class="list-group-item">动漫</a>
+            <a href="https://weibo.com/?category=0" class="list-group-item">热门</a>
+            <a href="https://weibo.com/?category=1760" class="list-group-item">头条</a>
+            <a href="https://krcom.cn/" class="list-group-item">视频</a>
+            <a href="https://weibo.com/?category=novelty" class="list-group-item">新鲜事</a>
+            <a href="https://weibo.com/?category=99991" class="list-group-item">榜单</a>
+            <a href="https://weibo.com/?category=10011" class="list-group-item">搞笑</a>
+            <a href="https://weibo.com/?category=7" class="list-group-item">社会</a>
+            <a href="https://weibo.com/?category=12" class="list-group-item">时尚</a>
+            <a href="https://weibo.com/?category=10018" class="list-group-item">电影</a>
+            <a href="https://weibo.com/?category=10007" class="list-group-item">美女</a>
+            <a href="https://weibo.com/?category=3" class="list-group-item">体育</a>
+            <a href="https://weibo.com/?category=10005" class="list-group-item">动漫</a>
         </div>
 
         <div class="col-md-10 column" style="margin-left: 235px;">
@@ -98,13 +98,13 @@
                     <!-- 轮播（Carousel）项目 -->
                     <div class="carousel-inner">
                         <div class="item active">
-                            <img  src="images/default.jpg">
+                            <img  src="images/default1.jpg">
                         </div>
                         <div class="item">
                             <img  src="images/default.jpg">
                         </div>
                         <div class="item">
-                            <img  src="images/default.jpg">
+                            <img  src="images/default2.jpg">
                         </div>
                     </div>
                     <!-- 轮播（Carousel）导航 -->

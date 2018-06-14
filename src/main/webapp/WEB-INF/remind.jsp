@@ -64,7 +64,7 @@
                                 "                                 <h5><b>"+data[d].name+"</b><span class=\"pull-right\" style=\"color: #999;font-size: 13;\">&nbsp;"+data[d].time+"</span></h5>\n" +
                                 "                                 <h6 style=\"color: #999\">"+data[d].content+"</h6>\n" +
                                 "                             </div>\n" +
-                                "                            </div></hr>";
+                                "                            </div>";
                             $("#notification").append(html);
                        }
                     },//ajax引擎一般用不到；状态信息；抛出的异常信息
@@ -81,6 +81,7 @@
                 $("#ae").children().removeClass("glyphicon-ok").addClass("glyphicon-minus");
                 $("#notification").empty();
             });
+
             //点击
             $("#ae").click(function(){
                 $("#ae").children().removeClass("glyphicon-minus").addClass("glyphicon-ok");

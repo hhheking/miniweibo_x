@@ -250,8 +250,6 @@ public class userAction {
            fan1.setStatus("+关注");
            fan1.setName(user.getUserNikename());
            fan1.setUserid(user.getUserId());
-           //设置头像的url地址
-           fan1.setImageurl("");
            for(User user2:idolsuser){
                if(user2.getUserId()==user.getUserId()){
                    fan1.setStatus("互相关注");

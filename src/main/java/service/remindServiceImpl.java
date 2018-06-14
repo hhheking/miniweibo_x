@@ -35,6 +35,12 @@ public class remindServiceImpl implements remindService {
     }
 
     @Override
+    public void updateRemind(Remind remind) {
+        remind.setIsnew(true);
+        reminddao.updateRemind(remind);
+    }
+
+    @Override
     public List<Remind> findnew(int touser_id) {
         return reminddao.findnew(touser_id);
     }

@@ -66,21 +66,21 @@ $(function () {
                     $("#myWeibo").prepend(myweibo);
                     //转发成功 原创微博数目加1
                     present.text(str);
+                    $("#mymessagenum").text((parseInt($("#mymessagenum").text())+1));
                 },
                 error:function (err) {
                     //成功发布微博
                     alert("转发微博失败!");
                 }
             });
-            //alert($(this).html());
         })
     });
     $(".glyphicon.glyphicon-link").click(function () {
-        var parentdiv=$(this).parent().parent().prev().find(".col-md-10.column");
-        $("#transpond_info").text(parentdiv.children("p").text());
-        $("#transpond_username").text(parentdiv.children("h4").text());
+        var parentdiv=$(this).parent().parent().prev().children().eq(0).children().eq(1);
+        $("#transpond_info").text(parentdiv.children().eq(2).text());
+        $("#transpond_username").text(parentdiv.children().eq(0).text());
         $("#messID").val($(this).parent().next().next().children("#MessageId").val());
         str="转发"+(parseInt($(this).text().substring(2)) + 1);
         present=$(this);
-    })
+    });
 })

@@ -33,26 +33,6 @@
     <script src="js/bootstrap.min.js"></script>
     <!-- 引入 Bootstrap -->
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $(".col-sm-2").click(function(){
-                var span=$(this).children('span');
-                $.ajax({
-                    url:'judgeRelation',
-                    data:{'user_id':$(this).children('input').val()},
-                    dataType: 'json',
-                    async:true,
-                    success:function (data) {
-                        span.html(data);
-                    },
-                    error:function (err) {
-                        alert("fail");
-                    }
-                });
-            })
-
-        });
-    </script>
     <style type="text/css">
         body{
             background: url("images/bg.jpg") center top;
@@ -122,7 +102,7 @@
 <!--网站主题内容-->
 <div class="col-md-8 column" style="margin-top: 70px;">
     <!--包含昵称和头像的div-->
-    <div style="height: 280px;background-color: white;">
+    <div style="height: 280px;background-color: white;background: url('/images/bg1.jpg')">
         <div class="row text-center inform" style="margin-top: 5px;padding: 50px;">
             <img src="<%=user.getIcon()%>" class="img-circle" width="110px;">
             <h4 style="font-weight: bold;"><%=user.getUserNikename()%></h4>
@@ -190,48 +170,50 @@
         </div>
         <!--右侧主体div-->
         <div class="col-md-8 column">
-            <div class="row clearfix" style="background-color: white;">
-                <div style="padding-top: 15px;padding-left: 10PX;">
-                    <b>粉丝&nbsp;</b>${fans}
-                </div>
-                <hr>
-                <s:iterator value="fanList" var="fa">
-                    <!--粉丝或者关注的人-->
-                    <div class="col-sm-12" style="padding-left: 5px;padding-bottom: 15px;">
-                        <!--粉丝或者关注的人的头像-->
-                        <div class="clearfix">
-                            <div class="col-sm-2" style="text-align: center;padding-top: 10px;">
-                                <a href="toUser?userid=${fa.getUserid()}"><img src="${fa.getImageurl()}" class="img-circle" width="60px;"></a>
-                            </div>
-                            <!--基本资料-->
-                            <div class="col-sm-10">
-                                <div class="row clearfix" style="margin-top: 5px;">
-                                    <div class="col-sm-3" style="font-size: 15;"><b>${fa.getName()}</b></div>
-                                    <div class="col-sm-5"></div>
-                                    <div class="col-sm-2" style="text-align: center;padding:1px;background-color: white;cursor: pointer;border: 1px solid #ddd;margin-right: 5px;"><span style="color: gray;">${fa.getStatus()}</span><input value="${fa.getUserid()}" style="display: none" ></div>
-                                    <div class="col-sm-1" style="text-align: center;padding:1px;background-color: white;cursor: pointer;border: 1px solid #ddd;"><span style="color: gray; ">私信</span></div>
+            <div class="col-sm-12">
+                <div class="row clearfix" style="background-color: white;">
+                    <div style="padding-top: 15px;padding-left: 10PX;">
+                        <b>粉丝&nbsp;</b>${fans}
+                    </div>
+                    <hr>
+                    <s:iterator value="fanList" var="fa">
+                        <!--粉丝或者关注的人-->
+                        <div class="col-sm-12" style="padding-left: 5px;padding-bottom: 15px;">
+                            <!--粉丝或者关注的人的头像-->
+                            <div class="clearfix">
+                                <div class="col-sm-2" style="text-align: center;padding-top: 10px;">
+                                    <a href="toUser?userid=${fa.getUserid()}"><img src="${fa.getImageurl()}" class="img-circle" width="60px;"></a>
                                 </div>
-                                <!--关注、粉丝、微博-->
-                                <div style="margin-top: 8px;">
-                                    <span>关注&nbsp;</span><a><span style="padding-right: 5px; border-right: 1px solid #808080;">${fa.getIdols()}</span></a>
-                                    <span>粉丝&nbsp;</span><a><span style="padding-right: 5px; border-right: 1px solid #808080;">${fa.getFans()}</span></a>
-                                    <span>微博&nbsp;</span><a><span style="padding-right: 5px;">${fa.getWeibos()}</span></a>
-                                </div>
-                                <!--地址-->
-                                <div style="margin-top: 5px;">
-                                    <span style="font-size: 13;color:#808080;">地址&nbsp;&nbsp;</span>
-                                    <span style="font-size: 13;">上海市 松江区</span>
-                                </div>
-                                <!--简介-->
-                                <div style="margin-top: 5px;">
-                                    <span style="font-size: 13;color:#808080;">简介&nbsp;&nbsp;</span>
-                                    <span style="font-size: 13;">广交天下好友！</span>
+                                <!--基本资料-->
+                                <div class="col-sm-10">
+                                    <div class="row clearfix" style="margin-top: 5px;">
+                                        <div class="col-sm-3" style="font-size: 15;"><b>${fa.getName()}</b></div>
+                                        <div class="col-sm-5"></div>
+                                        <div class="col-sm-2" style="text-align: center;padding:1px;background-color: white;cursor: pointer;border: 1px solid #ddd;margin-right: 5px;"><span style="color: gray;">${fa.getStatus()}</span><input value="${fa.getUserid()}" style="display: none" ></div>
+                                        <div class="col-sm-1" style="text-align: center;padding:1px;background-color: white;cursor: pointer;border: 1px solid #ddd;"><span style="color: gray; ">私信</span></div>
+                                    </div>
+                                    <!--关注、粉丝、微博-->
+                                    <div style="margin-top: 8px;">
+                                        <span>关注&nbsp;</span><a><span style="padding-right: 5px; border-right: 1px solid #808080;">${fa.getIdols()}</span></a>
+                                        <span>粉丝&nbsp;</span><a><span style="padding-right: 5px; border-right: 1px solid #808080;">${fa.getFans()}</span></a>
+                                        <span>微博&nbsp;</span><a><span style="padding-right: 5px;">${fa.getWeibos()}</span></a>
+                                    </div>
+                                    <!--地址-->
+                                    <div style="margin-top: 5px;">
+                                        <span style="font-size: 13;color:#808080;">地址&nbsp;&nbsp;</span>
+                                        <span style="font-size: 13;">上海市 松江区</span>
+                                    </div>
+                                    <!--简介-->
+                                    <div style="margin-top: 5px;">
+                                        <span style="font-size: 13;color:#808080;">简介&nbsp;&nbsp;</span>
+                                        <span style="font-size: 13;">广交天下好友！</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </s:iterator>
+                    </s:iterator>
 
+                </div>
             </div>
         </div>
     </div>

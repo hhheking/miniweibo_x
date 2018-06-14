@@ -60,6 +60,8 @@ public class remindAction{
         Remind remind;
         for(int i = list.size()-1;i>=0;i--){
             remind = list.get(i);
+            if(remind.getIsnew() == false)
+                remindservice.updateRemind(remind);
             if(!userid.contains(remind.getUsreId())){
                 remindletter rletter = new remindletter();
                 rletter.setContent(remind.getContent());

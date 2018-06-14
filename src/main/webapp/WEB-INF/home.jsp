@@ -29,8 +29,7 @@
     <script src="js/hotSearch.js"></script>
     <script src="js/search.js"></script>
     <script src="js/remind.js"></script>
-    <script src="js/comment.js"></script>
-    <script src="js/transpond.js"></script>
+    <script src="js/message.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <!-- 引入 Bootstrap -->
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -61,46 +60,80 @@
                         //成功发布微博,消除文本框中的内容
                         var info=$("#mycontent").val();
                         $("#mycontent").val("");
-                        $("#mymessagenum").html((parseInt($("#mymessagenum").html())+1));
-                        var myweibo="<div style=\"background-color: white;margin: 5px;\">\n" +
-                            "                        <!--上层div-->\n" +
-                            "                        <div class=\"row clearfix\">\n" +
+                        var myweibo=" <div style=\"background-color: white;margin: 5px;\">\n" +
+                            "                    <!--上层div-->\n" +
+                            "                    <div class=\"row clearfix\" style=\"padding-bottom: 1.5rem;\">\n" +
+                            "                        <div class=\"col-md-12 column\">\n" +
                             "                            <div class=\"col-md-2 column\" style=\"padding-left: 25px;padding-top: 10px;\">\n" +
                             "                                <!--点击头像 进入用户空间-->\n" +
-                            "                                <a href=\"toUser?userid=<%=user.getUserId()%>>\"><img src=\"images/icon.png\" class=\"img-circle\" width=\"70px;\"></a>\n" +
+                            "                                <a href=\"toUser?userid=<%=user.getUserId()%>\"><img src=\"<%=user.getIcon()%>\" class=\"img-circle\" width=\"60px;\"></a>\n" +
                             "                            </div>\n" +
                             "                            <div class=\"col-md-10 column\">\n" +
                             "                                <h4 style=\"font-weight: bold;\"><%=user.getUserNikename()%></h4>\n" +
                             "                                <h6>0分钟前 来自miniweibo.com</h6>\n" +
-                            "                                <p>"+info+
-                            "                                   </p>\n" +
+                            "                                <p>"+info+"</p>\n" +
                             "                            </div>\n" +
+                            "                    </div>\n" +
+                            "                </div>\n" +
+                            "                <!--下层div-->\n" +
+                            "                <div class=\"row clearfix\" style=\"border-top: 1px solid #ddd;border-bottom: 1px solid #ddd;\">\n" +
+                            "                    <div class=\"col-md-3 column\" style=\"text-align: center;padding: 10px;border-right: 1px solid #ddd;\">\n" +
+                            "                        <span class=\"glyphicon glyphicon-link\" onclick=\"transponds(this)\" data-toggle=\"modal\" data-target=\"#TransPondModal\">转发0</span>\n" +
+                            "                    </div>\n" +
+                            "                    <div class=\"col-md-3 column\" style=\"text-align: center;padding: 10px;border-right: 1px solid #ddd;\">\n" +
+                            "                        <!--得到微博的收藏状态和收藏的次数-->\n" +
+                            "                        <span class=\"glyphicon glyphicon-star-empty\" onclick=\"collection(this)\">收藏</span>\n" +
+                            "                        <input value=\""+data+"\" style=\"display: none\">\n" +
+                            "                        <input value=\"<%=user.getUserId()%>\" style=\"display: none;\">\n" +
+                            "                    </div>\n" +
+                            "                    <div class=\"col-md-3 column\" style=\"text-align: center;padding: 10px;border-right: 1px solid #ddd;\">\n" +
+                            "                        <span id=\"showcomment\" class=\"glyphicon glyphicon-edit\" onclick=\"comment(this)\">评价0</span>\n" +
+                            "                        <input id=\"MessageId\" value=\""+data+"\" style=\"display: none\">\n" +
+                            "                    </div>\n" +
+                            "                    <div class=\"col-md-3 column\" style=\"text-align: center;padding: 10px;\">\n" +
+                            "                        <!--得到微博的赞同状态和赞同次数-->\n" +
+                            "                        <span class=\"glyphicon glyphicon-thumbs-up\" onclick=\"agree(this)\">0</span>\n" +
+                            "                        <input value=\""+data+"\" style=\"display: none\">\n" +
+                            "                        <input value=\"<%=user.getUserId()%>\" style=\"display: none;\">\n" +
+                            "                    </div>\n" +
+                            "                </div>\n" +
+                            "                <!--点击评价显示出来的div-->\n" +
+                            "                <div id=\"comment\" style=\"padding-left: 25px;background-color: #eee;display: none\">\n" +
+                            "                    <!--分割线-->\n" +
+                            "                    <hr>\n" +
+                            "                    <div class=\"row clearfix\">\n" +
+                            "                        <div class=\"col-md-1 column\">\n" +
+                            "                            <!--点击头像 进入用户空间-->\n" +
+                            "                            <img src=\"<%=user.getIcon()%>\" width=\"35px;\">\n" +
                             "                        </div>\n" +
-                            "                        <!--下层div-->\n" +
-                            "                        <div class=\"row clearfix\">\n" +
-                            "                            <div class=\"col-md-3 column\" style=\"text-align: center;padding: 5px;\">\n" +
-                            "                                <span class=\"glyphicon glyphicon-link\">转发0</span>\n" +
-                            "                            </div>\n" +
-                            "                            <div class=\"col-md-3 column\" style=\"text-align: center;\">\n" +
-                            "                                <span class=\"glyphicon glyphicon-star-empty\">收藏0</span>\n" +
-                            "                            </div>\n" +
-                            "                            <div class=\"col-md-3 column\" style=\"text-align: center;\">\n" +
-                            "                                <span id=\"showcomment\" class=\"glyphicon glyphicon-edit\">评价0</span>\n" +
-                            "                            </div>\n" +
-                            "                            <div class=\"col-md-3 column\" style=\"text-align: center;\">\n" +
-                            "                                <span class=\"glyphicon glyphicon-thumbs-up\">点赞0</span>\n" +
-                            "                            </div>\n" +
+                            "                        <div class=\"col-md-11 column\" style=\"padding-right: 35px;\">\n" +
+                            "                            <form role=\"form\" onsubmit='return false'>\n" +
+                            "                                <div class=\"form-group\">\n" +
+                            "                                    <input type=\"text\" class=\"form-control\" style=\"height: 30px;\">\n" +
+                            "                                </div>\n" +
+                            "                                <div class=\"form-group\">\n" +
+                            "                                    <span class=\"face\"></span>\n" +
+                            "                                    <span class=\"pic\"></span>\n" +
+                            "                                    <button type=\"submit\" class=\"btn btn-default pull-right\" onclick=\"pinlun(this)\" style=\"background-color: orange;height: 30px;\">评论</button>\n" +
+                            "                                    <input value=\""+data+"\" style=\"display: none\">\n" +
+                            "                                    <input id=\"sessionuserid\" value=\"<%=user.getUserId()%>\" style=\"display: none\">\n" +
+                            "                                    <input id=\"sessionusername\" value=\"<%=user.getUserNikename()%>\" style=\"display: none\">\n" +
+                            "                                </div>\n" +
+                            "                            </form>\n" +
+                            "                            <!--分割线-->\n" +
+                            "                            <hr>\n" +
                             "                        </div>\n" +
-                            "                        <!--点击评价显示出来的div-->\n" +
-                            "                        <div id=\"comment\" style=\"height: 100px;background: red;display: none\">\n" +
-                            "\n" +
+                            "                        <!--评论-->\n" +
+                            "                        <!--自己发布的评论显示在这里-->\n" +
+                            "                        <div>\n" +
                             "                        </div>\n" +
-                            "                    </div>"
+                            "                    </div>\n" +
+                            "                </div>\n" +
+                            "            </div>";
                         $("#myWeibo").prepend(myweibo);
-                        //添加评论点击时间
-                        //$("#myWeibo").children().eq(0).children().eq(1).children().eq(2).children("span").click(function () {});
+                        $("#mymessagenum").text((parseInt($("#mymessagenum").text())+1));
                     },
-                    error:function (err) {
+                    error: function (err) {
                         //成功发布微博
                         alert("微博发布失败!");
                     }
@@ -109,41 +142,48 @@
         });
     </script>
     <style type="text/css">
-        body{
+        body {
             background: url("images/bg.jpg") center top;
         }
-        #index_panel{
+
+        #index_panel {
             position: fixed;
             top: 45px;
             left: 260px;
             width: 400px;
         }
-        #searchResult{
+
+        #searchResult {
             position: fixed;
             top: 45px;
             left: 260px;
             width: 400px;
         }
-        .face{
-            background: url("images/face.png")  no-repeat;
-            padding:1px 0 10px 25px;
+
+        .face {
+            background: url("images/face.png") no-repeat;
+            padding: 1px 0 10px 25px;
             cursor: pointer;
             font-size: 15px;
         }
-        .pic{
-            background: url("images/pic.png")  no-repeat;
+
+        .pic {
+            background: url("images/pic.png") no-repeat;
             margin-left: 10px;
-            padding:1px 0 10px 25px;
+            padding: 1px 0 10px 25px;
             cursor: pointer;
             font-size: 15px;
         }
-        .item_hot{
+
+        .item_hot {
             padding: 10px 20px;
         }
-        .item_num{
+
+        .item_num {
             color: #999;
         }
-        .span{
+
+        .span {
             cursor: pointer;
         }
     </style>
@@ -153,7 +193,11 @@
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand"><script type="text/javascript">for(var i=1;i<=30;i++){document.write("&nbsp;");}</script>mini微博</a>
+            <a class="navbar-brand">
+                <script type="text/javascript">for (var i = 1; i <= 30; i++) {
+                    document.write("&nbsp;");
+                }</script>
+                mini微博</a>
         </div>
         <form class="navbar-form navbar-left" role="search">
             <div class="form-group">
@@ -299,26 +343,26 @@
                 <!--下层div-->
                 <div class="row clearfix" style="border-top: 1px solid #ddd;border-bottom: 1px solid #ddd;">
                     <div class="col-md-3 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;">
-                        <span class="glyphicon glyphicon-link" data-toggle="modal" data-target="#TransPondModal">转发${weibo.getTranspond()}</span>
+                        <span class="glyphicon glyphicon-link" onclick="transponds(this)" data-toggle="modal" data-target="#TransPondModal">转发${weibo.getTranspond()}</span>
                     </div>
                     <div class="col-md-3 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;">
                         <!--得到微博的收藏状态和收藏的次数-->
-                        <s:if test="#weibo.collect_status == \"no\""><span class="glyphicon glyphicon-star-empty">收藏</span></s:if>
+                        <s:if test="#weibo.collect_status == \"no\""><span class="glyphicon glyphicon-star-empty" onclick="collection(this)">收藏</span></s:if>
                         <s:else>
-                            <span class="glyphicon glyphicon-star-empty" style="color: coral">已收藏</span>
+                            <span class="glyphicon glyphicon-star-empty" onclick="comment(this)" style="color: coral">已收藏</span>
                         </s:else>
                         <input value="${weibo.getMessid()}" style="display: none">
                         <input value="<%=user.getUserId()%>" style="display: none;">
                     </div>
                     <div class="col-md-3 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;">
-                        <span id="showcomment" class="glyphicon glyphicon-edit">评价${weibo.getComment()}</span>
+                        <span id="showcomment" class="glyphicon glyphicon-edit" onclick="comment(this)">评价${weibo.getComment()}</span>
                         <input id="MessageId" value="${weibo.getMessid()}" style="display: none">
                     </div>
                     <div class="col-md-3 column" style="text-align: center;padding: 10px;">
                         <!--得到微博的赞同状态和赞同次数-->
-                        <s:if test="#weibo.agree_status == \"no\""><span class="glyphicon glyphicon-thumbs-up">${weibo.getAgree()}</span></s:if>
+                        <s:if test="#weibo.agree_status == \"no\""><span class="glyphicon glyphicon-thumbs-up" onclick="agree(this)">${weibo.getAgree()}</span></s:if>
                         <s:else>
-                            <span class="glyphicon glyphicon-thumbs-up" style="color: coral">${weibo.getAgree()}</span>
+                            <span class="glyphicon glyphicon-thumbs-up" onclick="agree(this)" style="color: coral">${weibo.getAgree()}</span>
                         </s:else>
                         <input value="${weibo.getMessid()}" style="display: none">
                         <input value="<%=user.getUserId()%>" style="display: none;">
@@ -341,7 +385,7 @@
                                 <div class="form-group">
                                     <span class="face"></span>
                                     <span class="pic"></span>
-                                    <button type="submit" class="btn btn-default pull-right" style="background-color: orange;height: 30px;">评论</button>
+                                    <button type="submit" class="btn btn-default pull-right" onclick="pinlun(this)" style="background-color: orange;height: 30px;">评论</button>
                                     <input value="${weibo.getMessid()}" style="display: none">
                                     <input id="sessionuserid" value="<%=user.getUserId()%>" style="display: none">
                                     <input id="sessionusername" value="<%=user.getUserNikename()%>" style="display: none">
@@ -456,7 +500,6 @@
                     <div class="form-group">
                         <textarea class="form-control" rows="3" placeholder="请输入转发的理由......" id="transpond_reason"></textarea>
                     </div>
-
                     <div class="form-group">
                         <div class="checkbox" style="float: left">
                             <span class="face"></span>
@@ -466,7 +509,7 @@
                             <input id="messID" style="display: none">
                         </div>
                         <div style="float: right">
-                            <button id="transpondweibo" type="submit" class="btn btn-primary btn-sm btn-block">转发</button>
+                            <button id="transpondweibo" class="btn btn-primary btn-sm btn-block">转发</button>
                         </div>
                     </div>
 

@@ -173,13 +173,13 @@ public class messageAction {
     public String send(){
         message=messageservice.message(messageInfo);
         messageservice.add(message);
+        messageID = message.getMessageId();
         return "success";
     }
     public String trans(){
         message=messageservice.transmessage(messagrReason,messageID);
         messageservice.add(message);
         transpondservice.add(messageID,message.getMessageId());
-
         return "success1";
     }
 

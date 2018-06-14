@@ -35,7 +35,7 @@
         </action>
         <action name="*Message" class="messageActionBean" method="{1}">
             <result name="success" type="json">
-                <param name="root">messageInfo</param>
+                <param name="root">messageID</param>
             </result>
             <result name="messagejsp">WEB-INF/message.jsp</result>
             <result name="success1" type="json">

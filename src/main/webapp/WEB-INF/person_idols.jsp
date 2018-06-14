@@ -102,7 +102,7 @@
 <!--网站主题内容-->
 <div class="col-md-8 column" style="margin-top: 70px;">
     <!--包含昵称和头像的div-->
-    <div style="height: 280px;background-color: white;">
+    <div style="height: 280px;background-color: white;background: url('/images/bg1.jpg')">
         <div class="row text-center inform" style="margin-top: 5px;padding: 50px;">
             <img src="<%=user.getIcon()%>" class="img-circle" width="110px;">
             <h4 style="font-weight: bold;"><%=user.getUserNikename()%></h4>
@@ -170,35 +170,37 @@
         </div>
         <!--右侧主体div-->
         <div class="col-md-8 column">
-            <div class="row clearfix" style="background-color: white;">
-                <div style="padding-top: 15px;padding-left: 10PX;">
-                    <b>全部关注&nbsp;</b>${idolsuser.size()}
-                </div>
-                <hr>
-                <!--粉丝或者关注的人-->
-                <s:iterator value="idolsuser" var="idoluser">
-                    <div class="col-sm-6" style="padding-left: 5px;padding-bottom: 5px;">
-                        <!--粉丝或者关注的人的头像-->
-                        <div class="clearfix" style="background-color: #ddd;padding-bottom: 5px;">
-                            <div class="col-sm-4" style="text-align: center;padding-top: 10px;">
-                                <!--点击头像进入关注的人的空间-->
-                                <a href="toUser?userid=${idoluser.getUserId()}"><img src="${idoluser.getIcon()}" class="img-circle" width="70px;"></a>
-                            </div>
-                            <!--基本资料-->
-                            <div class="col-sm-8">
-                                <div style="margin-top: 5px;"><b>${idoluser.getUserNikename()}</b></div>
-                                <span>已关注</span>
-                                <div>简介：我是${idoluser.getUserNikename()}</div>
-                                <div class="row clearfix" style="text-align: center;margin-top: 10px;">
-                                    <div class="col-md-4 column" style="padding:1px;background-color: white;margin-right:4px;margin-left: 10px;cursor: pointer;border: 1px solid #ddd;"><span style="color: gray;">未分组</span></div>
-                                    <div class="col-md-5 column" style="padding:1px;background-color: white;margin-left:4px;cursor: pointer;border: 1px solid #ddd;"><span style="color: gray; ">+特别关注</span></div>
-                                    <div class="col-md-1"></div>
+            <div class="col-sm-12">
+                <div class="row clearfix" style="background-color: white;">
+                    <div style="padding-top: 15px;padding-left: 10PX;">
+                        <b>全部关注&nbsp;</b>${idolsuser.size()}
+                    </div>
+                    <hr>
+                    <!--粉丝或者关注的人-->
+                    <s:iterator value="idolsuser" var="idoluser">
+                        <div class="col-sm-6" style="padding-left: 5px;padding-bottom: 5px;">
+                            <!--粉丝或者关注的人的头像-->
+                            <div class="clearfix" style="background-color: #e2e3e5;padding-bottom: 5px;">
+                                <div class="col-sm-4" style="text-align: center;padding-top: 10px;">
+                                    <!--点击头像进入关注的人的空间-->
+                                    <a href="toUser?userid=${idoluser.getUserId()}"><img src="${idoluser.getIcon()}" class="img-circle" width="70px;"></a>
+                                </div>
+                                <!--基本资料-->
+                                <div class="col-sm-8">
+                                    <div style="margin-top: 5px;"><b>${idoluser.getUserNikename()}</b></div>
+                                    <span>已关注</span>
+                                    <div>简介：我是${idoluser.getUserNikename()}</div>
+                                    <div class="row clearfix" style="text-align: center;margin-top: 10px;">
+                                        <div class="col-md-4 column" style="padding:1px;background-color: white;margin-right:4px;margin-left: 10px;cursor: pointer;border: 1px solid #ddd;"><span style="color: gray;">未分组</span></div>
+                                        <div class="col-md-5 column" style="padding:1px;background-color: white;margin-left:4px;cursor: pointer;border: 1px solid #ddd;"><span style="color: gray; ">+特别关注</span></div>
+                                        <div class="col-md-1"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </s:iterator>
+                    </s:iterator>
 
+                </div>
             </div>
         </div>
     </div>

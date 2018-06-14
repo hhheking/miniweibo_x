@@ -131,7 +131,7 @@
 <!--网站主题内容-->
 <div class="col-md-8 column" style="margin-top: 70px;">
     <!--包含昵称和头像的div-->
-    <div style="height: 280px;background-color: white;">
+    <div style="height: 280px;background-color: white; background: url('/images/bg1.jpg')">
         <div class="row text-center inform" style="margin-top: 5px;padding: 50px;">
             <img id="topic" src="${user.getIcon()}" class="img-circle" width="110px;">
             <h4 style="font-weight: bold;">${user.getUserNikename()}</h4>
