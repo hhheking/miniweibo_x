@@ -218,13 +218,13 @@
                         <span id="tip" class="badge" style="background-color: orange;position: absolute;top: 6px;right: 0px;font-size: 6"></span>
                     </a>
                     <ul class="dropdown-menu" style="font-size: 12;">
-                        <li><a href="#">转发<span id="tip1" class="badge pull-right" style="background-color: grey;font-size: 5"></span></a></li>
+                        <li><a href="jump?param=transpond">转发<span id="tip1" class="badge pull-right" style="background-color: grey;font-size: 5"></span></a></li>
                         <li class="divider"></li>
-                        <li><a href="#">评论<span id="tip2" class="badge pull-right" style="background-color: grey;font-size: 5"></span></a></li>
+                        <li><a href="jump?param=comment">评论<span id="tip2" class="badge pull-right" style="background-color: grey;font-size: 5"></span></a></li>
                         <li class="divider"></li>
-                        <li><a href="#">点赞<span id="tip3" class="badge pull-right" style="background-color: grey;font-size: 5"></span></a></li>
+                        <li><a href="jump?param =agree">点赞<span id="tip3" class="badge pull-right" style="background-color: grey;font-size: 5"></span></a></li>
                         <li class="divider"></li>
-                        <li><a href="jump?param = 1">私信<span id="tip4" class="badge pull-right" style="background-color: grey;font-size: 5"></span></a></li>
+                        <li><a href="jump?param =letter">私信<span id="tip4" class="badge pull-right" style="background-color: grey;font-size: 5"></span></a></li>
                     </ul>
                 </li>
                 <li><a href="#"><span class="glyphicon glyphicon-cog"></span></a></li>

@@ -1,19 +1,19 @@
 package action;
 
-import com.sun.net.httpserver.Authenticator;
-import org.omg.PortableInterceptor.SUCCESSFUL;
-
 public class jumpAction {
-    int param;
+    String param;
 
-    public int getParam() {
+    public String getParam() {
         return param;
     }
 
-    public void setParam(int param) {
+    public void setParam(String param) {
         this.param = param;
     }
+
     public String jump(){
+        System.out.println(param);
+
         return "success";
     }
 }
