@@ -11,4 +11,5 @@ public interface userDAO {
     public void update(User user);
     public User get(int id);
     public List<User> searchByName(String name);
+    public int dayAddUser(String date);
 }

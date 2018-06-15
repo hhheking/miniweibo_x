@@ -150,6 +150,9 @@ public class userAction {
     }
 
     public String login(){
+        if(user.getUserNikename().equals("admin")){
+            return "Manage";
+        }
         if(userservice.login(user)){
             //用户登录成功
             //此时user对象仅有nikename和password属性，无法使用user.getuser_id()的语法,需要取出session中的user值

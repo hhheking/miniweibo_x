@@ -2,6 +2,7 @@ package dao;
 
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import pojo.User;
+import sun.net.www.MimeTable;
 
 import java.util.List;
 
@@ -35,4 +36,13 @@ public class userDAOImpl extends HibernateTemplate implements userDAO {
     public List<User> searchByName(String name) {
         return find("from User u where u.userNikename like '%"+name+"%'");
     }
+
+    @Override
+    public int dayAddUser(String date) {
+        String hql="select count(*) from User u where u.userTime > "+"'"+date+" 00:00:00 "+"'"+"and u.userTime < "+"'"+date+" 24:00:00 "+"'";
+        Integer count = ((Number)find(hql).listIterator().next()).intValue();
+        return count;
+    }
+
+
 }

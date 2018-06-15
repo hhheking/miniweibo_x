@@ -15,6 +15,12 @@
     <property name="relationservice" ref="relationserviceImpl"></property>
     <property name="userservice" ref="userserviceImpl"></property>
 </bean>
+    <bean name="manageActionBean" class="action.manageAction">
+        <property name="usingDetailManageImpl" ref="usingDetailManageImpl"></property>
+        <property name="manageuserList" ref="manageuserList"></property>
+        <property name="messageserviceImpl" ref="messageserviceImpl"></property>
+        <property name="userserviceImpl" ref="userserviceImpl"></property>
+    </bean>
     <bean name="userActionBean" class="action.userAction">
     <property name="userservice" ref="userserviceImpl"></property>
     <property name="messageservice" ref="messageserviceImpl"></property>
@@ -55,6 +61,11 @@
         <property name="messageservice" ref="messageserviceImpl"></property>
         <property name="commentdao" ref="commentdaoImpl"></property>
     </bean>
+    <bean id="manageuserList" class="service.manageUserListImpl">
+        <property name="messageservice" ref="messageserviceImpl"></property>
+        <property name="relationservice" ref="relationserviceImpl"></property>
+        <property name="userservice" ref="userserviceImpl"></property>
+    </bean>
     <bean name="idolweiboserviceImpl" class="service.idolweiboServiceImpl">
         <property name="userdao" ref="userdaoImpl"></property>
         <property name="relationservice" ref="relationserviceImpl"></property>
@@ -85,6 +96,7 @@
     </bean>
     <bean name="messageserviceImpl" class="service.messageServiceImpl">
         <property name="messagedao" ref="messagedaoimpl"></property>
+        <property name="userdao" ref="userdaoImpl"></property>
     </bean>
     <bean name="messagedaoimpl" class="dao.messageDAOImpl">
         <property name="sessionFactory" ref="sf"></property>
@@ -120,6 +132,10 @@
     <bean id="transponddaoImpl" class="dao.transpondDAOImpl">
         <property name="sessionFactory" ref="sf"></property>
     </bean>
+    <bean name="usingDetailManageImpl" class="service.usingDetailManageImpl">
+        <property name="userdao" ref="userdaoImpl"></property>
+        <property name="messagedao" ref="messagedaoimpl"></property>
+    </bean>
     <bean name="sf"     class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
         <property name="dataSource" ref="ds"/>
         <property name="mappingResources">
@@ -152,7 +168,7 @@
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/miniweibo?characterEncoding=UTF-8"/>
         <property name="username" value="root"/>
-        <property name="password" value="root"/>
+        <property name="password" value="lizhiqian512"/>
     </bean>
 
 </beans>

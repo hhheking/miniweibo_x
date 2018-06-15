@@ -8,6 +8,7 @@ import pojo.Message;
 import pojo.Picture;
 import pojo.User;
 
+import javax.jws.soap.SOAPBinding;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -16,6 +17,15 @@ import java.util.Map;
 
 public class messageServiceImpl implements messageService {
     messageDAO messagedao;
+    userDAO userdao;
+
+    public userDAO getUserdao() {
+        return userdao;
+    }
+
+    public void setUserdao(userDAO userdao) {
+        this.userdao = userdao;
+    }
 
     public messageDAO getMessagedao() {
         return messagedao;
@@ -118,5 +128,11 @@ public class messageServiceImpl implements messageService {
         message1.setMessageTranspondnum(message1.getMessageTranspondnum()+1);
         messagedao.updata(message1);
         return message;
+    }
+
+    @Override
+    public List<Message> myMessage(int userid) {
+        User user=userdao.get(userid);
+        return myMessage(user);
     }
 }

@@ -10,4 +10,5 @@ public interface userService {
     public void update(User user);
     public boolean login(User user);
     public User get(int id);
+    public void delete(int id);
 }

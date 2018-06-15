@@ -128,4 +128,6 @@ public class Userinfo {
     public void setUserByUserId(User userByUserId) {
         this.userByUserId = userByUserId;
     }
+
+
 }
