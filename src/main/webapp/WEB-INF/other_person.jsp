@@ -207,6 +207,7 @@
                 <div style="background-color: white;margin: 5px;">
                     <!--上层div-->
                     <div class="row clearfix">
+                        <div class="col-md-12 column">
                         <div class="col-md-2 column" style="padding-left: 25px;padding-top: 10px;">
                             <!--点击头像 进入用户空间-->
                             <a href="toUser?userid=${weibo.getId()}"><img src="${weibo.getImage()}" class="img-circle" width="70px;"></a>
@@ -222,7 +223,6 @@
                             </s:if>
                             <s:else>
                         </div>
-                        <div class='col-sm-12'>
                         <div class="col-md-12 column" style="background-color:#eee;max-height: 500px;padding-top: 10px;padding-left: 0px;">
                             <div class="col-md-10 column pull-right">
                                 <a href="toUser?userid=${tran.getUser().getUserId()}" ><b>@${tran.getUser().getUserNikename()}</b></a>
@@ -237,13 +237,13 @@
                                 </div>
                             </div>
                         </div>
-                        </div>
                         </s:else>
                         </s:iterator>
                         </s:if>
                         <s:else>
                     </div>
                     </s:else>
+                </div>
                 </div>
                     <!--下层div-->
                     <div class="row clearfix" style="border-top: 1px solid #ddd;border-bottom: 1px solid #ddd;">
