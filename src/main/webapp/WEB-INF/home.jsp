@@ -217,7 +217,7 @@
                         <li class="divider"></li>
                         <li><a href="jump?param =agree">点赞&nbsp&nbsp<span id="tip3" class="badge" style="background-color: grey;font-size: 5"></span></a></li>
                         <li class="divider"></li>
-                        <li><a href="param =letter">私信&nbsp&nbsp<span id="tip4" class="badge" style="background-color: grey;font-size: 5"></span></a></li>
+                        <li><a href="jump?param =letter">私信&nbsp&nbsp<span id="tip4" class="badge" style="background-color: grey;font-size: 5"></span></a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
