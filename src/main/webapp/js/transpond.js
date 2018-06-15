@@ -1,8 +1,6 @@
 $(function () {
     var str;
     var present;
-        //转发的模态框显示在界面上
-    $('#TransPondModal').on('shown.bs.modal', function () {
         // 执行一些动作..
         $("#transpondweibo").click(function () {
             $.ajax({
@@ -74,7 +72,6 @@ $(function () {
                 }
             });
         })
-    });
     $(".glyphicon.glyphicon-link").click(function () {
         var parentdiv=$(this).parent().parent().prev().children().eq(0).children().eq(1);
         $("#transpond_info").text(parentdiv.children().eq(2).text());

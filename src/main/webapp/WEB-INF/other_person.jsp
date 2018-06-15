@@ -31,6 +31,8 @@
     <script src="js/hotSearch.js"></script>
     <script src="js/remind.js"></script>
     <script src="js/flexible.js"></script>
+    <script src="js/comment.js"></script>
+    <script src="js/transpond.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
             $("#focus").click(function () {
@@ -215,6 +217,7 @@
                         <div class="col-md-10 column">
                             <h4 style="font-weight: bold;">${weibo.getNikename()}</h4>
                             <h6>${weibo.getTime()}分钟前 来自miniweibo.com</h6>
+                            <p style="display: none">${weibo.getWeiboInfo()}</p>
                             ${weibo.getWeiboInfo()}
                             <s:if test="#weibo.isTransponpd== \"true\"">
                             <s:iterator value="#weibo.tranList" var="tran">
@@ -338,7 +341,44 @@
         <p>发送</p>
     </div>
 </div>
+<!---点击转发弹出模态框->
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="TransPondModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 480px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">转发微博</h4>
+                </div>
+                <div class="modal-body" style="margin-top: 5px;margin-left: 10px;margin-right: 10px;">
+                    <form class="form-horizontal" role="form" action="###" method="post" style="border: 1px;" onsubmit='return false'>
+                        <div class="form-group" style="background-color: #F5F5F5;">
+                            <div style="padding: 10px;">
+                                微博内容:<p id="transpond_info">#</p>
+                            </div>
+                        </div>
 
+                        <div class="form-group">
+                            <textarea class="form-control" rows="3" placeholder="请输入转发的理由......" id="transpond_reason"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox" style="float: left">
+                                <span class="face"></span>
+                                <span class="pic"></span>
+                                <label style="margin-left: 10px;"><input type="checkbox">同时评论给</label>
+                                <span id="transpond_username">#</span>
+                                <input id="messID" style="display: none">
+                            </div>
+                            <div style="float: right">
+                                <button id="transpondweibo" class="btn btn-primary btn-sm btn-block">转发</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
 </body>
 <script src="js/chat.js" type="text/javascript" charset="utf-8"></script>
 </body>

@@ -68,7 +68,7 @@ function message(event) {
     send(pic[1],pic[0]);
 };
 function Chatclick(c){
-    websocket = new WebSocket("ws://localhost:8080/websocket");
+    websocket = new WebSocket("ws://192.168.1.105:8080/websocket");
     var touser = $(c).parent().next().children().eq(0).children().eq(0).html();
     var topic = $(c).children().eq(0).attr("src");
     websocket.onopen = function () {open(topic);}

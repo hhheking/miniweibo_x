@@ -127,6 +127,8 @@ public class remindAction{
         //list为所有点赞过“我”的remind对象
         User user1;
         for(Remind remind:list){
+            if(remind.getIsnew() == false)
+                remindservice.updateRemind(remind);
             remindagree ragree=new remindagree();
             ragree.setAgreetime(remind.getTime());
             user1=remindservice.getUser(remind.getUsreId());
@@ -215,6 +217,8 @@ public class remindAction{
         int messageid=0;
         comments=new ArrayList<>();
         for(Remind remind:list){
+            if(remind.getIsnew() == false)
+                remindservice.updateRemind(remind);
             //首先查询用户评论某条微博的全部评论
             if(userid==remind.getUsreId() && messageid==remind.getMessageId().getMessageId()){
                 //某用户对同一条微博进行评论
@@ -314,6 +318,8 @@ public class remindAction{
         int userid=0;
         int messageid=0;
         for(Remind remind:list){
+            if(remind.getIsnew() == false)
+                remindservice.updateRemind(remind);
             if(userid==remind.getUsreId() && messageid==remind.getMessageId().getMessageId()){
                 //某用户对同一条微博进行转发
                 continue;

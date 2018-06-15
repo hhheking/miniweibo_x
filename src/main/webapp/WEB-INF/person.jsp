@@ -383,7 +383,7 @@
                                 <input id="messID" style="display: none">
                             </div>
                             <div style="float: right">
-                                <button id="transpondweibo" type="submit" class="btn btn-primary btn-sm btn-block">转发</button>
+                                <button id="transpondweibo" class="btn btn-primary btn-sm btn-block">转发</button>
                             </div>
                         </div>
                     </form>

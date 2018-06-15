@@ -69,7 +69,7 @@ function message(event) {
     send(pic[1],pic[0]);
 };
 function Chatclick(){
-    websocket = new WebSocket("ws://localhost:8080/websocket");
+    websocket = new WebSocket("ws://192.168.1.105:8080/websocket");
     websocket.onopen = function () {open();}
     websocket.onmessage = function (ev) { message(ev); }
     $(".bian").show();
