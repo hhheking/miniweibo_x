@@ -3,9 +3,11 @@ package service;
 import com.opensymphony.xwork2.ActionContext;
 import com.sun.xml.internal.ws.api.message.MessageWritable;
 import dao.messageDAO;
+import dao.transpondDAO;
 import dao.userDAO;
 import pojo.Message;
 import pojo.Picture;
+import pojo.Transpond;
 import pojo.User;
 
 import javax.jws.soap.SOAPBinding;
@@ -18,6 +20,15 @@ import java.util.Map;
 public class messageServiceImpl implements messageService {
     messageDAO messagedao;
     userDAO userdao;
+    transpondDAO transponddao;
+
+    public transpondDAO getTransponddao() {
+        return transponddao;
+    }
+
+    public void setTransponddao(transpondDAO transponddao) {
+        this.transponddao = transponddao;
+    }
 
     public userDAO getUserdao() {
         return userdao;
@@ -48,6 +59,18 @@ public class messageServiceImpl implements messageService {
     @Override
     public void delete(int messageid) {
         Message message=messagedao.get(messageid);
+        Message orignmessage=message;
+        if (orignmessage.getMessageType().equals("Transpond")) {
+            Transpond transpond=transponddao.findTranspondFrom(message.getMessageId());
+            int OrignId =0;
+            if (transpond!=null)
+                OrignId = transpond.getMessageByMessageId().getMessageId();
+            orignmessage = messagedao.get(OrignId);
+            if(orignmessage!=null){
+                orignmessage.setMessageTranspondnum(orignmessage.getMessageTranspondnum()-1);
+                messagedao.updata(orignmessage);
+            }
+        }
         messagedao.delete(message);
     }
 

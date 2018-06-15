@@ -95,6 +95,7 @@
         <property name="sessionFactory" ref="sf"></property>
     </bean>
     <bean name="messageserviceImpl" class="service.messageServiceImpl">
+        <property name="transponddao" ref="transponddaoImpl"></property>
         <property name="messagedao" ref="messagedaoimpl"></property>
         <property name="userdao" ref="userdaoImpl"></property>
     </bean>
