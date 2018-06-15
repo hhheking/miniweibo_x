@@ -180,7 +180,6 @@ public class userAction {
         user=(User)session.get("user");
         if(user==null){
             return "loginfail";
-
         }
         fans=relationservice.calfans(user);
         idols=relationservice.calidols(user);

@@ -1,4 +1,3 @@
-
 function send(headSrc, str) {
     var html="<div class='send'><div class='msg'><img src="+headSrc+" />"+
         "<p class='msg_input'>"+str+"</p></div></div>";
@@ -22,16 +21,16 @@ function getday(time) {
 }
 /*更新视图*/
 function upView(html){
-	$('.message').append(html);
+    $('.message').append(html);
     var myDiv =document.getElementById('myDiv');
     myDiv.scrollTop = myDiv.scrollHeight;
 }
 function sj(){
-	return parseInt(Math.random()*10)
+    return parseInt(Math.random()*10)
 }
 /*接受消息*/
 function open(topic) {
-	websocket.send("$$$#"+$("#user").html()+"#"+$("#pic").html());
+    websocket.send("$$$#"+$("#user").html()+"#"+$("#pic").html());
     $.ajax({
         type:'post',
         url:'chat',
@@ -43,7 +42,7 @@ function open(topic) {
             var first = null;
             var day;
             var infos;
-           for(i=0;i < data.length;i++){
+            for(i=0;i < data.length;i++){
                 infos = data[i].split("#");
                 day = getday(infos[1]);
                 if(day != first){
@@ -54,7 +53,7 @@ function open(topic) {
                     show($("#pic").html(),infos[0]);
                 else
                     send(topic,infos[0]);
-           }
+            }
             addtime("----以上为历史记录----");
         },
 
@@ -63,7 +62,7 @@ function open(topic) {
 
         }
     });
-    }
+}
 function message(event) {
     var pic = event.data.split("#");
     send(pic[1],pic[0]);
@@ -82,26 +81,26 @@ function Chatclick(c){
 
 $(function(){
 
-	$('.footer').on('keyup','input',function(){
-		if($(this).val().length>0){
-			$(this).next().css('background','#114F8E').prop('disabled',true);
-		
-		}else{
-			$(this).next().css('background','#ddd').prop('disabled',false);
-		}
-	})
-	$('.footer p').click(function(){
+    $('.footer').on('keyup','input',function(){
+        if($(this).val().length>0){
+            $(this).next().css('background','#114F8E').prop('disabled',true);
+
+        }else{
+            $(this).next().css('background','#ddd').prop('disabled',false);
+        }
+    })
+    $('.footer p').click(function(){
         var msg = $("#shu").val();
         websocket.send(msg+"#"+$("#touser").html());
         show($("#pic").html(),msg);
         $("#shu").val("");
-	})
+    })
     $(".back").click(function(){
         $(".bian").hide();
         websocket.close();
         $(".message").html("");
     });
     $("#chat").click(function(){
-       Chatclick();
+        Chatclick();
     });
 })

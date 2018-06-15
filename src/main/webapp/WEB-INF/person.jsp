@@ -110,17 +110,30 @@
                         <span class="glyphicon glyphicon-comment" style="font-size: 20"></span>
                         <span id="tip" class="badge" style="background-color: orange;position: absolute;top: 6px;right: 0px;font-size: 6"></span>
                     </a>
-                    <ul class="dropdown-menu" style="font-size: 12;">
-                        <li><a href="#">转发<span id="tip1" class="badge pull-right" style="background-color: grey;font-size: 5"></span></a></li>
+                    <ul class="dropdown-menu" style="font-size: 12;min-width:100%;">
+                        <li><a href="#">转发&nbsp&nbsp<span id="tip1" class="badge" style="background-color: grey;font-size: 5"></span></a></li>
                         <li class="divider"></li>
-                        <li><a href="#">评论<span id="tip2" class="badge pull-right" style="background-color: grey;font-size: 5"></span></a></li>
+                        <li><a href="#">评论&nbsp&nbsp<span id="tip2" class="badge" style="background-color: grey;font-size: 5"></span></a></li>
                         <li class="divider"></li>
-                        <li><a href="#">点赞<span id="tip3" class="badge pull-right" style="background-color: grey;font-size: 5"></span></a></li>
+                        <li><a href="#">点赞&nbsp&nbsp<span id="tip3" class="badge" style="background-color: grey;font-size: 5"></span></a></li>
                         <li class="divider"></li>
-                        <li><a href="#">私信<span id="tip4" class="badge pull-right" style="background-color: grey;font-size: 5"></span></a></li>
+                        <li><a href="#">私信&nbsp&nbsp<span id="tip4" class="badge" style="background-color: grey;font-size: 5"></span></a></li>
                     </ul>
                 </li>
-                <li><a href="#"><span class="glyphicon glyphicon-cog"></span></a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-cog"></span>
+                    </a>
+                    <ul class="dropdown-menu" style="font-size: 12;min-width:100%;">
+                        <li><a href="#">账号设置</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">信息完善</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">隐私设置</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">退出</a></li>
+                    </ul>
+                </li>
                 <li><script type="text/javascript">for(var i=1;i<=30;i++){document.write("&nbsp;");}</script></li>
             </ul>
         </div>
@@ -131,7 +144,7 @@
 <!--网站主题内容-->
 <div class="col-md-8 column" style="margin-top: 70px;">
     <!--包含昵称和头像的div-->
-    <div style="height: 280px;background-color: white; background: url('/images/bg1.jpg')">
+    <div style="height: 280px;background-color: white; background: url('/images/bg1.jpg');background-repeat: no-repeat">>
         <div class="row text-center inform" style="margin-top: 5px;padding: 50px;">
             <img src="<%=user.getIcon()%>" class="img-circle" width="110px;">
             <h4 style="font-weight: bold;"><%=user.getUserNikename()%></h4>
@@ -141,8 +154,8 @@
         </div>
     </div>
     <!--选项卡div-->
-    <div class="container-fluid">
-        <div class="row clearfix" style="background-color: white;padding: 7px;">
+         <div class="clearfix" style="background-color: white;padding: 7px;">
+             <div>
             <div class="col-md-4 column" style="text-align: center;">
                 <div>我的主页</div>
             </div>
@@ -152,8 +165,10 @@
             <div class="col-md-4 column" style="text-align: center;">
                 <div>管理中心</div>
             </div>
-        </div>
-    </div>
+             </div>
+         </div>
+
+
     <!--主体div-->
     <div class="row clearfix" style="margin-top: 10px;">
         <div class="col-md-4 column">
@@ -227,7 +242,7 @@
                             </div>
                             <p style="display: none">${weibo.getWeiboInfo()}</p>
                             <h6>${weibo.getTime()}分钟前 来自miniweibo.com</h6>
-                            <p>${weibo.getWeiboInfo()}</p>
+                            ${weibo.getWeiboInfo()}
                             <s:if test="#weibo.isTransponpd== \"true\"">
                             <s:iterator value="#weibo.tranList" var="tran">
                             <s:if test="#tran.message.messageType==\"Transpond\"">

@@ -5,8 +5,7 @@
   Time: 15:10
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"
-         isELIgnored="false" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page import="com.opensymphony.xwork2.ActionContext" %>
 <%@ page import="java.util.Map" %>
@@ -31,7 +30,6 @@
     <link rel="stylesheet" type="text/css" href="css/chat.css" />
     <script src="js/hotSearch.js"></script>
     <script src="js/remind.js"></script>
-    <script src="js/jquery.min.js"></script>
     <script src="js/flexible.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
@@ -131,7 +129,7 @@
 <!--网站主题内容-->
 <div class="col-md-8 column" style="margin-top: 70px;">
     <!--包含昵称和头像的div-->
-    <div style="height: 280px;background-color: white; background: url('/images/bg1.jpg')">
+    <div style="height: 280px;background-color: white; background: url('/images/bg2.jpg');background-repeat: no-repeat">
         <div class="row text-center inform" style="margin-top: 5px;padding: 50px;">
             <img id="topic" src="${user.getIcon()}" class="img-circle" width="110px;">
             <h4 style="font-weight: bold;">${user.getUserNikename()}</h4>
@@ -216,9 +214,37 @@
                         <div class="col-md-10 column">
                             <h4 style="font-weight: bold;">${weibo.getNikename()}</h4>
                             <h6>${weibo.getTime()}分钟前 来自miniweibo.com</h6>
-                            <p>${weibo.getWeiboInfo()}</p>
+                            ${weibo.getWeiboInfo()}
+                            <s:if test="#weibo.isTransponpd== \"true\"">
+                            <s:iterator value="#weibo.tranList" var="tran">
+                            <s:if test="#tran.message.messageType==\"Transpond\"">
+                                //<a href="toUser?userid=${tran.getUser().getUserId()}" ><b>@${tran.getUser().getUserNikename()}:</b></a>${tran.getMessage().getMessageInfo()}
+                            </s:if>
+                            <s:else>
                         </div>
+                        <div class='col-sm-12'>
+                        <div class="col-md-12 column" style="background-color:#eee;max-height: 500px;padding-top: 10px;padding-left: 0px;">
+                            <div class="col-md-10 column pull-right">
+                                <a href="toUser?userid=${tran.getUser().getUserId()}" ><b>@${tran.getUser().getUserNikename()}</b></a>
+                                <p>${tran.getMessage().getMessageInfo()}</p>
+                                <br>
+                                <div>
+                                    <h6 class="pull-left">${tran.getMessage().getMessageTime()}</h6>
+                                    <h6 class="pull-right"><span class="glyphicon glyphicon-link">${tran.getMessage().getMessageTranspondnum()}</span>&nbsp;
+                                        <span class="glyphicon glyphicon-edit">${tran.getMessage().getMessageCommentnum()}</span>&nbsp;
+                                        <span class="glyphicon glyphicon-thumbs-up">${tran.getMessage().getMessageAgreenum()}</span>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        </s:else>
+                        </s:iterator>
+                        </s:if>
+                        <s:else>
                     </div>
+                    </s:else>
+                </div>
                     <!--下层div-->
                     <div class="row clearfix" style="border-top: 1px solid #ddd;border-bottom: 1px solid #ddd;">
                         <div class="col-md-4 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;">

@@ -145,28 +145,24 @@
         body {
             background: url("images/bg.jpg") center top;
         }
-
         #index_panel {
             position: fixed;
             top: 45px;
             left: 260px;
             width: 400px;
         }
-
         #searchResult {
             position: fixed;
             top: 45px;
             left: 260px;
             width: 400px;
         }
-
         .face {
             background: url("images/face.png") no-repeat;
             padding: 1px 0 10px 25px;
             cursor: pointer;
             font-size: 15px;
         }
-
         .pic {
             background: url("images/pic.png") no-repeat;
             margin-left: 10px;
@@ -174,15 +170,12 @@
             cursor: pointer;
             font-size: 15px;
         }
-
         .item_hot {
             padding: 10px 20px;
         }
-
         .item_num {
             color: #999;
         }
-
         .span {
             cursor: pointer;
         }
@@ -217,17 +210,30 @@
                         <span class="glyphicon glyphicon-comment" style="font-size: 20"></span>
                         <span id="tip" class="badge" style="background-color: orange;position: absolute;top: 6px;right: 0px;font-size: 6"></span>
                     </a>
-                    <ul class="dropdown-menu" style="font-size: 12;">
-                        <li><a href="jump?param=transpond">转发<span id="tip1" class="badge pull-right" style="background-color: grey;font-size: 5"></span></a></li>
+                    <ul class="dropdown-menu" style="font-size: 12;min-width:100%;">
+                        <li><a href="jump?param=transpond">转发&nbsp&nbsp<span id="tip1" class="badge" style="background-color: grey;font-size: 5"></span></a></li>
                         <li class="divider"></li>
-                        <li><a href="jump?param=comment">评论<span id="tip2" class="badge pull-right" style="background-color: grey;font-size: 5"></span></a></li>
+                        <li><a href="jump?param=comment">评论&nbsp&nbsp<span id="tip2" class="badge" style="background-color: grey;font-size: 5"></span></a></li>
                         <li class="divider"></li>
-                        <li><a href="jump?param =agree">点赞<span id="tip3" class="badge pull-right" style="background-color: grey;font-size: 5"></span></a></li>
+                        <li><a href="jump?param =agree">点赞&nbsp&nbsp<span id="tip3" class="badge" style="background-color: grey;font-size: 5"></span></a></li>
                         <li class="divider"></li>
-                        <li><a href="jump?param =letter">私信<span id="tip4" class="badge pull-right" style="background-color: grey;font-size: 5"></span></a></li>
+                        <li><a href="param =letter">私信&nbsp&nbsp<span id="tip4" class="badge" style="background-color: grey;font-size: 5"></span></a></li>
                     </ul>
                 </li>
-                <li><a href="#"><span class="glyphicon glyphicon-cog"></span></a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-cog"></span>
+                    </a>
+                    <ul class="dropdown-menu" style="font-size: 12;min-width:100%;">
+                        <li><a href="#">账号设置</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">信息完善</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">隐私设置</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">退出</a></li>
+                    </ul>
+                </li>
                 <li><script type="text/javascript">for(var i=1;i<=30;i++){document.write("&nbsp;");}</script></li>
             </ul>
         </div>
@@ -310,7 +316,7 @@
                             <div class="col-md-10 column">
                                 <h4 style="font-weight: bold;">${weibo.getNikename()}</h4>
                                 <h6>${weibo.getTime()}分钟前 来自miniweibo.com</h6>
-                                <p>${weibo.getWeiboInfo()}</p>
+                                ${weibo.getWeiboInfo()}
                                 <s:if test="#weibo.isTransponpd== \"true\"">
                                 <s:iterator value="#weibo.tranList" var="tran">
                                 <s:if test="#tran.message.messageType==\"Transpond\"">
@@ -349,7 +355,7 @@
                         <!--得到微博的收藏状态和收藏的次数-->
                         <s:if test="#weibo.collect_status == \"no\""><span class="glyphicon glyphicon-star-empty" onclick="collection(this)">收藏</span></s:if>
                         <s:else>
-                            <span class="glyphicon glyphicon-star-empty" onclick="comment(this)" style="color: coral">已收藏</span>
+                            <span class="glyphicon glyphicon-star-empty" onclick="collection(this)" style="color: coral">已收藏</span>
                         </s:else>
                         <input value="${weibo.getMessid()}" style="display: none">
                         <input value="<%=user.getUserId()%>" style="display: none;">

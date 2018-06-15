@@ -29,7 +29,6 @@
     <script src="js/remind.js"></script>
     <script src="js/comment.js"></script>
     <script src="js/transpond.js"></script>
-    <script src="js/bootstrap.min.js"></script>
     <style type="text/css">
         body{
             background: url("images/bg.jpg") center top;
@@ -123,7 +122,7 @@
             <div id="pe" style="padding-left:10px;padding-top: 15px;padding-bottom: 20px;cursor: pointer;"><span class="glyphicon glyphicon-minus" style="color: white;font-size: 13"> 私信</span></div>
         </div>
         <div class="col-md-10 column" style="margin-left: 285px;">
-             <div class="row">
+            <div class="row">
                 <!--核心内容-->
                 <div class="col-md-7 column">
                     <div class="col-sm-12">
@@ -187,7 +186,7 @@
                         </div>
                     </div>
                 </div>
-             </div>
+            </div>
         </div>
     </div>
 </div>
@@ -274,29 +273,29 @@
         $("#ae").children().removeClass("glyphicon-ok").addClass("glyphicon-minus");
         $("#notification").empty();
         $.ajax({
-                type : "POST",  //请求方式
-                url : "letterRemind",  //请求路径
-                data : {},
-                async:true,
-                success : function(data) {  //异步请求成功执行的回调函数
-                    var html;
-                    for(var d in data){
-                        html="<div class=\"col-sm-12\">\n" +
-                            "                               <div class=\"col-sm-2\" style=\"padding-top: 10px;padding-left: 10px;\">\n" +
-                            "                                 <p onclick='Chatclick(this)' href=\"#\"><img src="+ data[d].pic +" class=\"img-circle\" width=\"50px;\"></p>\n" +
-                            "                             </div>\n" +
-                            "                             <div class=\"col-sm-10\" style=\"padding-top: 10px;padding-left: 0px;\">\n" +
-                            "                                 <h5><b>"+data[d].name+"</b><span class=\"pull-right\" style=\"color: #999;font-size: 13;\">&nbsp;"+data[d].time+"</span></h5>\n" +
-                            "                                 <h6 style=\"color: #999\">"+data[d].content+"</h6>\n" +
-                            "                             </div>\n" +
-                            "                            </div></hr>";
-                        $("#notification").append(html);
-                    }
-                },//ajax引擎一般用不到；状态信息；抛出的异常信息
-                error : function() {
-                    alert("失败了");
+            type : "POST",  //请求方式
+            url : "letterRemind",  //请求路径
+            data : {},
+            async:true,
+            success : function(data) {  //异步请求成功执行的回调函数
+                var html="";
+                for(var d in data){
+                    html="<div class=\"col-sm-12\">\n" +
+                        "                               <div class=\"col-sm-2\" style=\"padding-top: 10px;padding-left: 10px;\">\n" +
+                        "                                 <p onclick='Chatclick(this)' href=\"#\"><img src="+ data[d].pic +" class=\"img-circle\" width=\"50px;\"></p>\n" +
+                        "                             </div>\n" +
+                        "                             <div class=\"col-sm-10\" style=\"padding-top: 10px;padding-left: 0px;\">\n" +
+                        "                                 <h5><b>"+data[d].name+"</b><span class=\"pull-right\" style=\"color: #999;font-size: 13;\">&nbsp;"+data[d].time+"</span></h5>\n" +
+                        "                                 <h6 style=\"color: #999\">"+data[d].content+"</h6>\n" +
+                        "                             </div>\n" +
+                        "                            </div></hr>";
+                    $("#notification").append(html);
                 }
-            });
+            },//ajax引擎一般用不到；状态信息；抛出的异常信息
+            error : function() {
+                alert("失败了");
+            }
+        });
         i=1;
     }
     else if(i==0 && $("#param1").val()=="{param =agree}"){
@@ -311,11 +310,11 @@
             data : {},
             async:true,
             success : function(data) {  //异步请求成功执行的回调函数
-                var html;
+                var html="";
                 for(var i in data){
                     if(data[parseInt(i)].wb.isTransponpd=="true"){
                         //如果该微博为转发微博
-                        html=html+"<!--点赞的通知-->\n" +
+                        html=html+
                             "                        <div style=\"margin-top: 5px;\">\n" +
                             "                            <div class=\"col-sm-2\" style=\"padding-top: 20px;padding-left: 20px;\">\n" +
                             "                               <a href=\"#\"><img src=\""+
@@ -409,13 +408,13 @@
             data : {},
             async:true,
             success : function(data) {
-                var html;
+                var html="";
                 for(var i in data){
                     if(data[parseInt(i)].wb.isTransponpd=="true"){
                         //该微博是转发
                         //用一个用户转发微博多次
                         for(var j in data[parseInt(i)].transinfos){
-                            html=html+"<!--点赞的通知-->\n" +
+                            html=html+
                                 "                        <div style=\"margin-top: 5px;\">\n" +
                                 "                            <div class=\"col-sm-2\" style=\"padding-top: 20px;padding-left: 20px;\">\n" +
                                 "                               <a href=\"#\"><img src=\""+
@@ -468,7 +467,7 @@
                     }else{
                         //转发的微博为原创
                         for(var j in data[parseInt(i)].transinfos){
-                            html=html+"<!--点赞的通知-->\n" +
+                            html=html+
                                 "                        <div style=\"margin-top: 5px;\">\n" +
                                 "                            <div class=\"col-sm-2\" style=\"padding-top: 20px;padding-left: 20px;\">\n" +
                                 "                               <a href=\"#\"><img src=\""+
@@ -497,7 +496,6 @@
                     }
                 }
                 $("#notification").append(html);
-
             },
             error:function (err) {
                 alert("获取转发信息失败")
@@ -518,13 +516,13 @@
             data : {},
             async:true,
             success : function(data) {  //异步请求成功执行的回调函数
-                var html;
+                var html="";
                 for(var i in data){
                     if(data[parseInt(i)].wb.isTransponpd=="true"){
                         //该微博是转发
                         //用一个用户评论了多条微博
                         for(var j in data[parseInt(i)].commentinfos){
-                            html=html+"<!--点赞的通知-->\n" +
+                            html=html+
                                 "                        <div style=\"margin-top: 5px;\">\n" +
                                 "                            <div class=\"col-sm-2\" style=\"padding-top: 20px;padding-left: 20px;\">\n" +
                                 "                               <a href=\"#\"><img src=\""+
@@ -577,7 +575,7 @@
                     }else{
                         //评论的微博为原创
                         for(var j in data[parseInt(i)].commentinfos){
-                            html=html+"<!--点赞的通知-->\n" +
+                            html=html+
                                 "                        <div style=\"margin-top: 5px;\">\n" +
                                 "                            <div class=\"col-sm-2\" style=\"padding-top: 20px;padding-left: 20px;\">\n" +
                                 "                               <a href=\"#\"><img src=\""+
@@ -602,7 +600,6 @@
                                 "                         </div>\n" +
                                 "                        </div><!--点赞通知-->";
                             html=html+"</div>";
-
                         }
                     }
                 }
