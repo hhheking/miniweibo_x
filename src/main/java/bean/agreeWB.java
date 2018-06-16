@@ -1,9 +1,11 @@
 package bean;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public class agreeWB {
     int id;//userid
+    Timestamp timestamp;
     String image;
     String nikename;
     long time;
@@ -16,6 +18,14 @@ public class agreeWB {
     String isTransponpd;//记录该微博是转发的还是原创的
     int tranfrommessid;     //转发自哪条微博
     List<transweibo> list;
+
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
+    }
 
     public List<transweibo> getList() {
         return list;

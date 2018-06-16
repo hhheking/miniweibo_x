@@ -1,6 +1,6 @@
 package action;
 
-import bean.weibo;
+import bean.*;
 import com.opensymphony.xwork2.ActionContext;
 import dao.agreeDAO;
 import dao.collectionDAO;
@@ -33,6 +33,15 @@ public class messageAction {
     collectionDAO collectiondao;
     List<weibo> refreshweibos=new ArrayList<>();
     relationService relationservice;
+    private agreeWB wb;
+
+    public agreeWB getWb() {
+        return wb;
+    }
+
+    public void setWb(agreeWB wb) {
+        this.wb = wb;
+    }
 
     public void setRelationservice(relationService relationservice) {
         this.relationservice = relationservice;
@@ -180,6 +189,62 @@ public class messageAction {
         message=messageservice.transmessage(messagrReason,messageID);
         messageservice.add(message);
         transpondservice.add(messageID,message.getMessageId());
+        wb=new agreeWB();
+        //得到被转发的微博对象
+        Message message1=messageservice.get(messageID);
+        User user1=userservice.get(message1.getUserByUserId().getUserId());
+        wb.setTimestamp(message1.getMessageTime());
+        wb.setNikename(user1.getUserNikename());
+        wb.setId(user1.getUserId());
+        wb.setWeiboInfo(message1.getMessageInfo());
+        wb.setTranspond(message1.getMessageTranspondnum());
+        wb.setAgree(message1.getMessageAgreenum());
+        wb.setComment(message1.getMessageCommentnum());
+        wb.setMessid(message1.getMessageId());
+        wb.setCollect(message1.getMessageCollectnum());
+        if(message1.getMessageType().equals("Transpond")){
+            wb.setIsTransponpd("true");
+        }
+        else {
+            wb.setIsTransponpd("false");
+        }
+        Message message2 = messageservice.get(wb.getMessid());
+        List<transweibo> transweibos=new ArrayList<>();
+        while (message2.getMessageType().equals("Transpond")){
+            search_message searchMessage=new search_message();
+            Transpond transpond=transponddao.findTranspondFrom(message2.getMessageId());
+            int OrignId=0;
+            if(transpond!=null)
+                OrignId=transpond.getMessageByMessageId().getMessageId();
+            message2=messageservice.get(OrignId);
+            User u;
+            search_user searchUser=new search_user();
+            if(message2==null){
+                message2=new Message();
+                searchMessage.setInfo("转发微博已删除");
+                message2.setMessageType("Orign");
+                searchMessage.setMessageType("Orign");
+                u=new User();
+            }else {
+                searchMessage.setMessageType(message2.getMessageType());
+                searchMessage.setMessageTime(message2.getMessageTime());
+                searchMessage.setMessageTranspondnum(message2.getMessageTranspondnum());
+                searchMessage.setMessageAgreenum(message2.getMessageAgreenum());
+                searchMessage.setMessageCommentnum(message2.getMessageCommentnum());
+                searchMessage.setMessageCollectnum(message2.getMessageCollectnum());
+                searchMessage.setInfo(message2.getMessageInfo());
+                searchMessage.setId(message2.getMessageId());
+                u=userservice.get(message2.getUserByUserId().getUserId());
+                searchUser.setName(u.getUserNikename());
+                searchUser.setImageurl(u.getIcon());
+                searchUser.setId(u.getUserId());
+            }
+            transweibo transweibo=new transweibo();
+            transweibo.setUser(searchUser);
+            transweibo.setMessage(searchMessage);
+            transweibos.add(transweibo);
+        }
+        wb.setList(transweibos);
         return "success1";
     }
 

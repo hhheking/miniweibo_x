@@ -13,13 +13,14 @@ $(function () {
             data : {},
             async:true,
             success : function(data) {
-                var html="";
+                var html='';
                 for(var i in data){
                     if(data[parseInt(i)].wb.isTransponpd=="true"){
                         //该微博是转发
                         //用一个用户转发微博多次
                         for(var j in data[parseInt(i)].transinfos){
-                            html+="                        <div style=\"margin-top: 5px;\">\n" +
+                            html=html+"<!--点赞的通知-->\n" +
+                                "                        <div style=\"margin-top: 5px;\">\n" +
                                 "                            <div class=\"col-sm-2\" style=\"padding-top: 20px;padding-left: 20px;\">\n" +
                                 "                               <a href=\"#\"><img src=\""+
                                 data[parseInt(i)].pic+"\" class=\"img-circle\" width=\"50px;\"></a>\n" +
@@ -32,15 +33,15 @@ $(function () {
                                 "                         </div>\n";
                             html=html+"<div class=\"col-sm-10 pull-right\" style=\"padding-bottom: 10px;padding-left: 0px;\">" +
                                 "\n转发:"+data[parseInt(i)].transinfos[parseInt(j)]+"//"+"<a href='#'>@" +data[parseInt(i)].wb.nikename+":</a>"+
-                                data[parseInt(i)].wb.weiboInfo+"</div>";
-                            html=html+"<div class=\"col-sm-10 pull-right\" style=\"padding: 7px;background-color: #eee;\">";
+                                data[parseInt(i)].wb.weiboInfo;
                             for(var k in data[parseInt(i)].wb.list){
                                 if(data[parseInt(i)].wb.list[parseInt(k)].message.messageType=="Transpond"){
                                     html=html+"<a href='#' ><b>@"+
                                         data[parseInt(i)].wb.list[parseInt(k)].user.name+":</b></a>"+ data[parseInt(i)].wb.list[parseInt(k)].message.info;
                                 }else {
+                                    html=html+"</div>";
                                     html=html+"<div class=\"col-sm-12\" style=\"background-color:#eee;max-height: 500px;padding-top: 1rem;padding-left: 0px;\">\n" +
-                                        "    <div class=\"col-sm-12 pull-right\">\n" +
+                                        "    <div class=\"col-sm-10 pull-right\">\n" +
                                         "        <a href='#'><b>@"+
                                         data[parseInt(i)].wb.list[parseInt(k)].user.name+"</b></a>\n" +
                                         "        <p>"+
@@ -71,7 +72,7 @@ $(function () {
                     }else{
                         //转发的微博为原创
                         for(var j in data[parseInt(i)].transinfos){
-                            html=html+
+                            html=html+"<!--点赞的通知-->\n" +
                                 "                        <div style=\"margin-top: 5px;\">\n" +
                                 "                            <div class=\"col-sm-2\" style=\"padding-top: 20px;padding-left: 20px;\">\n" +
                                 "                               <a href=\"#\"><img src=\""+
@@ -120,7 +121,7 @@ $(function () {
             data : {},
             async:true,
             success : function(data) {  //异步请求成功执行的回调函数
-                var html;
+                var html='';
                 for(var d in data){
                     html="<div class=\"col-sm-12\">\n" +
                         "                               <div class=\"col-sm-2\" style=\"padding-top: 10px;padding-left: 10px;\">\n" +
@@ -153,13 +154,13 @@ $(function () {
             data : {},
             async:true,
             success : function(data) {  //异步请求成功执行的回调函数
-                var html="";
+                var html='';
                 for(var i in data){
                     if(data[parseInt(i)].wb.isTransponpd=="true"){
                         //该微博是转发
                         //用一个用户评论了多条微博
                         for(var j in data[parseInt(i)].commentinfos){
-                            html=html +
+                            html=html+"<!--点赞的通知-->\n" +
                                 "                        <div style=\"margin-top: 5px;\">\n" +
                                 "                            <div class=\"col-sm-2\" style=\"padding-top: 20px;padding-left: 20px;\">\n" +
                                 "                               <a href=\"#\"><img src=\""+
@@ -261,7 +262,7 @@ $(function () {
             data : {},
             async:true,
             success : function(data) {  //异步请求成功执行的回调函数
-                var html="";
+                var html;
                 for(var i in data){
                     if(data[parseInt(i)].wb.isTransponpd=="true"){
                         //如果该微博为转发微博

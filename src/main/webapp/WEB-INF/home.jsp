@@ -31,9 +31,6 @@
     <script src="js/remind.js"></script>
     <script src="js/message.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <!-- 引入 Bootstrap -->
-    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
     <script type="text/javascript">
         $(document).ready(function(){
             $("#mycontent").keyup(function(){

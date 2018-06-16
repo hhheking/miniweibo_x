@@ -30,6 +30,7 @@
     <script src="js/remind.js"></script>
     <script src="js/comment.js"></script>
     <script src="js/transpond.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript">
         function deleteMessage(self){
              var div=$(self).parent().parent().parent().parent().parent().parent().parent();
@@ -215,6 +216,9 @@
         <!--右侧主体div-->
         <div class="col-md-8 column">
             <!--tab选项卡-->
+            <!--在页面中动态添加一个div,这里显示用户发布的微博-->
+            <div id="myWeibo">
+            </div>
             <s:iterator value="weibos" var="weibo">
             <div style="background-color: white;margin: 5px;">
                 <!--上层div-->

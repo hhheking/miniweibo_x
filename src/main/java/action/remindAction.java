@@ -9,6 +9,7 @@ import pojo.*;
 import service.messageService;
 import service.remindService;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class remindAction{
@@ -165,9 +166,9 @@ public class remindAction{
         }
         for (int i = 0; i < agrees.size(); i++) {
             Message message = messageservice.get(agrees.get(i).getWb().getMessid());
-            search_message message1=new search_message();
             List<transweibo> transweibos = new ArrayList<>();
             while (message.getMessageType().equals("Transpond")) {
+                search_message message1=new search_message();
                 Transpond transpond=transponddao.findTranspondFrom(message.getMessageId());
                 int OrignId =0;
                 if (transpond!=null)
@@ -208,27 +209,26 @@ public class remindAction{
     }
 
     public String comment(){
+        //同一个用户对同一个微博可能会有很多评价、注意去掉重复的
         User user=(User)ActionContext.getContext().getSession().get("user");
         List<Remind> list = remindservice.list(user.getUserId(),"comment");
         //list为所有评论过“我发的微博”的remind对象
         User user1;
         //comments列表为返回的数据对象
-        int userid=0;
-        int messageid=0;
+        HashMap<Integer,Integer> map=new HashMap<>();
+        int userid,messageid;
         comments=new ArrayList<>();
         for(Remind remind:list){
             if(remind.getIsnew() == false)
                 remindservice.updateRemind(remind);
             //首先查询用户评论某条微博的全部评论
-            if(userid==remind.getUsreId() && messageid==remind.getMessageId().getMessageId()){
-                //某用户对同一条微博进行评论
-                continue;
-            }
             userid=remind.getUsreId();
             messageid=remind.getMessageId().getMessageId();
+            if(map.containsKey(userid) && map.get(userid)==messageid){
+                continue;
+            }
+            map.put(userid,messageid);
             List<String> commentlist=commentdao.findByUseridAndMessageid(remind.getUsreId(),remind.getMessageId().getMessageId());
-            userid= remind.getUsreId();
-            messageid=remind.getMessageId().getMessageId();
             remindcomment rcomment=new remindcomment();
             rcomment.setCommenttime(remind.getTime());
             user1=remindservice.getUser(remind.getUsreId());
@@ -266,9 +266,9 @@ public class remindAction{
         }
         for (int i = 0; i < comments.size(); i++) {
             Message message = messageservice.get(comments.get(i).getWb().getMessid());
-            search_message message1=new search_message();
             List<transweibo> transweibos = new ArrayList<>();
             while (message.getMessageType().equals("Transpond")) {
+                search_message message1=new search_message();
                 Transpond transpond=transponddao.findTranspondFrom(message.getMessageId());
                 int OrignId =0;
                 if (transpond!=null)
@@ -314,18 +314,18 @@ public class remindAction{
         //list为所有转发过“我发的微博”的remind对象
         User user1;
         //comments列表为返回的数据对象
+        HashMap<Integer,Integer> map=new HashMap<>();
         transponds=new ArrayList<>();
-        int userid=0;
-        int messageid=0;
+        int userid,messageid;
         for(Remind remind:list){
             if(remind.getIsnew() == false)
                 remindservice.updateRemind(remind);
-            if(userid==remind.getUsreId() && messageid==remind.getMessageId().getMessageId()){
-                //某用户对同一条微博进行转发
-                continue;
-            }
             userid=remind.getUsreId();
             messageid=remind.getMessageId().getMessageId();
+            if(map.containsKey(userid) && map.get(userid)==messageid){
+                continue;
+            }
+            map.put(userid,messageid);
             remindTranspond rtranspond=new remindTranspond();
             user1=remindservice.getUser(remind.getUsreId());
             rtranspond.setCommenttime(remind.getTime());
@@ -370,9 +370,9 @@ public class remindAction{
         }
         for (int i = 0; i < transponds.size(); i++) {
             Message message = messageservice.get(transponds.get(i).getWb().getMessid());
-            search_message message1=new search_message();
             List<transweibo> transweibos = new ArrayList<>();
             while (message.getMessageType().equals("Transpond")) {
+                search_message message1=new search_message();
                 Transpond transpond=transponddao.findTranspondFrom(message.getMessageId());
                 int OrignId =0;
                 if (transpond!=null)

@@ -40,7 +40,7 @@
             </result>
             <result name="messagejsp">WEB-INF/message.jsp</result>
             <result name="success1" type="json">
-                <param name="root">messagrReason</param>
+                <param name="root">wb</param>
             </result>
             <result name="success2" type="json">
                 <param name="root">refreshweibos</param>
