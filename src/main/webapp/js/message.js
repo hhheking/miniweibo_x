@@ -93,7 +93,7 @@ function comment(c) {
                     }
                     var com="<div class=\"row clearfix\" style=\"border-bottom: 1px solid #ddd;margin: 5px;\">\n" +
                         "                                    <div class=\"col-md-1 column\">\n" +
-                        "                                       <a href=\"toUser?userid="+data[i][4]+"\"><img src=\"images/icon.png\" width=\"30px;\"></a>\n" +
+                        "                                       <a href=\"toUser?userid="+data[i][4]+"\"><img src=\""+data[i][1]+"\" width=\"30px;\"></a>\n" +
                         "                                    </div>\n" +
                         "                                    <div class=\"col-md-11 column\">\n" +
                         "                                        <a href=\"toUser?userid="+data[i][4]+"\"><span>"+data[i][0]+"</span></a>\n" +
@@ -140,7 +140,7 @@ function pinlun(c) {
         var div = $(c).parent().parent().parent().parent();
         var mycom = "<div class=\"row clearfix\" style=\"border-bottom: 1px solid #ddd;margin: 5px;\">\n" +
             "                                    <div class=\"col-md-1 column\">\n" +
-            "                                       <a href=\"toUser?userid=" + userid + "\"><img src=\"images/icon.png\" width=\"30px;\"></a>\n" +
+            "                                       <a href=\"toUser?userid=" + userid + "\"><img src=\""+$("#touxiang").html()+"\" width=\"30px;\"></a>\n" +
             "                                    </div>\n" +
             "                                    <div class=\"col-md-11 column\">\n" +
             "                                        <a href=\"toUser?userid=" + userid + "\"><span>" + nikename + "</span></a>\n" +
@@ -200,7 +200,7 @@ $(function () {
                         "            <div class=\"col-md-2 column\" style=\"padding-left: 25px;padding-top: 10px;\">\n" +
                         "                <!--点击头像 进入用户空间-->\n" +
                         "                <a href='toUser?userid="+userid+"'>"+
-                        "<img src='images/icon.png' class=\"img-circle\" width=\"60px;\"></a>\n" +
+                        "<img src=\""+$("#touxiang").html()+"\" class=\"img-circle\" width=\"60px;\"></a>\n" +
                         "            </div>\n" +
                         "            <div class=\"col-md-10 column\">\n" +
                         "                <h4 style=\"font-weight: bold;\">"+username+"</h4>\n" +

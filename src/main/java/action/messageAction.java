@@ -338,6 +338,7 @@ public class messageAction {
         user=userservice.get(message.getUserByUserId().getUserId());
         //设置用户的头像
         //
+        weibo.setImage(user.getIcon());
         weibo.setNikename(user.getUserNikename());
         weibo.setTime(timeCount(message));
         weibo.setWeiboInfo(message.getMessageInfo());

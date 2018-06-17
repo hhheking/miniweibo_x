@@ -1,10 +1,4 @@
-<%@ page import="pojo.User" %><%--
-  Created by IntelliJ IDEA.
-  User: Asus
-  Date: 2018/5/19
-  Time: 13:55
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="pojo.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"
          isELIgnored="false" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
@@ -412,7 +406,7 @@
         <div class="col-md-4 column">
             <!--个人信息概览-->
             <div class="row text-center inform" style="margin-top: 5px;padding: 15px;background-color: white;">
-                <a href="personspaceUser"><img src="<%=user.getIcon()%>" class="img-circle" width="90px;"></a>
+                <a href="personspaceUser"><img src="<%=user.getIcon()%>" class="img-circle" width="90px;" id="pic"></a>
                 <h4 style="font-weight: bold;"><%=user.getUserNikename()%></h4>
                 <div class="col-sm-12" >
                     <a href="idolUser"><div class="col-sm-4 col-xs-4">
@@ -522,5 +516,6 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+<span id="touxiang" style="display: none"><%=user.getIcon()%></span>
 </body>
 </html>

@@ -311,7 +311,7 @@
                 <div class="row clearfix">
                     <div class="col-md-1 column">
                         <!--点击头像 进入用户空间-->
-                        <img src="images/icon.png" width="35px;">
+                        <img src="<%=user.getIcon()%>" width="35px;">
                     </div>
                     <div class="col-md-11 column" style="padding-right: 35px;">
                         <form role="form" onsubmit='return false'>
@@ -395,5 +395,6 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal -->
     </div>
+<span id="touxiang" style="display: none"><%=user.getIcon()%></span>
 </body>
 </html>

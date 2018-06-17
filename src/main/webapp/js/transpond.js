@@ -31,7 +31,7 @@ $(function () {
                         "            <div class=\"col-md-2 column\" style=\"padding-left: 25px;padding-top: 10px;\">\n" +
                         "                <!--点击头像 进入用户空间-->\n" +
                         "                <a href='toUser?userid="+userid+"'>"+
-                        "<img src='images/icon.png' class=\"img-circle\" width=\"60px;\"></a>\n" +
+                        "<img src=\""+$("#touxiang").html()+"\" class=\"img-circle\" width=\"60px;\"></a>\n" +
                         "            </div>\n" +
                         "            <div class=\"col-md-10 column\">\n" +
                         "                <h4 style=\"font-weight: bold;\">"+username+"</h4>\n" +
@@ -47,7 +47,6 @@ $(function () {
                                     data.list[parseInt(k)].user.name+":</b></a>"+ data.list[parseInt(k)].message.info;
                             }
                         }
-                        //微博bu为原创
                         myweibo=myweibo+"</div></div>";
                         myweibo=myweibo+"<div class=\"col-md-12\" style=\"max-height: 500px;padding-top: 1rem;\">\n" +"<div class=\"col-sm-12\" style='background-color:#eee;'>"+
                             "                <div class=\"col-md-10 column pull-right\" style='padding-left: 0px;'>\n" +

@@ -95,7 +95,7 @@ $(function () {
                         }
                         var com="<div class=\"row clearfix\" style=\"border-bottom: 1px solid #ddd;margin: 5px;\">\n" +
                             "                                    <div class=\"col-md-1 column\">\n" +
-                            "                                       <a href=\"toUser?userid="+data[i][4]+"\"><img src=\"images/icon.png\" width=\"30px;\"></a>\n" +
+                            "                                       <a href=\"toUser?userid="+data[i][4]+"\"><img src=\""+data[i][1]+"\" width=\"30px;\"></a>\n" +
                             "                                    </div>\n" +
                             "                                    <div class=\"col-md-11 column\">\n" +
                             "                                        <a href=\"toUser?userid="+data[i][4]+"\"><span>"+data[i][0]+"</span></a>\n" +
@@ -141,7 +141,7 @@ $(function () {
                 var div = $(this).parent().parent().parent().parent();
                 var mycom = "<div class=\"row clearfix\" style=\"border-bottom: 1px solid #ddd;margin: 5px;\">\n" +
                     "                                    <div class=\"col-md-1 column\">\n" +
-                    "                                       <a href=\"toUser?userid=" + userid + "\"><img src=\"images/icon.png\" width=\"30px;\"></a>\n" +
+                    "                                       <a href=\"toUser?userid=" + userid + "\"><img src=\""+$("#touxiang").html()+"\" width=\"30px;\"></a>\n" +
                     "                                    </div>\n" +
                     "                                    <div class=\"col-md-11 column\">\n" +
                     "                                        <a href=\"toUser?userid=" + userid + "\"><span>" + nikename + "</span></a>\n" +

@@ -53,7 +53,7 @@
                     for( i=0;i<data.length;i++){
                         var com="<div class=\"row clearfix\" style=\"border-bottom: 1px solid #ddd;margin: 5px;\">\n" +
                             "                                    <div class=\"col-md-1 column\">\n" +
-                            "                                       <a href=\"toUser?userid="+data[i][4]+"\"><img src=\"images/icon.png\" width=\"30px;\"></a>\n" +
+                            "                                       <a href=\"toUser?userid="+data[i][4]+"\"><img src=\""+data[i][1]+"\" width=\"30px;\"></a>\n" +
                             "                                    </div>\n" +
                             "                                    <div class=\"col-md-11 column\">\n" +
                             "                                        <a href=\"toUser?userid="+data[i][4]+"\"><span>"+data[i][0]+"</span></a>\n" +
@@ -163,7 +163,7 @@
                     <div class="col-md-12 column">
                         <div class="col-md-2 column" style="padding-left: 25px;padding-top: 10px;">
                             <!--点击头像 进入用户空间-->
-                            <a href="toUser?userid=${weibo.getId()}"><img src="images/icon.png" class="img-circle" width="60px;"></a>
+                            <a href="toUser?userid=${weibo.getId()}"><img src="${weibo.getImage()}" class="img-circle" width="60px;"></a>
                         </div>
                         <div class="col-md-10 column">
                             <h4 style="font-weight: bold;">${weibo.getNikename()}</h4>
@@ -236,7 +236,7 @@
                 <div class="row clearfix">
                     <div class="col-md-1 column">
                         <!--点击头像 进入用户空间-->
-                        <img src="images/icon.png" width="35px;">
+                        <img src="<%=user.getIcon()%>" width="35px;">
                     </div>
                     <div class="col-md-11 column" style="padding-right: 35px;">
                         <form role="form" onsubmit='return false'>
@@ -363,5 +363,6 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+<span id="touxiang" style="display: none"><%=user.getIcon()%></span>
 </body>
 </html>
