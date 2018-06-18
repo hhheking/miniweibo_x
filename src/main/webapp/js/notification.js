@@ -41,7 +41,7 @@ $(function () {
                                 }else {
                                     html=html+"</div>";
                                     html=html+"<div class=\"col-sm-12\" style=\"background-color:#eee;max-height: 500px;padding-top: 1rem;padding-left: 0px;\">\n" +
-                                        "    <div class=\"col-sm-10 pull-right\">\n" +
+                                        "    <div class=\"col-sm-10 pull-right\" onclick=\"location.href='toMessage?messageID="+data[parseInt(i)].wb.list[parseInt(k)].message.id+"'\">" +
                                         "        <a href='#'><b>@"+
                                         data[parseInt(i)].wb.list[parseInt(k)].user.name+"</b></a>\n" +
                                         "        <p>"+
@@ -143,6 +143,7 @@ $(function () {
 
     //点击评论
     $("#ct").click(function(){
+        //点击评论
         $("#ct").children().removeClass("glyphicon-minus").addClass("glyphicon-ok");
         $("#pe").children().removeClass("glyphicon-ok").addClass("glyphicon-minus");
         $("#td").children().removeClass("glyphicon-ok").addClass("glyphicon-minus");
@@ -174,15 +175,15 @@ $(function () {
                                 "                         </div>\n";
                             html=html+"<div class=\"col-sm-10 pull-right\" style=\"padding-bottom: 10px;padding-left: 0px;\">" +
                                 "\n评论:"+data[parseInt(i)].commentinfos[parseInt(j)]+"//"+"<a href='#'>@" +data[parseInt(i)].wb.nikename+":</a>"+
-                                data[parseInt(i)].wb.weiboInfo+"</div>";
-                            html=html+"<div class=\"col-sm-10 pull-right\" style=\"padding: 7px;background-color: #eee;\">";
+                                data[parseInt(i)].wb.weiboInfo;
                             for(var k in data[parseInt(i)].wb.list){
                                 if(data[parseInt(i)].wb.list[parseInt(k)].message.messageType=="Transpond"){
                                     html=html+"<a href='#' ><b>@"+
                                         data[parseInt(i)].wb.list[parseInt(k)].user.name+":</b></a>"+ data[parseInt(i)].wb.list[parseInt(k)].message.info;
                                 }else {
+                                    html=html+"</div>";
                                     html=html+"<div class=\"col-sm-12\" style=\"background-color:#eee;max-height: 500px;padding-top: 1rem;padding-left: 0px;\">\n" +
-                                        "    <div class=\"col-sm-12 pull-right\">\n" +
+                                        "    <div class=\"col-sm-10 pull-right\" onclick=\"location.href='toMessage?messageID="+data[parseInt(i)].wb.list[parseInt(j)].message.id+"'\">" +
                                         "        <a href='#'><b>@"+
                                         data[parseInt(i)].wb.list[parseInt(k)].user.name+"</b></a>\n" +
                                         "        <p>"+
@@ -203,7 +204,6 @@ $(function () {
                                         "</div>";
                                 }
                             }
-                            html=html+"</div>";
                             html=html+ "                        <hr class=\"col-sm-12\">\n" +
                                 "                        <div class=\"col-sm-12 text-center\" style=\"padding-bottom: 10px;\">\n" +
                                 "                           <span class=\"glyphicon glyphicon-edit\">回复</span>\n" +
@@ -247,7 +247,7 @@ $(function () {
             error : function() {
                 alert("获取评论信息记录失败");
             }
-        })
+        });
     });
     //点击点赞
     $("#ae").click(function(){
@@ -262,7 +262,7 @@ $(function () {
             data : {},
             async:true,
             success : function(data) {  //异步请求成功执行的回调函数
-                var html;
+                var html='';
                 for(var i in data){
                     if(data[parseInt(i)].wb.isTransponpd=="true"){
                         //如果该微博为转发微博
@@ -279,15 +279,15 @@ $(function () {
                             data[parseInt(i)].agreetime+"</h6>\n" +
                             "                         </div>\n";
                         html=html+"<div class=\"col-sm-10 pull-right\" style=\"padding-bottom: 10px;padding-left: 0px;\">\n<a href='#'>@" +data[parseInt(i)].wb.nikename+":</a>"+
-                            data[parseInt(i)].wb.weiboInfo+ "</div>\n";
-                        html=html+"<div class=\"col-sm-10 pull-right\" style=\"padding: 7px;background-color: #eee;\">";
+                            data[parseInt(i)].wb.weiboInfo;
                         for(var j in data[parseInt(i)].wb.list){
                             if(data[parseInt(i)].wb.list[parseInt(j)].message.messageType=="Transpond"){
                                 html=html+"<a href='#' ><b>@"+
                                     data[parseInt(i)].wb.list[parseInt(j)].user.name+":</b></a>"+ data[parseInt(i)].wb.list[parseInt(j)].message.info;
                             }else {
+                                html=html+"</div>";
                                 html=html+"<div class=\"col-sm-12\" style=\"background-color:#eee;max-height: 500px;padding-top: 1rem;padding-left: 0px;\">\n" +
-                                    "    <div class=\"col-sm-12 pull-right\">\n" +
+                                    "    <div class=\"col-sm-10 pull-right\" onclick=\"location.href='toMessage?messageID="+data[parseInt(i)].wb.list[parseInt(j)].message.id+"'\">" +
                                     "        <a href='#'><b>@"+
                                     data[parseInt(i)].wb.list[parseInt(j)].user.name+"</b></a>\n" +
                                     "        <p>"+
@@ -308,7 +308,6 @@ $(function () {
                                     "</div>";
                             }
                         }
-                        html=html+"</div>";
                         html=html+ "                        <hr class=\"col-sm-12\">\n" +
                             "                        <div class=\"col-sm-12 text-center\" style=\"padding-bottom: 10px;\">\n" +
                             "                           <span class=\"glyphicon glyphicon-edit\">回复</span>\n" +
@@ -344,6 +343,6 @@ $(function () {
             error : function() {
                 alert("获取点赞信息记录失败");
             }
-        })
+        });
     });
 });

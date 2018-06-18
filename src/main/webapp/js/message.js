@@ -73,7 +73,7 @@ function comment(c) {
     var parentdiv=$(c).parent().parent();
     var messageid=$(c).next().val();
     commentdiv=parentdiv.next();
-    commentdiv.toggle();
+    commentdiv.slideToggle();
     var messid1=$(c).next().val();
     var elementnum=commentdiv.children().length;//第一次点击评论时,评论框里的元素只有2,执行下面函数后增加了评论,评论框的孩子元素>2,用此判断是否第一次点击
     if(commentdiv.is(":visible")==true && elementnum==2){//当评论框是可见的且是第一次点击
@@ -100,7 +100,7 @@ function comment(c) {
                         "                                        <span>"+data[i][3]+"</span>\n" +
                         "                                        <h6 style=\"margin-top: 1px;\">"+data[i][2]+"分钟前"+"</h6>\n" +
                         "                                    </div>\n" +
-                        "                                </div>"
+                        "                                </div>";
                     commentdiv.append(com);
                 }
                 if(i==5){
@@ -147,7 +147,7 @@ function pinlun(c) {
             "                                        <span>" + commentinfo + "</span>\n" +
             "                                        <h6 style=\"margin-top: 1px;\">" + "10秒钟前" + "</h6>\n" +
             "                                    </div>\n" +
-            "                                </div>"
+            "                                </div>";
         div.after(mycom);
         $(c).parent().prev().children().val("");
         var commentdiv = $(c).parent().parent().parent().parent().parent().prev().children("div").eq(2).children("span").html();
@@ -172,6 +172,7 @@ function transponds(c) {
 $(function () {
         // 执行一些动作..
         $("#transpondweibo").click(function () {
+            $("#myWeibo").slideUp();
             $.ajax({
                 type:'Post',
                 url:'transMessage',
@@ -294,6 +295,8 @@ $(function () {
                     //转发成功 原创微博数目加1
                     present.text(str);
                     $("#mymessagenum").text((parseInt($("#mymessagenum").text())+1));
+                    location.href="#";
+                    $("#myWeibo").slideDown();
                 },
                 error:function (err) {
                     //成功发布微博

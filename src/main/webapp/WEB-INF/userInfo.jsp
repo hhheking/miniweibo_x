@@ -33,8 +33,7 @@
     <script type="text/javascript" src="js/scrollable.js"></script>
 </head>
 
-<body>
-
+<body style="background: url(/images/bg.jpg) center top;">
 <div id="main">
     <h2 class="top_title">mini微博-请完善你的信息</h2>
     <p style="height:24px; line-height:24px; margin:16px">我们不会将您的信息泄露给第三方机构或者个人，请放心使用！</p>

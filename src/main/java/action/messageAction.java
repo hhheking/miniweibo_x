@@ -31,7 +31,7 @@ public class messageAction {
     User user;
     transpondDAO transponddao;
     collectionDAO collectiondao;
-    List<weibo> refreshweibos=new ArrayList<>();
+    List<agreeWB> refreshweibos;
     relationService relationservice;
     private agreeWB wb;
 
@@ -51,12 +51,12 @@ public class messageAction {
         return relationservice;
     }
 
-    public List<weibo> getRefreshweibos() {
-        return refreshweibos;
+    public void setRefreshweibos(List<agreeWB> refreshweibos) {
+        this.refreshweibos = refreshweibos;
     }
 
-    public void setRefreshweibos(List<weibo> refreshweibos) {
-        this.refreshweibos = refreshweibos;
+    public List<agreeWB> getRefreshweibos() {
+        return refreshweibos;
     }
 
     public agreeDAO getAgreedao() {
@@ -249,6 +249,7 @@ public class messageAction {
     }
 
     public String refresh(){
+        refreshweibos=new ArrayList<>();
         int count=0;
         User user1=(User) ActionContext.getContext().getSession().get("user");
         //userList为所有的用户
@@ -268,57 +269,57 @@ public class messageAction {
                 }
             });
         }
+        //移除登录用户自己
+        userList.removeIf(new Predicate<User>() {
+            @Override
+            public boolean test(User user) {
+                if(user1.getUserId()==user.getUserId()){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+        });
+        //userList为自己未关注的人的名单
+        //推荐微博选择原创微博
         for(User user:userList){
-            weibo wb=new weibo();
-            List<weibo> weiboList = new ArrayList<>();
+            agreeWB wb=new agreeWB();
             messageList=messageservice.myMessage(user);
             //如果该用户没有法国微博，则找到下一个用户
+            int flag=0;
             if(messageList.isEmpty()){
                 continue;
             }
             else {
+                //选择一条用户的原创微博
+                for(Message message1:messageList){
+                    if(message1.getMessageType().equals("Orign")){
+                        message=message1;
+                        flag=1;
+                        break;
+                    }
+                }
+                //当前用户没有原创微博
+                if(flag==0){
+                    continue;
+                }
                 //设置用户的头像
-                wb.setImage(user1.getIcon());
-                wb.setNikename(user1.getUserNikename());
+                wb.setImage(user.getIcon());
+                wb.setNikename(user.getUserNikename());
                 wb.setTime(timeCount(message));
                 wb.setWeiboInfo(message.getMessageInfo());
-                wb.setTranspond(message.getMessageTranspondnum());
                 wb.setAgree(message.getMessageAgreenum());
                 wb.setComment(message.getMessageCommentnum());
                 wb.setCollect(message.getMessageCollectnum());
                 wb.setMessid(message.getMessageId());
-                wb.setId(user1.getUserId());
-                List<Agree> agrees = agreedao.findAgree(message.getMessageId(), user1.getUserId());
-                if (agrees.isEmpty())
-                    wb.setAgree_status("no");
-                else
-                    wb.setAgree_status("yes");
-                if (message.getMessageType().equals("Transpond")) {
-                    wb.setIsTransponpd("true");
-                    Transpond transpond=transponddao.findTranspondFrom(message.getMessageId());
-                    int OrignId =0;
-                    if (transpond!=null)
-                        OrignId = transpond.getMessageByMessageId().getMessageId();
-                    wb.setTranfrommessid(OrignId);
-                    weiboList.add(wb);
-                }
-                else {
-                    wb.setIsTransponpd("false");
-                    weiboList.add(wb);
-                }
-
-                List<Collection> collections = this.collectiondao.list(user1.getUserId(), message.getMessageId());
-                if (collections.isEmpty())
-                    wb.setCollect_status("no");
-                else
-                    wb.setCollect_status("yes");
-                refreshweibos.add(wb);
-                count++;
-                //刷新部分只显示5条微博
+                wb.setId(user.getUserId());
+                //刷新部分最多显示5条微博
                 if(count==5){
                     break;
                 }
             }
+            refreshweibos.add(wb);
+            count++;
         }
         return "success2";
     }
@@ -331,7 +332,6 @@ public class messageAction {
     //判断给微博是否为自己发布过的微博
     public String to(){
         weibo=new weibo();
-        List<weibo> weiboList = new ArrayList<>();
         //得到需要显示具体信息的微博对象
         message=messageservice.get(messageID);
         //得到发微博的用户
@@ -360,11 +360,9 @@ public class messageAction {
             if (transpond!=null)
                 OrignId = transpond.getMessageByMessageId().getMessageId();
             weibo.setTranfrommessid(OrignId);
-            weiboList.add(weibo);
         }
         else {
             weibo.setIsTransponpd("false");
-            weiboList.add(weibo);
         }
 
         List<Collection> collections = this.collectiondao.list(user.getUserId(), message.getMessageId());
@@ -373,6 +371,30 @@ public class messageAction {
         else
             weibo.setCollect_status("yes");
         //刷新右侧推荐的微博
+        Message message1 = messageservice.get(message.getMessageId());
+        List<transInfo> list = new ArrayList<>();
+        while (message1.getMessageType().equals("Transpond")) {
+            Transpond transpond=transponddao.findTranspondFrom(message1.getMessageId());
+            int OrignId =0;
+            if (transpond!=null)
+                OrignId = transpond.getMessageByMessageId().getMessageId();
+            message1 = messageservice.get(OrignId);
+            User u;
+            if(message1==null){
+                message1=new Message();
+                message1.setMessageInfo("转发微博被删除");
+                message1.setMessageType("Orign");
+                u=new User();
+            }
+            else {
+                u = userservice.get(message1.getUserByUserId().getUserId());
+            }
+            transInfo transinfo = new transInfo();
+            transinfo.setMessage(message1);
+            transinfo.setUser(u);
+            list.add(transinfo);
+        }
+        weibo.setTranList(list);
         refresh();
         return "messagejsp";
     }

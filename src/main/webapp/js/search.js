@@ -61,7 +61,7 @@ $(function(){
                 }
                 default_result=default_result+"</div>";
                 $("#searchResult").append(default_result);
-                $("#searchResult").css("display","");
+                $("#searchResult").slideDown();
             },
             error:function (error) {
                 //找不到搜索值的时候也会导致失败
@@ -76,7 +76,7 @@ $(function(){
                     "</span>\"相关用户</a>\n" +
                     "</div>";
                 $("#searchResult").append(default_result);
-                $("#searchResult").css("display","");
+                $("#searchResult").slideDown();
             }
         });
     });

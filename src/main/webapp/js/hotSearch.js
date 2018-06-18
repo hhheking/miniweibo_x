@@ -29,8 +29,7 @@ $(function () {
 
                 }
                 $("#index_panel").append(hotsearch);
-                $("#index_panel").css("display","");
-
+                $("#index_panel").slideDown();
             },
             error:function (err) {
                 alert("热搜失败");
@@ -39,10 +38,10 @@ $(function () {
     });
     $("#index_sousuo").blur(function(){
         setTimeout(function(){
-            $("#index_panel").css("display","none");
+            $("#index_panel").slideUp();
         }, 300);
         setTimeout(function(){
-            $("#searchResult").css("display","none");
+            $("#searchResult").slideUp();
         }, 300);
     });
 });

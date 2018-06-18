@@ -38,7 +38,7 @@ $(function () {
                         "                <div class=\"col-md-12 column\">\n" +
                         "                    <div class=\"col-md-1 column\">\n" +
                         "                    </div>\n" +
-                        "                    <div class=\"col-md-11 column\">\n" +
+                        "                    <div class=\"col-md-11 column\" style='background-color: #eee;'>\n" +
                         data[parseInt(i)].weiboInfo +
                         "                    </div>\n" +
                         "                </div>\n" +
@@ -59,7 +59,7 @@ $(function () {
                 $("#right").append(layout);
             },
             error:function (err) {
-
+                alert("fail");
             }
         });
     });

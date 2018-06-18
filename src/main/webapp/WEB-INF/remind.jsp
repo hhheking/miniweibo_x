@@ -85,27 +85,40 @@
         </form>
         <div>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-home"></span>&nbsp;首页</a></li>
+                <li><a href="tohomeUser"><span class="glyphicon glyphicon-home"></span>&nbsp;首页</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-facetime-video"></span>&nbsp;视频</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;发现</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-equalizer"></span>&nbsp;游戏</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;<%=user.getUserNikename()%></a></li>
+                <li><a href="personspaceUser"><span class="glyphicon glyphicon-user"></span>&nbsp;<%=user.getUserNikename()%></a></li>
                 <li class="dropdown" style="border-left: 1px solid #ddd">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <span class="glyphicon glyphicon-comment" style="font-size: 20"></span>
                         <span id="tip" class="badge" style="background-color: orange;position: absolute;top: 6px;right: 0px;font-size: 6"></span>
                     </a>
-                    <ul class="dropdown-menu" style="font-size: 12;">
-                        <li><a href="#">转发<span id="tip1" class="badge pull-right" style="background-color: grey;font-size: 5"></span></a></li>
+                    <ul class="dropdown-menu" style="font-size: 12;min-width:100%;">
+                        <li><a href="#">转发&nbsp&nbsp<span id="tip1" class="badge" style="background-color: grey;font-size: 5"></span></a></li>
                         <li class="divider"></li>
-                        <li><a href="#">评论<span id="tip2" class="badge pull-right" style="background-color: grey;font-size: 5"></span></a></li>
+                        <li><a href="#">评论&nbsp&nbsp<span id="tip2" class="badge" style="background-color: grey;font-size: 5"></span></a></li>
                         <li class="divider"></li>
-                        <li><a href="#">点赞<span id="tip3" class="badge pull-right" style="background-color: grey;font-size: 5"></span></a></li>
+                        <li><a href="#">点赞&nbsp&nbsp<span id="tip3" class="badge" style="background-color: grey;font-size: 5"></span></a></li>
                         <li class="divider"></li>
-                        <li><a href="#">私信<span id="tip4" class="badge pull-right" style="background-color: grey;font-size: 5"></span></a></li>
+                        <li><a href="#">私信&nbsp&nbsp<span id="tip4" class="badge" style="background-color: grey;font-size: 5"></span></a></li>
                     </ul>
                 </li>
-                <li><a href="#"><span class="glyphicon glyphicon-cog"></span></a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-cog"></span>
+                    </a>
+                    <ul class="dropdown-menu" style="font-size: 12;min-width:100%;">
+                        <li><a href="#">账号设置</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">信息完善</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">隐私设置</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">退出</a></li>
+                    </ul>
+                </li>
                 <li><script type="text/javascript">for(var i=1;i<=30;i++){document.write("&nbsp;");}</script></li>
             </ul>
         </div>
@@ -315,7 +328,7 @@
                     if(data[parseInt(i)].wb.isTransponpd=="true"){
                         //如果该微博为转发微博
                         html=html+"<!--点赞的通知-->\n" +
-                            "                        <div style=\"margin-top: 5px;\">\n" +
+                            "                        <div style=\"margin: 5px;\">\n" +
                             "                            <div class=\"col-sm-2\" style=\"padding-top: 20px;padding-left: 20px;\">\n" +
                             "                               <a href=\"#\"><img src=\""+
                             data[parseInt(i)].pic+"\" class=\"img-circle\" width=\"50px;\"></a>\n" +
@@ -335,7 +348,7 @@
                             }else {
                                 html=html+"</div>";
                                 html=html+"<div class=\"col-sm-12\" style=\"background-color:#eee;max-height: 500px;padding-top: 1rem;padding-left: 0px;\">\n" +
-                                    "    <div class=\"col-sm-10 pull-right\">\n" +
+                                    "    <div class=\"col-sm-10 pull-right\" onclick=\"location.href='toMessage?messageID="+data[parseInt(i)].wb.list[parseInt(j)].message.id+"'\">" +
                                     "        <a href='#'><b>@"+
                                     data[parseInt(i)].wb.list[parseInt(j)].user.name+"</b></a>\n" +
                                     "        <p>"+
@@ -363,7 +376,7 @@
                             "                        </div><!--点赞通知-->";
                     }else {
                         html=html+"<!--点赞的通知-->\n" +
-                            "                        <div style=\"margin-top: 5px;\">\n" +
+                            "                        <div style=\"margin: 5px;\">\n" +
                             "                            <div class=\"col-sm-2\" style=\"padding-top: 20px;padding-left: 20px;\">\n" +
                             "                               <a href=\"#\"><img src=\""+
                             data[parseInt(i)].pic+"\" class=\"img-circle\" width=\"50px;\"></a>\n" +
@@ -414,7 +427,7 @@
                         //用一个用户转发微博多次
                         for(var j in data[parseInt(i)].transinfos){
                             html=html+"<!--点赞的通知-->\n" +
-                                "                        <div style=\"margin-top: 5px;\">\n" +
+                                "                        <div style=\"margin: 5px;\">\n" +
                                 "                            <div class=\"col-sm-2\" style=\"padding-top: 20px;padding-left: 20px;\">\n" +
                                 "                               <a href=\"#\"><img src=\""+
                                 data[parseInt(i)].pic+"\" class=\"img-circle\" width=\"50px;\"></a>\n" +
@@ -435,7 +448,7 @@
                                 }else {
                                     html=html+"</div>";
                                     html=html+"<div class=\"col-sm-12\" style=\"background-color:#eee;max-height: 500px;padding-top: 1rem;padding-left: 0px;\">\n" +
-                                        "    <div class=\"col-sm-10 pull-right\">\n" +
+                                        "    <div class=\"col-sm-10 pull-right\" onclick=\"location.href='toMessage?messageID="+data[parseInt(i)].wb.list[parseInt(k)].message.id+"'\">" +
                                         "        <a href='#'><b>@"+
                                         data[parseInt(i)].wb.list[parseInt(k)].user.name+"</b></a>\n" +
                                         "        <p>"+
@@ -466,7 +479,7 @@
                         //转发的微博为原创
                         for(var j in data[parseInt(i)].transinfos){
                             html=html+"<!--点赞的通知-->\n" +
-                                "                        <div style=\"margin-top: 5px;\">\n" +
+                                "                        <div style=\"margin: 5px;\">\n" +
                                 "                            <div class=\"col-sm-2\" style=\"padding-top: 20px;padding-left: 20px;\">\n" +
                                 "                               <a href=\"#\"><img src=\""+
                                 data[parseInt(i)].pic+"\" class=\"img-circle\" width=\"50px;\"></a>\n" +
@@ -522,7 +535,7 @@
                         //用一个用户评论了多条微博
                         for(var j in data[parseInt(i)].commentinfos){
                             html=html+"<!--点赞的通知-->\n" +
-                                "                        <div style=\"margin-top: 5px;\">\n" +
+                                "                        <div style=\"margin: 5px;\">\n" +
                                 "                            <div class=\"col-sm-2\" style=\"padding-top: 20px;padding-left: 20px;\">\n" +
                                 "                               <a href=\"#\"><img src=\""+
                                 data[parseInt(i)].pic+"\" class=\"img-circle\" width=\"50px;\"></a>\n" +
@@ -543,7 +556,7 @@
                                 }else {
                                     html=html+"</div>";
                                     html=html+"<div class=\"col-sm-12\" style=\"background-color:#eee;max-height: 500px;padding-top: 1rem;padding-left: 0px;\">\n" +
-                                        "    <div class=\"col-sm-10 pull-right\">\n" +
+                                        "    <div class=\"col-sm-10 pull-right\" onclick=\"location.href='toMessage?messageID="+data[parseInt(i)].wb.list[parseInt(j)].message.id+"'\">" +
                                         "        <a href='#'><b>@"+
                                         data[parseInt(i)].wb.list[parseInt(k)].user.name+"</b></a>\n" +
                                         "        <p>"+
@@ -574,7 +587,7 @@
                         //评论的微博为原创
                         for(var j in data[parseInt(i)].commentinfos){
                             html=html+"<!--点赞的通知-->\n" +
-                                "                        <div style=\"margin-top: 5px;\">\n" +
+                                "                        <div style=\"margin: 5px;\">\n" +
                                 "                            <div class=\"col-sm-2\" style=\"padding-top: 20px;padding-left: 20px;\">\n" +
                                 "                               <a href=\"#\"><img src=\""+
                                 data[parseInt(i)].pic+"\" class=\"img-circle\" width=\"50px;\"></a>\n" +

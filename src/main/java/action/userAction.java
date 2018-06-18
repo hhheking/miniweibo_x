@@ -265,4 +265,19 @@ public class userAction {
         return "personspace_fans";
     }
 
+    public String tohome(){
+        Map<String, Object> session = ActionContext.getContext().getSession();
+        user=(User)session.get("user");
+        fans=relationservice.calfans(user);
+        idols=relationservice.calidols(user);
+        mymessageList=messageservice.myMessage(user);
+        weibos=idolweiboservice.calidolweibos(user);
+        return "home";
+    }
+    public String exit(){
+        if(ActionContext.getContext().getSession().get("user")!=null){
+            ActionContext.getContext().getSession().clear();
+        }
+        return "loginfail";
+    }
 }

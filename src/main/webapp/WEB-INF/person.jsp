@@ -42,6 +42,7 @@
                 },
                 async:true,
                 success : function(data) {  //异步请求成功执行的回调函数
+                    div.slideUp();
                     div.remove();
                     $("#myweibonum").text((parseInt($("#myweibonum").text())-1));
                 },//ajax引擎一般用不到；状态信息；抛出的异常信息
@@ -101,11 +102,11 @@
         </form>
         <div>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-home"></span>&nbsp;首页</a></li>
+                <li><a href="tohomeUser"><span class="glyphicon glyphicon-home"></span>&nbsp;首页</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-facetime-video"></span>&nbsp;视频</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;发现</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-equalizer"></span>&nbsp;游戏</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;<%=user.getUserNikename()%></a></li>
+                <li><a href="personspaceUser"  style="color: orange"><span class="glyphicon glyphicon-user"></span>&nbsp;<%=user.getUserNikename()%></a></li>
                 <li class="dropdown" style="border-left: 1px solid #ddd">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <span class="glyphicon glyphicon-comment" style="font-size: 20"></span>
@@ -255,7 +256,7 @@
                             <s:else>
                         </div>
                         <div class="col-md-12 column" style="background-color:#eee;max-height: 500px;padding-top: 1rem;padding-left: 0px;">
-                            <div class="col-md-10 column pull-right">
+                            <div class="col-md-10 column pull-right" onclick="location.href='toMessage?messageID=${tran.getMessage().getMessageId()}'">
                                 <a href="toUser?userid=${tran.getUser().getUserId()}" ><b>@${tran.getUser().getUserNikename()}</b></a>
                                 <p>${tran.getMessage().getMessageInfo()}</p>
                                 <br>
