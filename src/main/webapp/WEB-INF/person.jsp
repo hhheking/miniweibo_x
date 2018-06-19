@@ -28,8 +28,7 @@
     <!-- 包括所有已编译的插件 -->
     <script src="js/hotSearch.js"></script>
     <script src="js/remind.js"></script>
-    <script src="js/comment.js"></script>
-    <script src="js/transpond.js"></script>
+    <script src="js/message.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript">
         function deleteMessage(self){
@@ -280,26 +279,26 @@
             <!--下层div-->
             <div class="row clearfix" style="border-top: 1px solid #ddd;border-bottom: 1px solid #ddd;">
                 <div class="col-md-3 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;">
-                    <span class="glyphicon glyphicon-link" data-toggle="modal" data-target="#TransPondModal">转发${weibo.getTranspond()}</span>
+                    <span class="glyphicon glyphicon-link" data-toggle="modal" onclick="transponds(this)" data-target="#TransPondModal">转发${weibo.getTranspond()}</span>
                 </div>
                 <div class="col-md-3 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;">
                     <!--得到微博的收藏状态和收藏的次数-->
-                    <s:if test="#weibo.collect_status == \"no\""><span class="glyphicon glyphicon-star-empty">收藏</span></s:if>
+                    <s:if test="#weibo.collect_status == \"no\""><span class="glyphicon glyphicon-star-empty" onclick="collection(this)">收藏</span></s:if>
                     <s:else>
-                        <span class="glyphicon glyphicon-star-empty" style="color: coral">已收藏</span>
+                        <span class="glyphicon glyphicon-star-empty" onclick="collection(this)" style="color: coral">已收藏</span>
                     </s:else>
                     <input value="${weibo.getMessid()}" style="display: none">
                     <input value="<%=user.getUserId()%>" style="display: none;">
                 </div>
                 <div class="col-md-3 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;">
-                    <span id="showcomment" class="glyphicon glyphicon-edit">评价${weibo.getComment()}</span>
+                    <span id="showcomment" class="glyphicon glyphicon-edit" onclick="comment(this)">评价${weibo.getComment()}</span>
                     <input id="MessageId" value="${weibo.getMessid()}" style="display: none">
                 </div>
                 <div class="col-md-3 column" style="text-align: center;padding: 10px;">
                     <!--得到微博的赞同状态和赞同次数-->
-                    <s:if test="#weibo.agree_status == \"no\""><span class="glyphicon glyphicon-thumbs-up">${weibo.getAgree()}</span></s:if>
+                    <s:if test="#weibo.agree_status == \"no\""><span class="glyphicon glyphicon-thumbs-up" onclick="agree(this)">${weibo.getAgree()}</span></s:if>
                     <s:else>
-                        <span class="glyphicon glyphicon-thumbs-up" style="color: coral">${weibo.getAgree()}</span>
+                        <span class="glyphicon glyphicon-thumbs-up" style="color: coral" onclick="agree(this)">${weibo.getAgree()}</span>
                     </s:else>
                     <input value="${weibo.getMessid()}" style="display: none">
                     <input value="<%=user.getUserId()%>" style="display: none;">
@@ -322,7 +321,7 @@
                             <div class="form-group">
                                 <span class="face"></span>
                                 <span class="pic"></span>
-                                <button type="submit" class="btn btn-default pull-right" style="background-color: orange;height: 30px;">评论</button>
+                                <button type="submit" class="btn btn-default pull-right" style="background-color: orange;height: 30px;" onclick="pinlun(this)">评论</button>
                                 <input value="${weibo.getMessid()}" style="display: none">
                                 <input id="sessionuserid" value="<%=user.getUserId()%>" style="display: none">
                                 <input id="sessionusername" value="<%=user.getUserNikename()%>" style="display: none">

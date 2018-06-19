@@ -9,20 +9,26 @@
     <constant name="struts.action.excludePattern" value="/websocket*,^ws://.$"/>
     <constant name="struts.objectFactory" value="spring"/>
     <package name="basicstruts" extends="struts-default,json-default" >
+        <!--定义拦截器-->
+        <interceptors>
+            <interceptor name="index" class="intercept.indexInterceptor"/>
+            <interceptor name="message" class="intercept.messageInterceptor"/>
+        </interceptors>
         <action name="chat" class="ChatEntpoint" method="chatajax">
             <result type="json" name="success">
                 <param name="root">data</param>
             </result>
         </action>
-        <action name="index">
-            <result>WEB-INF/index.jsp</result>
+        <action name="index" class="indexActionBean">
+            <result name="success">WEB-INF/index.jsp</result>
         </action>
         <action name="register">
             <result>WEB-INF/register.jsp</result>
         </action>
+        <action name="login">
+            <result>WEB-INF/login.jsp</result>
+        </action>
         <action name="*User" class="userActionBean" method="{1}">
-            <result name="listuser"></result>
-            <result name="listuseraction" type="redirect">listUser</result>
             <result name="loginuser">WEB-INF/login.jsp</result>
             <result name="home">WEB-INF/home.jsp</result>
             <result name="loginfail">WEB-INF/index.jsp</result>
@@ -33,6 +39,9 @@
             <result name="personspace_idols">WEB-INF/person_idols.jsp</result>
             <result name="personspace_fans">WEB-INF/person_fans.jsp</result>
             <result name="Manage" type="chain">Manage</result>
+            <result name="hotweibos">WEB-INF/hotWeibo.jsp</result>
+            <result name="mycollections">WEB-INF/myCollections.jsp</result>
+            <result name="myagrees">WEB-INF/myAgrees.jsp</result>
         </action>
         <action name="*Message" class="messageActionBean" method="{1}">
             <result name="success" type="json">
@@ -45,6 +54,11 @@
             <result name="success2" type="json">
                 <param name="root">refreshweibos</param>
             </result>
+            <result name="messagefail">WEB-INF/messagenotfound.jsp</result>
+            <!-- 系统默认的拦截器 -->
+            <interceptor-ref name="defaultStack"/>
+            <!--使用定义好的拦截器-->
+            <interceptor-ref name="message"/>
         </action>
         <action name="*Manage" class="action.manageAction" method="{1}">
             <result name="success">WEB-INF/UserManage.jsp</result>
@@ -58,13 +72,17 @@
             <result name="success" type="json">
                 <param name="root">stus</param>
             </result>
+            <!-- 系统默认的拦截器 -->
+            <interceptor-ref name="defaultStack"/>
+            <!--使用定义好的拦截器-->
+            <interceptor-ref name="index"/>
         </action>
         <action name="*commentAction" class="action.commentAction" method="{1}">
             <result name="success" type="json">
                 <param name="root">result</param>
             </result>
             <result name="add" type="json">
-                <param name="root">yes</param>
+                <param name="root">commentid</param>
             </result>
         </action>
         <action name="agreeAction" class="agreeActionBean">

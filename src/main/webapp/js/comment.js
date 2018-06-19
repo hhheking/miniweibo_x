@@ -1,3 +1,21 @@
+function deleteComment(c,that) {
+    $.ajax({
+        type : "POST",  //请求方式
+        url : "deletecommentAction",  //请求路径
+        data : {
+            commentid:c
+        },
+        async:true,
+        success : function(data) {  //异步请求成功执行的回调函数
+            $(that).parent().parent().slideUp();
+            $(that).parent().parent().remove();
+        },//ajax引擎一般用不到；状态信息；抛出的异常信息
+        error : function() {
+            alert("删除评论失败")
+        }
+
+    });
+}
 $(function () {
     //收藏功能
     $(".glyphicon.glyphicon-star-empty").click(function () {
@@ -75,7 +93,7 @@ $(function () {
     $(".glyphicon.glyphicon-edit").click(function () {
         var parentdiv=$(this).parent().parent();
         commentdiv=parentdiv.next();
-        commentdiv.toggle();
+        commentdiv.slideToggle();
         var messid1=$(this).next().val();
         var elementnum=commentdiv.children().length;//第一次点击评论时,评论框里的元素只有2,执行下面函数后增加了评论,评论框的孩子元素>2,用此判断是否第一次点击
         if(commentdiv.is(":visible")==true && elementnum==2){//当评论框是可见的且是第一次点击
@@ -93,16 +111,21 @@ $(function () {
                         if(i>=5){
                             break;
                         }
+                        var deleteinfo="";
+                        var sessionid=$("#sessionuserid").val();
+                        if(sessionid==data[i][4]){
+                            deleteinfo="<a href='javascript:void(0)' class='pull-right' style='font-size: 13' onclick='deleteComment("+data[i][5]+",this)'>删除</a>";
+                        }
                         var com="<div class=\"row clearfix\" style=\"border-bottom: 1px solid #ddd;margin: 5px;\">\n" +
                             "                                    <div class=\"col-md-1 column\">\n" +
                             "                                       <a href=\"toUser?userid="+data[i][4]+"\"><img src=\""+data[i][1]+"\" width=\"30px;\"></a>\n" +
                             "                                    </div>\n" +
                             "                                    <div class=\"col-md-11 column\">\n" +
                             "                                        <a href=\"toUser?userid="+data[i][4]+"\"><span>"+data[i][0]+"</span></a>\n" +
-                            "                                        <span>"+data[i][3]+"</span>\n" +
+                            "                                        <span>"+data[i][3]+"</span>\n" +deleteinfo+
                             "                                        <h6 style=\"margin-top: 1px;\">"+data[i][2]+"分钟前"+"</h6>\n" +
                             "                                    </div>\n" +
-                            "                                </div>"
+                            "                                </div>";
                         commentdiv.append(com);
                     }
                     if(i==5){
@@ -122,6 +145,7 @@ $(function () {
                 var userid = $(this).next().next().val();
                 var messid = $(this).next().val();
                 var nikename = $(this).next().next().next().val();
+                var commentid;
                 $.ajax({
                     type: "POST",  //请求方式
                     url: "addcommentAction",  //请求路径
@@ -132,28 +156,30 @@ $(function () {
                     },
                     async: true,
                     success: function (data) {
-                        ;
+                        commentid=data;
+                        var deleteinfo="";
+                        var sessionid=$("#sessionuserid").val();
+                        if(sessionid==userid){
+                            deleteinfo="<a href='javascript:void(0)' class='pull-right' style='font-size: 13' onclick='deleteComment("+commentid+",this)'>删除</a>";
+                        }
+                        var div = $(this).parent().parent().parent().parent();
+                        var mycom = "<div class=\"row clearfix\" style=\"border-bottom: 1px solid #ddd;margin: 5px;\">\n" +
+                            "                                    <div class=\"col-md-1 column\">\n" +
+                            "                                       <a href=\"toUser?userid=" + userid + "\"><img src=\""+$("#touxiang").html()+"\" width=\"30px;\"></a>\n" +
+                            "                                    </div>\n" +
+                            "                                    <div class=\"col-md-11 column\">\n" +
+                            "                                        <a href=\"toUser?userid=" + userid + "\"><span>" + nikename + "</span></a>\n" +
+                            "                                        <span>" + commentinfo + "</span>\n" +deleteinfo+
+                            "                                        <h6 style=\"margin-top: 1px;\">" + "10秒钟前" + "</h6>\n" +
+                            "                                    </div>\n" +
+                            "                                </div>";
+                        div.after(mycom);
+
                     },
                     error: function () {
                         alert("ajax失败了")
                     }
                 });
-                var div = $(this).parent().parent().parent().parent();
-                var mycom = "<div class=\"row clearfix\" style=\"border-bottom: 1px solid #ddd;margin: 5px;\">\n" +
-                    "                                    <div class=\"col-md-1 column\">\n" +
-                    "                                       <a href=\"toUser?userid=" + userid + "\"><img src=\""+$("#touxiang").html()+"\" width=\"30px;\"></a>\n" +
-                    "                                    </div>\n" +
-                    "                                    <div class=\"col-md-11 column\">\n" +
-                    "                                        <a href=\"toUser?userid=" + userid + "\"><span>" + nikename + "</span></a>\n" +
-                    "                                        <span>" + commentinfo + "</span>\n" +
-                    "                                        <h6 style=\"margin-top: 1px;\">" + "10秒钟前" + "</h6>\n" +
-                    "                                    </div>\n" +
-                    "                                </div>"
-                div.after(mycom);
-                $(this).parent().prev().children().val("");
-                var commentdiv = $(this).parent().parent().parent().parent().parent().prev().children("div").eq(2).children("span").html();
-                commentdiv = "评价" + (parseInt(commentdiv.substring(2)) + 1);
-                $(this).parent().parent().parent().parent().parent().prev().children("div").eq(2).children("span").html(commentdiv);
             }
         });
 })

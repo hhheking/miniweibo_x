@@ -32,4 +32,9 @@ public class collectionDAOImpl extends HibernateTemplate implements collectionDA
     public Message getMessage(int id) {
         return get(Message.class,id);
     }
+
+    @Override
+    public List<Collection> listMycollections(int userid) {
+        return find("from Collection c where c.userByUserId="+userid);
+    }
 }

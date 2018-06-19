@@ -13,4 +13,8 @@ public interface idolweiboService {
     public long timeCount(Message message);
     public List<weibo> calidolweibos(User user);
     public List<weibo> Myweibos(User user);
+    public List<weibo> weiboList();
+    public List<weibo> myagrees();
+    public List<weibo> mycollections();
+    public List<weibo> index();
 }

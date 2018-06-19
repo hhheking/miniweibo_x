@@ -5,7 +5,9 @@
 <hibernate-mapping>
 
     <class name="pojo.Comment" table="comment" schema="miniweibo">
-        <id name="commentId" column="comment_id"/>
+        <id name="commentId" column="comment_id">
+        <generator class="increment"></generator>
+        </id>
         <property name="commentInfo" column="comment_info"/>
         <property name="commentTime" column="comment_time"/>
         <many-to-one name="messageByMessageId" class="pojo.Message">

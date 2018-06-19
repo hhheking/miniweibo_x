@@ -68,10 +68,6 @@ public class relationAction {
     public String judge(){
         Map<String, Object> session = ActionContext.getContext().getSession();
         User user1=(User)session.get("user");
-        if(user1==null){
-            return "loginfail";
-
-        }
         user=userservice.get(user_id);
         int i=0;
         for(Relation relation:relationservice.myIdols(user1)){

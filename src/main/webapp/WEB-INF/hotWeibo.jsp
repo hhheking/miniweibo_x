@@ -244,9 +244,9 @@
     <div class="row clearfix">
         <!--网站侧标导航栏-->
         <div  style="text-align: left; font-size:14px;position: fixed;margin-left: 120px;width: 160px;">
-            <a href="#" class="list-group-item" size=""><b>首页</b></a>
-            <a href="#" class="list-group-item"><b>我的收藏</b></a>
-            <a href="#" class="list-group-item"><b>我的赞</b></a>
+            <a href="tohomeUser" class="list-group-item"><b>首页</b></a>
+            <a href="toMycollectUser" class="list-group-item">我的收藏</a>
+            <a href="toMyagreeUser" class="list-group-item">我的赞</a>
             <a href="#" class="list-group-item">热门微博</a>
             <a href="#" class="list-group-item">热门视频</a>
             <a href="#" class="list-group-item">好友圈</a>
@@ -281,9 +281,9 @@
                 <!--tab选项卡-->
                 <nav class="navbar naybar-default" role="navigation" style="background-color: white;">
                     <div class="container-fluid">
-                        <ul class="nav navbar-nav">
-                            <li><a href="#">关注</a></li>
-                            <li><a href="#">热门</a></li>
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="tohotUser">热门</a></li>
+                            <li><a href="tohomeUser">关注</a></li>
                             <li><a href="#">图片</a></li>
                             <li><a href="#">文章</a></li>
                         </ul>
@@ -297,7 +297,6 @@
                 <div id="myWeibo">
                 </div>
                 <!--关注好友的所有微博动态-->
-                <div id="allweibos">
                     <s:iterator value="weibos" var="weibo">
                     <div style="background-color: white;margin: 5px;">
                         <!--上层div-->
@@ -403,7 +402,6 @@
                     </div>
                 </div>
                 </s:iterator>
-            </div>
         </div>
 
         <div class="col-md-4 column">

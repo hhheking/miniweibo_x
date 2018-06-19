@@ -7,6 +7,7 @@ import pojo.Comment;
 import service.commentService;
 import service.commentServiceImpl;
 import service.messageService;
+import sun.plugin2.message.Message;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,14 +21,24 @@ public class commentAction extends ActionSupport{
     String userid;
     String commentinfo;
     commentService commentservice;
-    String yes;
+    int commentid;
+
+    public int getCommentid() {
+        return commentid;
+    }
+
+    public void setCommentid(int commentid) {
+        this.commentid = commentid;
+    }
+
     @Override
+
     public String execute() throws Exception {
         result=commentservice.commentInformation(Integer.parseInt(messid));
         return SUCCESS;
     }
     public String add(){
-        commentservice.addComment(Integer.parseInt(messid),commentinfo,Integer.parseInt(userid));
+        commentid=commentservice.addComment(Integer.parseInt(messid),commentinfo,Integer.parseInt(userid));
         return "add";
     }
     public String getCommentinfo() {
@@ -67,6 +78,10 @@ public class commentAction extends ActionSupport{
 
     public void setCommentservice(commentService commentservice) {
         this.commentservice = commentservice;
+    }
+
+    public void delete(){
+        commentservice.deleteComment(commentid);
     }
 
 }

@@ -13,6 +13,12 @@
 <%
     Map<String, Object> s= ActionContext.getContext().getSession();
     User user=(User)s.get("user");
+    if(user==null){
+        //如果当前用户未登录
+        user=new User();
+        user.setUserId(0);
+        user.setUserNikename("未登录");
+    }
 %>
 <html>
 <head>
@@ -31,8 +37,8 @@
     <script src="js/hotSearch.js"></script>
     <script src="js/remind.js"></script>
     <script src="js/flexible.js"></script>
-    <script src="js/comment.js"></script>
-    <script src="js/transpond.js"></script>
+    <script src="js/message.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
             $("#focus").click(function () {
@@ -45,7 +51,8 @@
                         $("#focus").html(data);
                     },
                     error:function (err) {
-                        alert("fail");
+                        alert("关注失败!点击确定将跳转到登录界面");
+                        location.href='login'
                     }
                 });
             });
@@ -264,26 +271,26 @@
                     <!--下层div-->
                     <div class="row clearfix" style="border-top: 1px solid #ddd;border-bottom: 1px solid #ddd;">
                         <div class="col-md-4 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;">
-                            <span class="glyphicon glyphicon-link" data-toggle="modal" data-target="#TransPondModal">转发${weibo.getTranspond()}</span>
+                            <span class="glyphicon glyphicon-link" data-toggle="modal" data-target="#TransPondModal" onclick="transponds(this)">转发${weibo.getTranspond()}</span>
                         </div>
                         <div class="col-md-3 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;display: none;"  >
                             <!--得到微博的收藏状态和收藏的次数-->
-                            <s:if test="#weibo.collect_status == \"no\""><span class="glyphicon glyphicon-star-empty">收藏</span></s:if>
+                            <s:if test="#weibo.collect_status == \"no\""><span class="glyphicon glyphicon-star-empty" onclick="collection(this)">收藏</span></s:if>
                             <s:else>
-                                <span class="glyphicon glyphicon-star-empty" style="color: coral">已收藏</span>
+                                <span class="glyphicon glyphicon-star-empty" style="color: coral" onclick="collection(this)">已收藏</span>
                             </s:else>
                             <input value="${weibo.getMessid()}" style="display: none">
                             <input value="<%=user.getUserId()%>" style="display: none;">
                         </div>
                         <div class="col-md-4 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;">
-                            <span id="showcomment" class="glyphicon glyphicon-edit">评价${weibo.getComment()}</span>
+                            <span id="showcomment" class="glyphicon glyphicon-edit" onclick="comment(this)">评价${weibo.getComment()}</span>
                             <input id="MessageId" value="${weibo.getMessid()}" style="display: none">
                         </div>
                         <div class="col-md-4 column" style="text-align: center;padding: 10px;">
                             <!--得到微博的赞同状态和赞同次数-->
-                            <s:if test="#weibo.agree_status == \"no\""><span class="glyphicon glyphicon-thumbs-up">${weibo.getAgree()}</span></s:if>
+                            <s:if test="#weibo.agree_status == \"no\""><span class="glyphicon glyphicon-thumbs-up" onclick="agree(this)">${weibo.getAgree()}</span></s:if>
                             <s:else>
-                                <span class="glyphicon glyphicon-thumbs-up" style="color: coral">${weibo.getAgree()}</span>
+                                <span class="glyphicon glyphicon-thumbs-up" style="color: coral" onclick="agree(this)">${weibo.getAgree()}</span>
                             </s:else>
                             <input value="${weibo.getMessid()}" style="display: none">
                             <input value="<%=user.getUserId()%>" style="display: none;">
@@ -306,7 +313,7 @@
                                     <div class="form-group">
                                         <span class="face"></span>
                                         <span class="pic"></span>
-                                        <button type="submit" class="btn btn-default pull-right" style="background-color: orange;height: 30px;">评论</button>
+                                        <button type="submit" class="btn btn-default pull-right" style="background-color: orange;height: 30px;" onclick="pinlun(this)">评论</button>
                                         <input value="${weibo.getMessid()}" style="display: none">
                                         <input id="sessionuserid" value="<%=user.getUserId()%>" style="display: none">
                                         <input id="sessionusername" value="<%=user.getUserNikename()%>" style="display: none">
@@ -314,9 +321,6 @@
                                 </form>
                                 <!--分割线-->
                                 <hr>
-                            </div>
-                            <!--自己发布的评论显示在这里-->
-                            <div>
                             </div>
                         </div>
                     </div>
@@ -332,10 +336,6 @@
     <a href="#" class="list-group-item"> <span class="badge" style="background-color: #FF4500;">爆</span>1.第一条热搜第一条热搜第一条热搜</a>
     <a href="#" class="list-group-item"><span class="badge" style="background-color: #FF0000;">热</span>2.第二条热搜第二条热搜第二条热搜</a>
     <a href="#" class="list-group-item"><span class="badge" style="background-color: #DC143C;">新</span>3.第三条热搜第三条热搜第三条热搜</a>
-    <a href="#" class="list-group-item">4.第四条热搜第四条热搜第四条热搜</a>
-    <a href="#" class="list-group-item">5.第五条热搜第五条热搜第五条热搜</a>
-    <a href="#" class="list-group-item">6.第六条热搜第六条热搜第六条热搜</a>
-    <a href="#" class="list-group-item">7.第七条热搜第七条热搜第七条热搜</a>
 </div>
 </div>
 <div class="bian">

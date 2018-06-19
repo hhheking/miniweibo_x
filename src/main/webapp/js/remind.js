@@ -13,7 +13,7 @@ $(function () {
                     $("#tip4").html(data[3]);
             },//ajax引擎一般用不到；状态信息；抛出的异常信息
             error : function() {
-                alert("提醒失败");
+                //alert("提醒失败");
             }
         })
    },5000);

@@ -11,4 +11,5 @@ public interface collectionDAO {
     public List<Collection> list(int user_id,int message_id);
     public void updateMessage(Message message);
     public Message getMessage(int id);
+    public List<Collection> listMycollections(int userid);
 }

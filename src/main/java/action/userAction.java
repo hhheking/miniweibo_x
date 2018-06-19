@@ -1,11 +1,13 @@
 package action;
 
 import bean.fan;
+import bean.transInfo;
 import bean.weibo;
 import com.opensymphony.xwork2.ActionContext;
-import pojo.Message;
-import pojo.Relation;
-import pojo.User;
+import dao.agreeDAO;
+import dao.collectionDAO;
+import dao.transpondDAO;
+import pojo.*;
 import service.idolweiboService;
 import service.messageService;
 import service.relationService;
@@ -13,6 +15,7 @@ import service.userService;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -150,23 +153,16 @@ public class userAction {
     }
 
     public String login(){
+        System.out.println(user);
         if(user.getUserNikename().equals("admin")){
             return "Manage";
         }
         if(userservice.login(user)){
-            //用户登录成功
-            //此时user对象仅有nikename和password属性，无法使用user.getuser_id()的语法,需要取出session中的user值
-            Map<String, Object> session = ActionContext.getContext().getSession();
-            user=(User)session.get("user");
-            fans=relationservice.calfans(user);
-            idols=relationservice.calidols(user);
-            mymessageList=messageservice.myMessage(user);
-            weibos=idolweiboservice.calidolweibos(user);
+            return tohot();
         }else {
             //登录失败
             return "loginfail";
         }
-        return "home";
     }
 
     public String register(){
@@ -194,32 +190,30 @@ public class userAction {
         //得到session中的user实例
         Map<String, Object> session = ActionContext.getContext().getSession();
         User user1=(User)session.get("user");
-        if(user1==null){
-            return "loginfail";
-
-        }
         Map Getid=ActionContext.getContext().getParameters();
         String [] userid= (String[]) Getid.get("userid");
         id=Integer.parseInt(userid[0]);
         user=userservice.get(id);
-        //得到登录用户的所有关注的人
-        status="+关注";
-        for(Relation relation:relationservice.myIdols(user1)){
-            if(relation.getUserByUserByid().getUserId()==user.getUserId()){
-                status="已关注";
+        if(user1==null){
+            status="+关注";
+        }else{
+            for(Relation relation:relationservice.myIdols(user1)){
+                if(relation.getUserByUserByid().getUserId()==user.getUserId()){
+                    status="已关注";
+                }
+            }
+            //得到登录用户的所有关注的人
+            if(user1.getUserNikename().equals(user.getUserNikename())){
+                //点击的头像为本人,根据用户名来判断
+                return personspace();
             }
         }
-       if(user1.getUserNikename().equals(user.getUserNikename())){
-            //点击的头像为本人,根据用户名来判断
-            return personspace();
-       }else {
-            //点击的头像不为本人
-            fans=relationservice.calfans(user);
-            idols=relationservice.calidols(user);
-            mymessageList=messageservice.myMessage(user);
-            weibos=idolweiboservice.Myweibos(user);
-            return "other_person";
-       }
+        //点击的头像不为本人
+        fans=relationservice.calfans(user);
+        idols=relationservice.calidols(user);
+        mymessageList=messageservice.myMessage(user);
+        weibos=idolweiboservice.Myweibos(user);
+        return "other_person";
     }
 
     public String idol(){
@@ -272,7 +266,7 @@ public class userAction {
         idols=relationservice.calidols(user);
         mymessageList=messageservice.myMessage(user);
         weibos=idolweiboservice.calidolweibos(user);
-        return "home";
+        return "hotweibos";
     }
     public String exit(){
         if(ActionContext.getContext().getSession().get("user")!=null){
@@ -280,4 +274,42 @@ public class userAction {
         }
         return "loginfail";
     }
+    public String tohot(){
+        Map<String, Object> session = ActionContext.getContext().getSession();
+        user=(User)session.get("user");
+        fans=relationservice.calfans(user);
+        idols=relationservice.calidols(user);
+        mymessageList=messageservice.myMessage(user);
+        weibos=idolweiboservice.weiboList();
+        return "hotweibos";
+    }
+
+    public long timeCount(Message message) {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        //由毫秒转化为分钟，所以除以1000*60
+        //填写测试用例的时候 没有写微博发表的时间 因此这里要稍微修改
+        return (timestamp.getTime() - message.getMessageTime().getTime()) / (1000 * 60);
+    }
+
+    public String toMycollect(){
+        Map<String, Object> session = ActionContext.getContext().getSession();
+        user=(User)session.get("user");
+        fans=relationservice.calfans(user);
+        idols=relationservice.calidols(user);
+        mymessageList=messageservice.myMessage(user);
+        weibos=idolweiboservice.mycollections();
+        return "mycollections";
+    }
+
+    public String toMyagree(){
+        Map<String, Object> session = ActionContext.getContext().getSession();
+        user=(User)session.get("user");
+        fans=relationservice.calfans(user);
+        idols=relationservice.calidols(user);
+        mymessageList=messageservice.myMessage(user);
+        weibos=idolweiboservice.myagrees();
+        return "myagrees";
+    }
+
+
 }

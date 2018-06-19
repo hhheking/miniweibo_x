@@ -14,6 +14,11 @@
 <%
     Map<String, Object> s= ActionContext.getContext().getSession();
     User user=(User)s.get("user");
+    if(user==null){
+        user=new User();
+        user.setUserId(0);
+        user.setUserNikename("未登录");
+    }
 %>
 <html>
 <head>
@@ -31,8 +36,7 @@
     <script src="js/refresh.js"></script>
     <script src="js/search.js"></script>
     <script src="js/remind.js"></script>
-    <script src="js/comment.js"></script>
-    <script src="js/transpond.js"></script>
+    <script src="js/message.js"></script>
     <script src="js/bootstrap.min.js"></script>
 
     <script type="text/javascript">
@@ -49,15 +53,19 @@
                 async:true,
                 success : function(data) {  //异步请求成功执行的回调函数
                     var i,j;
-
                     for( i=0;i<data.length;i++){
+                        var deleteinfo="";
+                        var sessionid=$("#sessionuserid").val();
+                        if(sessionid==data[i][4]){
+                            deleteinfo="<a href='javascript:void(0)' class='pull-right' style='font-size: 13' onclick='deleteComment("+data[i][5]+",this)'>删除</a>";
+                        }
                         var com="<div class=\"row clearfix\" style=\"border-bottom: 1px solid #ddd;margin: 5px;\">\n" +
                             "                                    <div class=\"col-md-1 column\">\n" +
                             "                                       <a href=\"toUser?userid="+data[i][4]+"\"><img src=\""+data[i][1]+"\" width=\"30px;\"></a>\n" +
                             "                                    </div>\n" +
                             "                                    <div class=\"col-md-11 column\">\n" +
                             "                                        <a href=\"toUser?userid="+data[i][4]+"\"><span>"+data[i][0]+"</span></a>\n" +
-                            "                                        <span>"+data[i][3]+"</span>\n" +
+                            "                                        <span>"+data[i][3]+"</span>\n" +deleteinfo+
                             "                                        <h6 style=\"margin-top: 1px;\">"+data[i][2]+"分钟前"+"</h6>\n" +
                             "                                    </div>\n" +
                             "                                </div>"
@@ -65,7 +73,7 @@
                     }
                 },//ajax引擎一般用不到；状态信息；抛出的异常信息
                 error : function() {
-                    alert("失败了")
+                    alert("message.jsp页面获取评论信息失败");
                 }
         });
         });
@@ -216,26 +224,26 @@
             <!--转发、收藏、评价、点赞-->
             <div class="row clearfix" style="border-top: 1px solid #ddd;border-bottom: 1px solid #ddd;">
                 <div class="col-md-3 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;">
-                    <span class="glyphicon glyphicon-link" data-toggle="modal" data-target="#TransPondModal">转发${weibo.getTranspond()}</span>
+                    <span class="glyphicon glyphicon-link" data-toggle="modal" onclick="transponds(this)" data-target="#TransPondModal">转发${weibo.getTranspond()}</span>
                 </div>
                 <div class="col-md-3 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;">
                     <!--得到微博的收藏状态和收藏的次数-->
-                    <s:if test="weibo.collect_status == \"no\""><span class="glyphicon glyphicon-star-empty">收藏</span></s:if>
+                    <s:if test="weibo.collect_status == \"no\""><span class="glyphicon glyphicon-star-empty" onclick="collection(this)">收藏</span></s:if>
                     <s:else>
-                        <span class="glyphicon glyphicon-star-empty" style="color: coral">已收藏</span>
+                        <span class="glyphicon glyphicon-star-empty" style="color: coral" onclick="collection(this)">已收藏</span>
                     </s:else>
                     <input value="${weibo.getMessid()}" style="display: none">
                     <input value="<%=user.getUserId()%>" style="display: none;">
                 </div>
                 <div class="col-md-3 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;">
-                    <span id="showcomment" class="glyphicon glyphicon-edit">评价${weibo.getComment()}</span>
+                    <span id="showcomment" class="glyphicon glyphicon-edit" onclick="comment(this)">评价${weibo.getComment()}</span>
                     <input id="MessageId" value="${weibo.getMessid()}" style="display: none">
                 </div>
                 <div class="col-md-3 column" style="text-align: center;padding: 10px;">
                     <!--得到微博的赞同状态和赞同次数-->
-                    <s:if test="weibo.agree_status == \"no\""><span class="glyphicon glyphicon-thumbs-up">${weibo.getAgree()}</span></s:if>
+                    <s:if test="weibo.agree_status == \"no\""><span class="glyphicon glyphicon-thumbs-up" onclick="agree(this)">${weibo.getAgree()}</span></s:if>
                     <s:else>
-                        <span class="glyphicon glyphicon-thumbs-up" style="color: coral">${weibo.getAgree()}</span>
+                        <span class="glyphicon glyphicon-thumbs-up" onclick="agree(this)" style="color: coral">${weibo.getAgree()}</span>
                     </s:else>
                     <input value="${weibo.getMessid()}" style="display: none">
                     <input value="<%=user.getUserId()%>" style="display: none;">
@@ -259,7 +267,7 @@
                             <div class="form-group">
                                 <span class="face"></span>
                                 <span class="pic"></span>
-                                <button type="submit" class="btn btn-default pull-right" style="background-color: orange;height: 30px;">评论</button>
+                                <button type="submit" class="btn btn-default pull-right" style="background-color: orange;height: 30px;" onclick="pinlun(this)">评论</button>
                                 <input value="${weibo.getMessid()}" style="display: none">
                                 <input id="sessionuserid" value="<%=user.getUserId()%>" style="display: none">
                                 <input id="sessionusername" value="<%=user.getUserNikename()%>" style="display: none">
@@ -269,9 +277,6 @@
                         <hr>
                     </div>
                     <!--评论-->
-                    <!--自己发布的评论显示在这里-->
-                    <div>
-                    </div>
                 </div>
             </div><!--点击评论显示出来的div-->
 

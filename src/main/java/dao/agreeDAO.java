@@ -11,4 +11,5 @@ public interface agreeDAO {
     public List<Agree> findAgree(int message_id,int user_id);
     public void updateMessage(Message message);
     public Message getMessage(int id);
+    public List<Agree> myagrees(int id);
 }

@@ -255,31 +255,36 @@ public class messageAction {
         //userList为所有的用户
         List<User> userList=userservice.list();
         //搜索我没有关注的人微博
-        for(Relation relation:relationservice.myIdols(user1)){
-            //user2为我关注的用户
-            User user2=userservice.get(relation.getUserByUserByid().getUserId());
-            //userList去掉了所有登录用户关注的人
+        //当前用户没有登录
+        if(user1==null){
+
+        }else{
+            for(Relation relation:relationservice.myIdols(user1)){
+                //user2为我关注的用户
+                User user2=userservice.get(relation.getUserByUserByid().getUserId());
+                //userList去掉了所有登录用户关注的人
+                userList.removeIf(new Predicate<User>() {
+                    @Override
+                    public boolean test(User user) {
+                        if(user2.getUserId()==user.getUserId())
+                            return true;
+                        else
+                            return false;
+                    }
+                });
+            }
+            //移除登录用户自己
             userList.removeIf(new Predicate<User>() {
                 @Override
                 public boolean test(User user) {
-                    if(user2.getUserId()==user.getUserId())
+                    if(user1.getUserId()==user.getUserId()){
                         return true;
-                    else
+                    }else{
                         return false;
+                    }
                 }
             });
         }
-        //移除登录用户自己
-        userList.removeIf(new Predicate<User>() {
-            @Override
-            public boolean test(User user) {
-                if(user1.getUserId()==user.getUserId()){
-                    return true;
-                }else{
-                    return false;
-                }
-            }
-        });
         //userList为自己未关注的人的名单
         //推荐微博选择原创微博
         for(User user:userList){
@@ -348,11 +353,23 @@ public class messageAction {
         weibo.setCollect(message.getMessageCollectnum());
         weibo.setMessid(message.getMessageId());
         weibo.setId(user.getUserId());
-        List<Agree> agrees = agreedao.findAgree(message.getMessageId(), user.getUserId());
-        if (agrees.isEmpty())
+        User user1=(User)ActionContext.getContext().getSession().get("user");
+        if(user1==null){
+            //当前用户没有登录
             weibo.setAgree_status("no");
-        else
-            weibo.setAgree_status("yes");
+            weibo.setCollect_status("no");
+        }else{
+            List<Agree> agrees = agreedao.findAgree(message.getMessageId(), user1.getUserId());
+            if (agrees.isEmpty())
+                weibo.setAgree_status("no");
+            else
+                weibo.setAgree_status("yes");
+            List<Collection> collections = this.collectiondao.list(user1.getUserId(), message.getMessageId());
+            if (collections.isEmpty())
+                weibo.setCollect_status("no");
+            else
+                weibo.setCollect_status("yes");
+        }
         if (message.getMessageType().equals("Transpond")) {
             weibo.setIsTransponpd("true");
             Transpond transpond=transponddao.findTranspondFrom(message.getMessageId());
@@ -364,13 +381,6 @@ public class messageAction {
         else {
             weibo.setIsTransponpd("false");
         }
-
-        List<Collection> collections = this.collectiondao.list(user.getUserId(), message.getMessageId());
-        if (collections.isEmpty())
-            weibo.setCollect_status("no");
-        else
-            weibo.setCollect_status("yes");
-        //刷新右侧推荐的微博
         Message message1 = messageservice.get(message.getMessageId());
         List<transInfo> list = new ArrayList<>();
         while (message1.getMessageType().equals("Transpond")) {
@@ -395,6 +405,7 @@ public class messageAction {
             list.add(transinfo);
         }
         weibo.setTranList(list);
+        //刷新右侧推荐的微博
         refresh();
         return "messagejsp";
     }

@@ -32,4 +32,9 @@ public class agreeDAOImpl extends HibernateTemplate implements agreeDAO {
         return get(Message.class,id);
     }
 
+    @Override
+    public List<Agree> myagrees(int userid) {
+        return find("from Agree a where a.userByUserId="+userid);
+    }
+
 }

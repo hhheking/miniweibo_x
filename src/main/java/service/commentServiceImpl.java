@@ -58,7 +58,7 @@ public class commentServiceImpl implements commentService {
     }
 
     @Override
-    public void addComment(int messid, String commentinfo, int userid) {
+    public int addComment(int messid, String commentinfo, int userid) {
         Comment com=new Comment();
         com.setCommentInfo(commentinfo);
         com.setCommentTime(new Timestamp(System.currentTimeMillis()));
@@ -80,13 +80,16 @@ public class commentServiceImpl implements commentService {
             remind.setTime(new Timestamp(System.currentTimeMillis()));
             this.reminddao.addRemind(remind);
         }
+        return com.getCommentId();
     }
 
     @Override
     public void deleteComment(int commentid) {
         Comment comment = commentdao.get(commentid);
-        Message message = messagedao.get(comment.getCommentId());
+        Message message = messagedao.get(comment.getMessageByMessageId().getMessageId());
         commentdao.delete(comment);
+        message.setMessageCommentnum(message.getMessageCommentnum()-1);
+        messagedao.updata(message);
         User u = (User) ActionContext.getContext().getSession().get("user");
         int user_id = u.getUserId();
         int touser_id = message.getUserByUserId().getUserId();
@@ -105,7 +108,7 @@ public class commentServiceImpl implements commentService {
     @Override
     public String[][] commentInformation(int messid) {
         List<Comment> list=this.commentList(messid);
-        String [][]result=new String[list.size()][5];
+        String [][]result=new String[list.size()][6];
         int i=list.size()-1;
         Timestamp timestamp=new Timestamp(System.currentTimeMillis());
         for(Comment comment:list){
@@ -115,6 +118,7 @@ public class commentServiceImpl implements commentService {
             result[i][2]= String.valueOf((timestamp.getTime()-comment.getCommentTime().getTime())/(1000*60));//评论时间
             result[i][3]=comment.getCommentInfo();//评论内容
             result[i][4]= String.valueOf(comment.getUserByUserId().getUserId());//userid
+            result[i][5]=String.valueOf(comment.getCommentId());
             i--;
         }
         return result;

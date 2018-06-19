@@ -17,7 +17,11 @@
 
     <script type="text/javascript" src="js/jquery-2.1.0.min.js"></script>
     <script type="text/javascript" src="js/easyform.js"></script>
-
+    <style type="text/css">
+        body{
+            background: url("images/bg.jpg") center top;
+        }
+    </style>
 </head>
 <body>
 <br>
@@ -35,7 +39,7 @@
         </table>
 
         <div class="buttons">
-            <input value="登 录" type="submit" style="margin-right:50px; margin-top:20px;">
+            <input value="登 录" type="submit" style="margin-right:65px; margin-top:20px;">
         </div>
 
         <br class="clear">
