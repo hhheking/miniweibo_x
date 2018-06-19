@@ -15,7 +15,8 @@ public class messageInterceptor extends AbstractInterceptor {
         ActionContext ctx=actionInvocation.getInvocationContext();
         String[] o=(String[])ctx.getParameters().get("messageID");
         //得到当前要查看的message的id
-        if(o[0].equals("0")){
+        //当前访问的是发微博
+        if(o!=null && o[0].equals("0")){
             return "messagefail";
         }
         return actionInvocation.invoke();
