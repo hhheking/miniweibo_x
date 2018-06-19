@@ -25,7 +25,7 @@ $(function(){
                 var count=0;
                 for(var i in data.messages){
                     //i是一个Message对象，要考虑messageInfo过长的问题
-                    default_result=default_result+"<a href=\"#\" class=\"list-group-item\">"
+                    default_result=default_result+"<a href='toMessage?messageID="+data.messages[parseInt(i)].id+"' class=\"list-group-item\">"
                         +data.messages[parseInt(i)].info+
                         "</a>";
                     count=count+1;

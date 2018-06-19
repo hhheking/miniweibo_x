@@ -178,7 +178,7 @@ public class userAction {
         Map<String, Object> session = ActionContext.getContext().getSession();
         user=(User)session.get("user");
         if(user==null){
-            return "loginfail";
+            return "loginuser";
         }
         fans=relationservice.calfans(user);
         idols=relationservice.calidols(user);
@@ -262,6 +262,9 @@ public class userAction {
     public String tohome(){
         Map<String, Object> session = ActionContext.getContext().getSession();
         user=(User)session.get("user");
+        if(user==null){
+            return "loginuser";
+        }
         fans=relationservice.calfans(user);
         idols=relationservice.calidols(user);
         mymessageList=messageservice.myMessage(user);
