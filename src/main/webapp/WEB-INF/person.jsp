@@ -105,7 +105,7 @@
         </form>
         <div>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="tohomeUser"><span class="glyphicon glyphicon-home"></span>&nbsp;首页</a></li>
+                <li><a href="tohotUser"><span class="glyphicon glyphicon-home"></span>&nbsp;首页</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-facetime-video"></span>&nbsp;视频</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;发现</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-equalizer"></span>&nbsp;游戏</a></li>
@@ -132,11 +132,11 @@
                     <ul class="dropdown-menu" style="font-size: 12;min-width:100%;">
                         <li><a href="#">账号设置</a></li>
                         <li class="divider"></li>
-                        <li><a href="#">信息完善</a></li>
+                        <li><a href="toUserinfo">信息完善</a></li>
                         <li class="divider"></li>
                         <li><a href="#">隐私设置</a></li>
                         <li class="divider"></li>
-                        <li><a href="#">退出</a></li>
+                        <li><a href="exitUser">退出</a></li>
                     </ul>
                 </li>
                 <li><script type="text/javascript">for(var i=1;i<=30;i++){document.write("&nbsp;");}</script></li>

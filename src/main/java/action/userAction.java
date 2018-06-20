@@ -194,9 +194,7 @@ public class userAction {
         String [] userid= (String[]) Getid.get("userid");
         id=Integer.parseInt(userid[0]);
         user=userservice.get(id);
-        if(user1==null){
-            status="+关注";
-        }else{
+        status="+关注";
             for(Relation relation:relationservice.myIdols(user1)){
                 if(relation.getUserByUserByid().getUserId()==user.getUserId()){
                     status="已关注";
@@ -207,7 +205,6 @@ public class userAction {
                 //点击的头像为本人,根据用户名来判断
                 return personspace();
             }
-        }
         //点击的头像不为本人
         fans=relationservice.calfans(user);
         idols=relationservice.calidols(user);
@@ -269,13 +266,13 @@ public class userAction {
         idols=relationservice.calidols(user);
         mymessageList=messageservice.myMessage(user);
         weibos=idolweiboservice.calidolweibos(user);
-        return "loginfail";
+        return "home";
     }
     public String exit(){
         if(ActionContext.getContext().getSession().get("user")!=null){
             ActionContext.getContext().getSession().clear();
         }
-        return "home";
+        return "loginfail";
     }
     public String tohot(){
         Map<String, Object> session = ActionContext.getContext().getSession();
@@ -284,7 +281,7 @@ public class userAction {
         idols=relationservice.calidols(user);
         mymessageList=messageservice.myMessage(user);
         weibos=idolweiboservice.weiboList();
-        return "home";
+        return "hotweibos";
     }
 
     public long timeCount(Message message) {

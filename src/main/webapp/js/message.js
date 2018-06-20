@@ -213,7 +213,6 @@ function transponds(c) {
     var parentdiv=$(c).parent().parent().prev().children().eq(0).children().eq(1);
     $("#transpond_info").text(parentdiv.children().eq(2).text());
     $("#transpond_username").text(parentdiv.children().eq(0).text());
-
     $("#messID").val($(c).parent().next().next().children("#MessageId").val());
     str="转发"+(parseInt($(c).text().substring(2)) + 1);
     present=$(c);
@@ -252,7 +251,6 @@ $(function () {
                         var name=$("#transpond_username").text();
                         var userid=$("#sessionuserid").val();
                         var username=$("#sessionusername").val();
-                        var icon=$("#sessionicon").val();
                         var messageid = data.messid;
                         var myweibo="<div style=\"background-color: white;margin: 5px;\">\n" +
                             "    <!--上层div-->\n" +
@@ -265,7 +263,7 @@ $(function () {
                             "            </div>\n" +
                             "            <div class=\"col-md-10 column\">\n" +
                             "                <h4 style=\"font-weight: bold;\">"+username+"</h4>\n" +
-                            "                <h6>0分钟前 来自miniweibo.com</h6>\n" + reason;
+                            "                <h6>0分钟前 来自miniweibo.com</h6>\n" +" <p style=\"display: none\">"+reason+"</p>"+ reason;
                         var count=data.list.length;
                         if(count!=0){
                             //微博不为原创

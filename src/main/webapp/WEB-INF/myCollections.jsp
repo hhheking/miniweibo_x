@@ -20,6 +20,9 @@
     <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
     <script src="https://code.jquery.com/jquery.js"></script>
     <!-- 包括所有已编译的插件 -->
+    <link rel="stylesheet" type="text/css" href="css/dialog.css">
+    <script src="js/zepto.min.js"></script>
+    <script type="text/javascript" src="js/dialog.min.js"></script>
     <script src="js/hotSearch.js"></script>
     <script src="js/search.js"></script>
     <script src="js/remind.js"></script>
@@ -85,7 +88,7 @@
         </form>
         <div>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="tohomeUser"><span class="glyphicon glyphicon-home"></span>&nbsp;首页</a></li>
+                <li><a href="tohotUser"><span class="glyphicon glyphicon-home"></span>&nbsp;首页</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-facetime-video"></span>&nbsp;视频</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;发现</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-equalizer"></span>&nbsp;游戏</a></li>
@@ -130,7 +133,7 @@
     <div class="row clearfix">
         <!--网站侧标导航栏-->
         <div  style="text-align: left; font-size:14px;position: fixed;margin-left: 120px;width: 160px;">
-            <a href="tohomeUser" class="list-group-item">首页</a>
+            <a href="tohotUser" class="list-group-item">首页</a>
             <a href="toMycollectUser" class="list-group-item"><b>我的收藏</b></a>
             <a href="toMyagreeUser" class="list-group-item">我的赞</a>
             <a href="#" class="list-group-item">热门微博</a>
@@ -150,9 +153,6 @@
                 <!--未读消息提示,后续可以增加-->
                 <div>
 
-                </div>
-                <!--在页面中动态添加一个div,这里显示用户发布的微博-->
-                <div id="myWeibo" style="display: none">
                 </div>
                 <!--关注好友的所有微博动态-->
                 <s:iterator value="weibos" var="weibo">

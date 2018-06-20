@@ -248,7 +248,7 @@
     <div class="row clearfix">
         <!--网站侧标导航栏-->
         <div  style="text-align: left; font-size:14px;position: fixed;margin-left: 120px;width: 160px;">
-            <a href="tohomeUser" class="list-group-item"><b>首页</b></a>
+            <a href="tohotUser" class="list-group-item"><b>首页</b></a>
             <a href="toMycollectUser" class="list-group-item">我的收藏</a>
             <a href="toMyagreeUser" class="list-group-item">我的赞</a>
             <a href="#" class="list-group-item">热门微博</a>
@@ -286,8 +286,8 @@
                 <nav class="navbar naybar-default" role="navigation" style="background-color: white;">
                     <div class="container-fluid">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a href="tohomeUser">热门</a></li>
-                            <li><a href="tohotUser">关注</a></li>
+                            <li class="active"><a href="tohotUser">热门</a></li>
+                            <li><a href="tohomeUser">关注</a></li>
                             <li><a href="#">图片</a></li>
                             <li><a href="#">文章</a></li>
                         </ul>
@@ -393,7 +393,6 @@
                                         <input value="${weibo.getMessid()}" style="display: none">
                                         <input id="sessionuserid" value="<%=user.getUserId()%>" style="display: none">
                                         <input id="sessionusername" value="<%=user.getUserNikename()%>" style="display: none">
-                                        <input id="sessionicon" value="<%=user.getIcon()%>" style="display: none">
                                     </div>
                                 </form>
                                 <!--分割线-->
