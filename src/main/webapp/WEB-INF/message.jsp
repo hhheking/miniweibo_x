@@ -32,6 +32,9 @@
     <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
     <script src="https://code.jquery.com/jquery.js"></script>
     <!-- 包括所有已编译的插件 -->
+    <link rel="stylesheet" type="text/css" href="css/dialog.css">
+    <script src="js/zepto.min.js"></script>
+    <script type="text/javascript" src="js/dialog.min.js"></script>
     <script src="js/hotSearch.js"></script>
     <script src="js/refresh.js"></script>
     <script src="js/search.js"></script>
@@ -372,7 +375,7 @@
                             <input id="messID" style="display: none">
                         </div>
                         <div style="float: right">
-                            <button id="transpondweibo" type="submit" class="btn btn-primary btn-sm btn-block">转发</button>
+                            <button id="transpondweibo" class="btn btn-primary btn-sm btn-block">转发</button>
                         </div>
                     </div>
 

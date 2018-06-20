@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface messageService {
     public List<Message> list();
-    public void add(Message message);
+    public int add(Message message);
     public void delete(int messageid);
     public Message get(int id);
     public List<Message> myMessage(User user);

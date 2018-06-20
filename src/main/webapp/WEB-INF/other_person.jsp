@@ -34,6 +34,9 @@
     <!-- 引入 Bootstrap -->
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/chat.css" />
+    <link rel="stylesheet" type="text/css" href="css/dialog.css">
+    <script src="js/zepto.min.js"></script>
+    <script type="text/javascript" src="js/dialog.min.js"></script>
     <script src="js/hotSearch.js"></script>
     <script src="js/remind.js"></script>
     <script src="js/flexible.js"></script>

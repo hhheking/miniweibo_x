@@ -27,6 +27,9 @@
     <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
     <script src="https://code.jquery.com/jquery.js"></script>
     <!-- 包括所有已编译的插件 -->
+    <link rel="stylesheet" type="text/css" href="css/dialog.css">
+    <script src="js/zepto.min.js"></script>
+    <script type="text/javascript" src="js/dialog.min.js"></script>
     <script src="js/hotSearch.js"></script>
     <script src="js/search.js"></script>
     <script src="js/remind.js"></script>
@@ -59,6 +62,7 @@
                         //成功发布微博,消除文本框中的内容
                         var info=$("#mycontent").val();
                         $("#mycontent").val("");
+                        popup({type:'success',msg:"发布微博成功",delay:1000,callBack:function(){;}});
                         var myweibo=" <div style=\"background-color: white;margin: 5px;\">\n" +
                             "                    <!--上层div-->\n" +
                             "                    <div class=\"row clearfix\" style=\"padding-bottom: 1.5rem;\">\n" +
@@ -282,8 +286,8 @@
                 <nav class="navbar naybar-default" role="navigation" style="background-color: white;">
                     <div class="container-fluid">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a href="tohotUser">热门</a></li>
-                            <li><a href="tohomeUser">关注</a></li>
+                            <li class="active"><a href="tohomeUser">热门</a></li>
+                            <li><a href="tohotUser">关注</a></li>
                             <li><a href="#">图片</a></li>
                             <li><a href="#">文章</a></li>
                         </ul>
@@ -389,6 +393,7 @@
                                         <input value="${weibo.getMessid()}" style="display: none">
                                         <input id="sessionuserid" value="<%=user.getUserId()%>" style="display: none">
                                         <input id="sessionusername" value="<%=user.getUserNikename()%>" style="display: none">
+                                        <input id="sessionicon" value="<%=user.getIcon()%>" style="display: none">
                                     </div>
                                 </form>
                                 <!--分割线-->

@@ -187,7 +187,7 @@ public class messageAction {
     }
     public String trans(){
         message=messageservice.transmessage(messagrReason,messageID);
-        messageservice.add(message);
+        int id = messageservice.add(message);
         transpondservice.add(messageID,message.getMessageId());
         wb=new agreeWB();
         //得到被转发的微博对象
@@ -245,6 +245,7 @@ public class messageAction {
             transweibos.add(transweibo);
         }
         wb.setList(transweibos);
+        wb.setMessid(id);
         return "success1";
     }
 

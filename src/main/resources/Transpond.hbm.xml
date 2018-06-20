@@ -5,7 +5,9 @@
 <hibernate-mapping>
 
     <class name="pojo.Transpond" table="transpond" schema="miniweibo">
-        <id name="transpondId" column="transpond_id"/>
+        <id name="transpondId" column="transpond_id">
+            <generator class="increment"></generator>
+        </id>
         <many-to-one name="userByUserId" class="pojo.User">
             <column name="user_id"/>
         </many-to-one>

@@ -1,7 +1,4 @@
 $(function(){
-    $('.carousel').carousel({
-        interval: 2000 // in milliseconds
-    })
     $('#index_sousuo').bind('input propertychange', function(){
         //输入框内容改变后，先改变热搜框的可见属性
         $("#index_panel").css("display","none");

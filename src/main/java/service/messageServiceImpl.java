@@ -52,8 +52,9 @@ public class messageServiceImpl implements messageService {
     }
 
     @Override
-    public void add(Message message) {
+    public int add(Message message) {
         messagedao.add(message);
+        return message.getMessageId();
     }
 
     @Override

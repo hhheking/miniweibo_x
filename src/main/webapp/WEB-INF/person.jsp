@@ -26,6 +26,9 @@
     <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
     <script src="https://code.jquery.com/jquery.js"></script>
     <!-- 包括所有已编译的插件 -->
+    <link rel="stylesheet" type="text/css" href="css/dialog.css">
+    <script src="js/zepto.min.js"></script>
+    <script type="text/javascript" src="js/dialog.min.js"></script>
     <script src="js/hotSearch.js"></script>
     <script src="js/remind.js"></script>
     <script src="js/message.js"></script>
@@ -41,6 +44,7 @@
                 },
                 async:true,
                 success : function(data) {  //异步请求成功执行的回调函数
+                    popup({type:'success',msg:"删除微博成功",delay:1000,callBack:function(){;}});
                     div.slideUp();
                     div.remove();
                     $("#myweibonum").text((parseInt($("#myweibonum").text())-1));

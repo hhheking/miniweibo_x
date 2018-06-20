@@ -269,13 +269,13 @@ public class userAction {
         idols=relationservice.calidols(user);
         mymessageList=messageservice.myMessage(user);
         weibos=idolweiboservice.calidolweibos(user);
-        return "hotweibos";
+        return "loginfail";
     }
     public String exit(){
         if(ActionContext.getContext().getSession().get("user")!=null){
             ActionContext.getContext().getSession().clear();
         }
-        return "loginfail";
+        return "home";
     }
     public String tohot(){
         Map<String, Object> session = ActionContext.getContext().getSession();
@@ -284,7 +284,7 @@ public class userAction {
         idols=relationservice.calidols(user);
         mymessageList=messageservice.myMessage(user);
         weibos=idolweiboservice.weiboList();
-        return "hotweibos";
+        return "home";
     }
 
     public long timeCount(Message message) {

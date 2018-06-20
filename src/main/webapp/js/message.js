@@ -7,8 +7,7 @@ function collection(c) {
     var yan = $(c).next().css("color");
     if(user_id==0){
         //用户未登录
-        alert("收藏失败！请先登录");
-        location.href='login'
+        popup({type:'error',msg:"收藏失败，请先登陆！",delay:2000,bg:true,clickDomCancel:true});
     }else{
         //用户已登录
         if($(c).css("color") != yan) {
@@ -47,6 +46,7 @@ function deleteComment(c,that) {
         },
         async:true,
         success : function(data) {  //异步请求成功执行的回调函数
+            popup({type:'success',msg:"删除评论成功",delay:1000,callBack:function(){;}});
             $(that).parent().parent().slideUp();
             var h=$(that).parent().parent().parent().prev().children().eq(2).children().eq(0).html();
             var j="评价" + (parseInt(h.substring(2)) - 1);
@@ -54,7 +54,7 @@ function deleteComment(c,that) {
             $(that).parent().parent().remove();
         },//ajax引擎一般用不到；状态信息；抛出的异常信息
         error : function() {
-            alert("删除评论失败")
+            popup({type:'error',msg:"删除评论失败！",delay:2000,bg:true,clickDomCancel:true});
         }
 
     });
@@ -68,8 +68,7 @@ function agree(c) {
     var yan = $(c).next().css("color");
     if(user_id==0){
         //用户还没有登录
-        alert("点赞失败！请先登录");
-        location.href='login'
+        popup({type:'error',msg:"点赞失败，请先登陆！",delay:2000,bg:true,clickDomCancel:true});
     }else{
         if ($(c).css("color") != yan) {
             add = 0;
@@ -94,7 +93,7 @@ function agree(c) {
 
             },//ajax引擎一般用不到；状态信息；抛出的异常信息
             error: function () {
-                alert("点赞失败了")
+                popup({type:'error',msg:"点赞失败了！",delay:2000,bg:true,clickDomCancel:true});
             }
         });
     }
@@ -160,8 +159,7 @@ function pinlun(c) {
         var commentid;
         if(userid==0){
             //用户未登录
-            alert("发布评论失败！请先登录");
-            location.href='login'
+            popup({type:'error',msg:"评论失败，请先登陆！",delay:2000,bg:true,clickDomCancel:true});
         }
         else{
             $.ajax({
@@ -175,6 +173,7 @@ function pinlun(c) {
                 async: true,
                 success: function (data) {
                     //得到评论的id
+                    popup({type:'success',msg:"评论成功",delay:1000,callBack:function(){;}});
                     commentid=data;
                     var div = $(c).parent().parent().parent().parent();
                     //得到当前登录用户的sessionid;
@@ -214,6 +213,7 @@ function transponds(c) {
     var parentdiv=$(c).parent().parent().prev().children().eq(0).children().eq(1);
     $("#transpond_info").text(parentdiv.children().eq(2).text());
     $("#transpond_username").text(parentdiv.children().eq(0).text());
+
     $("#messID").val($(c).parent().next().next().children("#MessageId").val());
     str="转发"+(parseInt($(c).text().substring(2)) + 1);
     present=$(c);
@@ -225,8 +225,10 @@ $(function () {
         $("#transpondweibo").click(function () {
             if($("#sessionuserid").val()==0){
                 //用户没有登录
-                alert("转发微博失败！请先登录");
-                location.href='login'
+                $('#TransPondModal').hide();
+                $(".modal-backdrop").remove();
+                $('#TransPondModal').modal('hide');
+                popup({type:'error',msg:"转发失败，请先登陆！",delay:2000,bg:true,clickDomCancel:true});
             }else{
                 $.ajax({
                     type:'Post',
@@ -244,11 +246,14 @@ $(function () {
                         $('#TransPondModal').hide();
                         $(".modal-backdrop").remove();
                         $('#TransPondModal').modal('hide');
+                        popup({type:'success',msg:"转发成功",delay:1000,callBack:function(){;}});
                         var info=$("#transpond_info").text();
                         var reason=$("#transpond_reason").val();
                         var name=$("#transpond_username").text();
                         var userid=$("#sessionuserid").val();
                         var username=$("#sessionusername").val();
+                        var icon=$("#sessionicon").val();
+                        var messageid = data.messid;
                         var myweibo="<div style=\"background-color: white;margin: 5px;\">\n" +
                             "    <!--上层div-->\n" +
                             "    <div class=\"row clearfix\" style=\"padding-bottom: 1.5rem;\">\n" +
@@ -298,15 +303,55 @@ $(function () {
                                 "    <div class=\"col-md-3 column\" style=\"text-align: center;padding: 10px;border-right: 1px solid #ddd;\">\n" +
                                 "        <!--得到微博的收藏状态和收藏的次数-->\n" +
                                 "        <span class=\"glyphicon glyphicon-star-empty\" onclick=\"collection(this)\">收藏</span>\n" +
-                                "</div>\n" +
+                                "       <input value=\""+messageid+"\" style=\"display: none\">\n" +
+                                "       <input value=\""+userid+"\" style=\"display: none;\">"+
+                                "</div>\n"+
                                 "<div class=\"col-md-3 column\" style=\"text-align: center;padding: 10px;border-right: 1px solid #ddd;\">\n" +
                                 "    <span id=\"showcomment\" class=\"glyphicon glyphicon-edit\" onclick=\"comment(this)\">评价0</span>\n" +
+                                "<input id=\"MessageId\" value=\""+messageid+"\" style=\"display: none\">"+
                                 "</div>\n" +
                                 "<div class=\"col-md-3 column\" style=\"text-align: center;padding: 10px;\">\n" +
                                 "    <!--得到微博的赞同状态和赞同次数-->\n" +
                                 "    <span class=\"glyphicon glyphicon-thumbs-up\" onclick=\"agree(this)\">0</span>\n" +
+                                "       <input value=\""+messageid+"\" style=\"display: none\">\n" +
+                                "       <input value=\""+userid+"\" style=\"display: none;\">"+
                                 "</div>\n" +
-                                "</div>" +
+                                "</div>" +"            <!--点击评价显示出来的div-->\n" +
+                                "            <div id=\"comment\" style=\"padding-left: 25px;background-color: #eee;display: none\">\n" +
+                                "                <!--分割线-->\n" +
+                                "                <hr>\n" +
+                                "                <div class=\"row clearfix\">\n" +
+                                "                    <div class=\"col-md-1 column\">\n" +
+                                "                        <!--点击头像 进入用户空间-->\n" +
+                                "                        <img src=\""+$("#touxiang").html()+"\" width=\"35px;\">\n" +
+                                "                    </div>\n" +
+                                "                    <div class=\"col-md-11 column\" style=\"padding-right: 35px;\">\n" +
+                                "                        <form role=\"form\" onsubmit='return false'>\n" +
+                                "                            <div class=\"form-group\">\n" +
+                                "                                <input type=\"text\" class=\"form-control\" style=\"height: 30px;\">\n" +
+                                "                            </div>\n" +
+                                "                            <div class=\"form-group\">\n" +
+                                "                                <span class=\"face\"></span>\n" +
+                                "                                <span class=\"pic\"></span>\n" +
+                                "                                <button type=\"submit\" class=\"btn btn-default pull-right\" style=\"background-color: orange;height: 30px;\" onclick=\"pinlun(this)\">评论</button>\n" +
+                                "                                <input value=\""+messageid+"\" style=\"display: none\">\n" +
+                                "                                <input id=\"sessionuserid\" value=\""+userid+"\" style=\"display: none\">\n" +
+                                "                                <input id=\"sessionusername\" value=\""+username+"\" style=\"display: none\">\n" +
+                                "                            </div>\n" +
+                                "                        </form>\n" +
+                                "                        <!--分割线-->\n" +
+                                "                        <hr>\n" +
+                                "                    </div>\n" +
+                                "                    <!--评论-->\n" +
+                                "                    <!--自己发布的评论显示在这里-->\n" +
+                                "                    <div>\n" +
+                                "\n" +
+                                "\n" +
+                                "                    </div>\n" +
+                                "\n" +
+                                "\n" +
+                                "                </div>\n" +
+                                "            </div>"+
                                 "</div>";
                         }else{
                             //微博为原创
@@ -335,17 +380,58 @@ $(function () {
                                 "    <div class=\"col-md-3 column\" style=\"text-align: center;padding: 10px;border-right: 1px solid #ddd;\">\n" +
                                 "        <!--得到微博的收藏状态和收藏的次数-->\n" +
                                 "        <span class=\"glyphicon glyphicon-star-empty\" onclick=\"collection(this)\">收藏</span>\n" +
+                                "       <input value=\""+messageid+"\" style=\"display: none\">\n" +
+                                "       <input value=\""+userid+"\" style=\"display: none;\">"+
                                 "</div>\n" +
                                 "<div class=\"col-md-3 column\" style=\"text-align: center;padding: 10px;border-right: 1px solid #ddd;\">\n" +
                                 "    <span id=\"showcomment\" class=\"glyphicon glyphicon-edit\" onclick=\"comment(this)\">评价0</span>\n" +
+                                "<input id=\"MessageId\" value=\""+messageid+"\" style=\"display: none\">"+
                                 "</div>\n" +
                                 "<div class=\"col-md-3 column\" style=\"text-align: center;padding: 10px;\">\n" +
                                 "    <!--得到微博的赞同状态和赞同次数-->\n" +
                                 "    <span class=\"glyphicon glyphicon-thumbs-up\" onclick=\"agree(this)\">0</span>\n" +
+                                "       <input value=\""+messageid+"\" style=\"display: none\">\n" +
+                                "       <input value=\""+userid+"\" style=\"display: none;\">"+
                                 "</div>\n" +
-                                "</div>" +
+                                "</div>" +"            <!--点击评价显示出来的div-->\n" +
+                                "            <div id=\"comment\" style=\"padding-left: 25px;background-color: #eee;display: none\">\n" +
+                                "                <!--分割线-->\n" +
+                                "                <hr>\n" +
+                                "                <div class=\"row clearfix\">\n" +
+                                "                    <div class=\"col-md-1 column\">\n" +
+                                "                        <!--点击头像 进入用户空间-->\n" +
+                                "                        <img src=\""+$("#touxiang").html()+"\" width=\"35px;\">\n" +
+                                "                    </div>\n" +
+                                "                    <div class=\"col-md-11 column\" style=\"padding-right: 35px;\">\n" +
+                                "                        <form role=\"form\" onsubmit='return false'>\n" +
+                                "                            <div class=\"form-group\">\n" +
+                                "                                <input type=\"text\" class=\"form-control\" style=\"height: 30px;\">\n" +
+                                "                            </div>\n" +
+                                "                            <div class=\"form-group\">\n" +
+                                "                                <span class=\"face\"></span>\n" +
+                                "                                <span class=\"pic\"></span>\n" +
+                                "                                <button type=\"submit\" class=\"btn btn-default pull-right\" style=\"background-color: orange;height: 30px;\" onclick=\"pinlun(this)\">评论</button>\n" +
+                                "                                <input value=\""+messageid+"\" style=\"display: none\">\n" +
+                                "                                <input id=\"sessionuserid\" value=\""+userid+"\" style=\"display: none\">\n" +
+                                "                                <input id=\"sessionusername\" value=\""+username+"\" style=\"display: none\">\n" +
+                                "                            </div>\n" +
+                                "                        </form>\n" +
+                                "                        <!--分割线-->\n" +
+                                "                        <hr>\n" +
+                                "                    </div>\n" +
+                                "                    <!--评论-->\n" +
+                                "                    <!--自己发布的评论显示在这里-->\n" +
+                                "                    <div>\n" +
+                                "\n" +
+                                "\n" +
+                                "                    </div>\n" +
+                                "\n" +
+                                "\n" +
+                                "                </div>\n" +
+                                "            </div>"+
                                 "</div>";
                         }
+                        $('#transpond_reason').val("");
                         $("#myWeibo").prepend(myweibo);
                         //转发成功 原创微博数目加1
                         present.text(str);
