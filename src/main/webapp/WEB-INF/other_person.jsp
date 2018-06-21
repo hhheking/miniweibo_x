@@ -52,10 +52,16 @@
                     async:true,
                     success:function (data) {
                         $("#focus").html(data);
+                        //粉丝数加1
+                        if(data=="+关注"){
+                            $("#fansnum").text(parseInt($("#fansnum").text())-1);
+                        }else{
+                            $("#fansnum").text(parseInt($("#fansnum").text())+1);
+                        }
+
                     },
                     error:function (err) {
-                        alert("关注失败!点击确定将跳转到登录界面");
-                        location.href='login'
+                        popup({type:'error',msg:"关注失败，请先登陆！",delay:2000,bg:true,clickDomCancel:true});
                     }
                 });
             });
@@ -193,7 +199,7 @@
                     <div>关注</div>
                 </div>
                 <div class="col-sm-4" style="text-align: center;">
-                    <div><b>${fans}</b></div>
+                    <div><b id="fansnum">${fans}</b></div>
                     <div>粉丝</div>
                 </div>
                 <div class="col-sm-4" style="text-align: center;">

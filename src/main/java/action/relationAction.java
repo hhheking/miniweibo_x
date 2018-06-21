@@ -60,6 +60,7 @@ public class relationAction {
     public void setRelationList(List<Relation> relationList) {
         this.relationList = relationList;
     }
+
     public String list(){
         relationList=relationservice.list();
         return "listrelation";

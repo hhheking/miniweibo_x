@@ -153,7 +153,6 @@ public class userAction {
     }
 
     public String login(){
-        System.out.println(user);
         if(user.getUserNikename().equals("admin")){
             return "Manage";
         }
@@ -195,17 +194,21 @@ public class userAction {
         id=Integer.parseInt(userid[0]);
         user=userservice.get(id);
         status="+关注";
-            for(Relation relation:relationservice.myIdols(user1)){
-                if(relation.getUserByUserByid().getUserId()==user.getUserId()){
-                    status="已关注";
-                }
-            }
+        if(user1==null){
+            //用户未登录
+        }else{
             //得到登录用户的所有关注的人
             if(user1.getUserNikename().equals(user.getUserNikename())){
                 //点击的头像为本人,根据用户名来判断
                 return personspace();
             }
-        //点击的头像不为本人
+            //点击的头像不为本人
+            for(Relation relation:relationservice.myIdols(user1)){
+                if(relation.getUserByUserByid().getUserId()==user.getUserId()){
+                    status="已关注";
+                }
+            }
+        }
         fans=relationservice.calfans(user);
         idols=relationservice.calidols(user);
         mymessageList=messageservice.myMessage(user);

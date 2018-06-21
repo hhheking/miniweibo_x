@@ -1,4 +1,4 @@
-<%--
+<%@ page import="pojo.User" %><%--
   Created by IntelliJ IDEA.
   User: Asus
   Date: 2018/5/17
@@ -8,6 +8,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"
          isELIgnored="false" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%
+    User user=new User();
+    user.setUserId(0);
+    user.setUserNikename("未登录");
+%>
 <html>
 <head>
     <title>mini微博——发现身边的好玩事</title>
@@ -187,6 +192,7 @@
                             <span class="glyphicon glyphicon-star-empty" onclick="collection(this)" style="color: coral">已收藏</span>
                         </s:else>
                         <input value="${weibo.getMessid()}" style="display: none">
+                        <input value="<%=user.getUserId()%>" style="display: none;">
                     </div>
                     <div class="col-md-3 column" style="text-align: center;padding: 10px;border-right: 1px solid #ddd;">
                         <span id="showcomment" class="glyphicon glyphicon-edit" onclick="comment(this)">评价${weibo.getComment()}</span>
@@ -199,6 +205,7 @@
                             <span class="glyphicon glyphicon-thumbs-up" onclick="agree(this)" style="color: coral">${weibo.getAgree()}</span>
                         </s:else>
                         <input value="${weibo.getMessid()}" style="display: none">
+                        <input value="<%=user.getUserId()%>" style="display: none;">
                     </div>
                 </div>
                 <!--点击评价显示出来的div-->
@@ -219,6 +226,7 @@
                                     <span class="pic"></span>
                                     <button type="submit" class="btn btn-default pull-right" onclick="pinlun(this)" style="background-color: orange;height: 30px;">评论</button>
                                     <input value="${weibo.getMessid()}" style="display: none">
+                                    <input value="<%=user.getUserId()%>" style="display: none;">
                                 </div>
                             </form>
                             <!--分割线-->
@@ -384,6 +392,7 @@
                         </div>
                         <div style="float: right">
                             <button id="transpondweibo" class="btn btn-primary btn-sm btn-block">转发</button>
+                            <input id="sessionuserid" value="<%=user.getUserId()%>" style="display: none">
                         </div>
                     </div>
                 </form>

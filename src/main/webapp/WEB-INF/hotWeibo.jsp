@@ -203,7 +203,7 @@
         </form>
         <div>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="tohomeUser" style="color: orange"><span class="glyphicon glyphicon-home"></span>&nbsp;首页</a></li>
+                <li><a href="tohotUser" style="color: orange"><span class="glyphicon glyphicon-home"></span>&nbsp;首页</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-facetime-video"></span>&nbsp;视频</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;发现</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-equalizer"></span>&nbsp;游戏</a></li>

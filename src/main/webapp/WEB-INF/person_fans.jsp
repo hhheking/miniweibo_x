@@ -33,6 +33,8 @@
     <script src="js/bootstrap.min.js"></script>
     <!-- 引入 Bootstrap -->
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script type="text/javascript">
+    </script>
     <style type="text/css">
         body{
             background: url("images/bg.jpg") center top;
@@ -216,7 +218,7 @@
                                     <div class="row clearfix" style="margin-top: 5px;">
                                         <div class="col-sm-3" style="font-size: 15;"><b>${fa.getName()}</b></div>
                                         <div class="col-sm-5"></div>
-                                        <div class="col-sm-2" style="text-align: center;padding:1px;background-color: white;cursor: pointer;border: 1px solid #ddd;margin-right: 5px;"><span style="color: gray;">${fa.getStatus()}</span><input value="${fa.getUserid()}" style="display: none" ></div>
+                                        <div class="col-sm-2" style="text-align: center;padding:1px;background-color: white;cursor: pointer;border: 1px solid #ddd;margin-right: 5px;"><span style="color: gray;">${fa.getStatus()}</span></div>
                                         <div class="col-sm-1" style="text-align: center;padding:1px;background-color: white;cursor: pointer;border: 1px solid #ddd;"><span style="color: gray; ">私信</span></div>
                                     </div>
                                     <!--关注、粉丝、微博-->

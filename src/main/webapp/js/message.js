@@ -199,7 +199,7 @@ function pinlun(c) {
                     $(c).parent().parent().parent().parent().parent().prev().children("div").eq(2).children("span").html(commentdiv);
                 },
                 error: function () {
-                    alert("ajax失败了")
+                    alert("发布评论失败了")
                 }
             });
         }

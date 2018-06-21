@@ -47,7 +47,7 @@
                     popup({type:'success',msg:"删除微博成功",delay:1000,callBack:function(){;}});
                     div.slideUp();
                     div.remove();
-                    $("#myweibonum").text((parseInt($("#myweibonum").text())-1));
+                    $("#mymessagenum").text((parseInt($("#mymessagenum").text())-1));
                 },//ajax引擎一般用不到；状态信息；抛出的异常信息
                 error : function() {
                     alert("失败了")
@@ -116,13 +116,13 @@
                         <span id="tip" class="badge" style="background-color: orange;position: absolute;top: 6px;right: 0px;font-size: 6"></span>
                     </a>
                     <ul class="dropdown-menu" style="font-size: 12;min-width:100%;">
-                        <li><a href="#">转发&nbsp&nbsp<span id="tip1" class="badge" style="background-color: grey;font-size: 5"></span></a></li>
+                        <li><a href="jump?param=transpond">转发&nbsp&nbsp<span id="tip1" class="badge" style="background-color: grey;font-size: 5"></span></a></li>
                         <li class="divider"></li>
-                        <li><a href="#">评论&nbsp&nbsp<span id="tip2" class="badge" style="background-color: grey;font-size: 5"></span></a></li>
+                        <li><a href="jump?param=comment">评论&nbsp&nbsp<span id="tip2" class="badge" style="background-color: grey;font-size: 5"></span></a></li>
                         <li class="divider"></li>
-                        <li><a href="#">点赞&nbsp&nbsp<span id="tip3" class="badge" style="background-color: grey;font-size: 5"></span></a></li>
+                        <li><a href="jump?param =agree">点赞&nbsp&nbsp<span id="tip3" class="badge" style="background-color: grey;font-size: 5"></span></a></li>
                         <li class="divider"></li>
-                        <li><a href="#">私信&nbsp&nbsp<span id="tip4" class="badge" style="background-color: grey;font-size: 5"></span></a></li>
+                        <li><a href="jump?param =letter">私信&nbsp&nbsp<span id="tip4" class="badge" style="background-color: grey;font-size: 5"></span></a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -188,7 +188,7 @@
                     <div>粉丝</div>
                 </div>
                 <div class="col-sm-4" style="text-align: center;">
-                    <div><b id="myweibonum">${mymessageList.size()}</b></div>
+                    <div><b id="mymessagenum">${mymessageList.size()}</b></div>
                     <div>微博</div>
 
                 </div>

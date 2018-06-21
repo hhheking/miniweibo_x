@@ -214,8 +214,9 @@ public class remindAction{
         List<Remind> list = remindservice.list(user.getUserId(),"comment");
         //list为所有评论过“我发的微博”的remind对象
         User user1;
-        //comments列表为返回的数据对象
-        HashMap<Integer,Integer> map=new HashMap<>();
+        //comments列表为返回的数据对象;
+        List<flag> flagList=new ArrayList<>();
+        boolean exit=false;
         int userid,messageid;
         comments=new ArrayList<>();
         for(Remind remind:list){
@@ -224,10 +225,19 @@ public class remindAction{
             //首先查询用户评论某条微博的全部评论
             userid=remind.getUsreId();
             messageid=remind.getMessageId().getMessageId();
-            if(map.containsKey(userid) && map.get(userid)==messageid){
+            for(flag flag:flagList){
+                if(flag.getA()==userid && flag.getB()==messageid){
+                    exit=true;
+                }
+            }
+            if(exit){
+                exit=false;
                 continue;
             }
-            map.put(userid,messageid);
+            flag flag=new flag();
+            flag.setA(userid);
+            flag.setB(messageid);
+            flagList.add(flag);
             List<String> commentlist=commentdao.findByUseridAndMessageid(remind.getUsreId(),remind.getMessageId().getMessageId());
             remindcomment rcomment=new remindcomment();
             rcomment.setCommenttime(remind.getTime());
@@ -314,7 +324,8 @@ public class remindAction{
         //list为所有转发过“我发的微博”的remind对象
         User user1;
         //comments列表为返回的数据对象
-        HashMap<Integer,Integer> map=new HashMap<>();
+        List<flag> flagList=new ArrayList<>();
+        boolean exit=false;
         transponds=new ArrayList<>();
         int userid,messageid;
         for(Remind remind:list){
@@ -322,10 +333,19 @@ public class remindAction{
                 remindservice.updateRemind(remind);
             userid=remind.getUsreId();
             messageid=remind.getMessageId().getMessageId();
-            if(map.containsKey(userid) && map.get(userid)==messageid){
+            for(flag flag:flagList){
+                if(flag.getA()==userid && flag.getB()==messageid){
+                    exit=true;
+                }
+            }
+            if(exit){
+                exit=false;
                 continue;
             }
-            map.put(userid,messageid);
+            flag flag=new flag();
+            flag.setA(userid);
+            flag.setB(messageid);
+            flagList.add(flag);
             remindTranspond rtranspond=new remindTranspond();
             user1=remindservice.getUser(remind.getUsreId());
             rtranspond.setCommenttime(remind.getTime());
